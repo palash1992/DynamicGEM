@@ -1,0 +1,57 @@
+*.gz
+*.tar
+/test_data/
+test_data/
+/test_data
+/results*/
+results*/
+sbm_cd/
+../data/
+/backup
+data/
+/output/
+output/
+*.json
+*.hdf5
+*.txt
+*.pdf
+logs
+/intermediate/
+intermediate/
+*.json
+*.dlpsumm
+*.lp
+*.png
+/results*
+results/
+results*
+/test_data/
+test_data/
+output_v0/
+figures/
+backup/
+*.pdf
+*.pickle
+*.gpickle
+*.dlpsumm
+=======
+# THIS FILE IS GENERATED FROM DGEM SETUP.PY
+dynamicgem/version.py
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+
+# images
+*.png
+
+*.txt
+*.pyc
+
+
+
+

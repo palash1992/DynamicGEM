@@ -1,0 +1,209 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration file="D:\Fall2018\DynamicGEM\dyngraph2vec\TIMERS\TIMERS_ALL.prj" location="D:\Fall2018\DynamicGEM\dyngraph2vec\TIMERS" name="TIMERS_ALL" target="target.ezdeploy.library" target-name="Library Compiler">
+    <param.appname>TIMERS_ALL</param.appname>
+    <param.icon />
+    <param.icons />
+    <param.version>1.0</param.version>
+    <param.authnamewatermark />
+    <param.email />
+    <param.company />
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.guid />
+    <param.installpath.string>\TIMERS_ALL\</param.installpath.string>
+    <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
+    <param.logo />
+    <param.install.notes />
+    <param.target.install.notes>You must have Python 2.7, 3.4, or 3.5 on your machine to install this package. Go to the directory to which setup.py and your package have been written. Then execute:
+
+        python setup.py install [options]
+
+For details, see the readme.txt distributed with this package.</param.target.install.notes>
+    <param.intermediate>${PROJECT_ROOT}\TIMERS_ALL\for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}\TIMERS_ALL\for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}\TIMERS_ALL\for_redistribution</param.output>
+    <param.logdir>${PROJECT_ROOT}\TIMERS_ALL</param.logdir>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.target.type>subtarget.python.module</param.target.type>
+    <param.support.packages />
+    <param.namespace />
+    <param.classorg />
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>false</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>true</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <param.user.only.registration>false</param.user.only.registration>
+    <param.assembly.type>false</param.assembly.type>
+    <param.encryption.key.file />
+    <param.net.enable.remoting>false</param.net.enable.remoting>
+    <param.net.tsa.enable>false</param.net.tsa.enable>
+    <param.net.tsa.assembly />
+    <param.net.tsa.interface />
+    <param.net.tsa.namespace />
+    <param.net.tsa.superclass>Class1</param.net.tsa.superclass>
+    <param.net.tsa.metadata />
+    <param.net.tsa.metadata.assembly>C:\Users\AICPS\Documents\MATLAB</param.net.tsa.metadata.assembly>
+    <param.net.saved.interface />
+    <unset>
+      <param.icon />
+      <param.icons />
+      <param.version />
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.guid />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.intermediate />
+      <param.files.only />
+      <param.output />
+      <param.logdir />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.support.packages />
+      <param.namespace />
+      <param.classorg />
+      <param.web.mcr />
+      <param.package.mcr />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.package.mcr.name />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+      <param.user.only.registration />
+      <param.assembly.type />
+      <param.encryption.key.file />
+      <param.net.enable.remoting />
+      <param.net.tsa.enable />
+      <param.net.tsa.assembly />
+      <param.net.tsa.interface />
+      <param.net.tsa.namespace />
+      <param.net.tsa.superclass />
+      <param.net.tsa.metadata />
+      <param.net.tsa.metadata.assembly />
+      <param.net.saved.interface />
+    </unset>
+    <fileset.exports>
+      <file>${PROJECT_ROOT}\deltaA.m</file>
+      <file>${PROJECT_ROOT}\deltaA_AS.m</file>
+      <file>${PROJECT_ROOT}\deltaA_sbm.m</file>
+      <file>${PROJECT_ROOT}\getAddedEdge.m</file>
+      <file>${PROJECT_ROOT}\hashmapping.m</file>
+      <file>${PROJECT_ROOT}\hashmapping_AS.m</file>
+      <file>${PROJECT_ROOT}\hashmapping_sbm.m</file>
+      <file>${PROJECT_ROOT}\Obj.m</file>
+      <file>${PROJECT_ROOT}\Obj_SimChange.m</file>
+      <file>${PROJECT_ROOT}\parseData.m</file>
+      <file>${PROJECT_ROOT}\parseData_AS.m</file>
+      <file>${PROJECT_ROOT}\parseData_sbm.m</file>
+      <file>${PROJECT_ROOT}\Random_Com.m</file>
+      <file>${PROJECT_ROOT}\RefineBound.m</file>
+      <file>${PROJECT_ROOT}\splitData.m</file>
+      <file>${PROJECT_ROOT}\splitData_AS.m</file>
+      <file>${PROJECT_ROOT}\splitData_sbm.m</file>
+      <file>${PROJECT_ROOT}\TIMERS.m</file>
+      <file>${PROJECT_ROOT}\TIMERS_academic.m</file>
+      <file>${PROJECT_ROOT}\TIMERS_AS.m</file>
+      <file>${PROJECT_ROOT}\TIMERS_backup.m</file>
+      <file>${PROJECT_ROOT}\TIMERS_hep.m</file>
+      <file>${PROJECT_ROOT}\TIMERS_sbm_cd.m</file>
+      <file>${PROJECT_ROOT}\TRIP.m</file>
+    </fileset.exports>
+    <fileset.classes>
+      <entity.package name="">
+        <entity.class name="Class1">
+          <file>${PROJECT_ROOT}\deltaA.m</file>
+          <file>${PROJECT_ROOT}\deltaA_AS.m</file>
+          <file>${PROJECT_ROOT}\deltaA_sbm.m</file>
+          <file>${PROJECT_ROOT}\getAddedEdge.m</file>
+          <file>${PROJECT_ROOT}\hashmapping.m</file>
+          <file>${PROJECT_ROOT}\hashmapping_AS.m</file>
+          <file>${PROJECT_ROOT}\hashmapping_sbm.m</file>
+          <file>${PROJECT_ROOT}\Obj.m</file>
+          <file>${PROJECT_ROOT}\Obj_SimChange.m</file>
+          <file>${PROJECT_ROOT}\parseData.m</file>
+          <file>${PROJECT_ROOT}\parseData_AS.m</file>
+          <file>${PROJECT_ROOT}\parseData_sbm.m</file>
+          <file>${PROJECT_ROOT}\Random_Com.m</file>
+          <file>${PROJECT_ROOT}\RefineBound.m</file>
+          <file>${PROJECT_ROOT}\splitData.m</file>
+          <file>${PROJECT_ROOT}\splitData_AS.m</file>
+          <file>${PROJECT_ROOT}\splitData_sbm.m</file>
+          <file>${PROJECT_ROOT}\TIMERS.m</file>
+          <file>${PROJECT_ROOT}\TIMERS_academic.m</file>
+          <file>${PROJECT_ROOT}\TIMERS_AS.m</file>
+          <file>${PROJECT_ROOT}\TIMERS_backup.m</file>
+          <file>${PROJECT_ROOT}\TIMERS_hep.m</file>
+          <file>${PROJECT_ROOT}\TIMERS_sbm_cd.m</file>
+          <file>${PROJECT_ROOT}\TRIP.m</file>
+        </entity.class>
+      </entity.package>
+    </fileset.classes>
+    <fileset.resources />
+    <fileset.depfun />
+    <fileset.package />
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}\TIMERS_ALL\for_testing" name="setup.py" optional="false">D:\Fall2018\DynamicGEM\dyngraph2vec\TIMERS\TIMERS_ALL\for_testing\setup.py</file>
+      <file location="${PROJECT_ROOT}\TIMERS_ALL\for_testing" name="TIMERS_ALL" optional="false">D:\Fall2018\DynamicGEM\dyngraph2vec\TIMERS\TIMERS_ALL\for_testing\TIMERS_ALL</file>
+      <file location="${PROJECT_ROOT}\TIMERS_ALL\for_testing" name="readme.txt" optional="true">D:\Fall2018\DynamicGEM\dyngraph2vec\TIMERS\TIMERS_ALL\for_testing\readme.txt</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2017a</root>
+      <toolboxes>
+        <toolbox name="fixedpoint" />
+        <toolbox name="matlabcoder" />
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="embeddedcoder" />
+      </toolboxes>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>6.2</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
