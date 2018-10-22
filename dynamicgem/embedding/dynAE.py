@@ -8,18 +8,17 @@ import matplotlib.pyplot as plt
 
 import numpy as np
 import scipy.io as sio
-import os
+
 import sys
-from joblib import Parallel, delayed
+import os
 sys.path.append('./')
-
+from joblib import Parallel, delayed
 from .dynamic_graph_embedding import DynamicGraphEmbedding
-from dyngraph2vec.utils import plot_util, graph_util, dataprep_util
-from dyngraph2vec.visualization import plot_dynamic_sbm_embedding
-from dyngraph2vec.graph_generation import dynamic_SBM_graph
-from dyngraph2vec.evaluation import evaluate_link_prediction
+from dynamicgem.utils import plot_util, graph_util, dataprep_util
+from dynamicgem.visualization import plot_dynamic_sbm_embedding
+from dynamicgem.graph_generation import dynamic_SBM_graph
+from dynamicgem.evaluation import evaluate_link_prediction, evaluate_graph_reconstruction
 
-from keras import losses
 from keras.layers import Input, Dense, Lambda, merge
 from keras.models import Model, model_from_json
 import keras.regularizers as Reg
@@ -29,17 +28,16 @@ from keras import callbacks
 from keras import backend as KBack
 from .dnn_utils import *
 import tensorflow as tf
-from tensorflow.python import debug as tf_debug
-import operator
+
 import pdb
 from argparse import ArgumentParser
 from time import time
+import operator
 
-
-class DynRNN(DynamicGraphEmbedding):
+class DynAE(DynamicGraphEmbedding):
 
     def __init__(self, *hyper_dict, **kwargs):
-        ''' Initialize the dynamic RNN class
+        ''' Initialize the DynAE class
 
         Args:
             d: dimension of the embedding
@@ -59,7 +57,7 @@ class DynRNN(DynamicGraphEmbedding):
             savefilesuffix: suffix for saving the files
         '''
         hyper_params = {
-            'method_name': 'dynRNN',
+            'method_name': 'dynAE',
             'actfn': 'relu',
             'modelfile': None,
             'weightfile': None,
@@ -90,57 +88,27 @@ class DynRNN(DynamicGraphEmbedding):
         config.gpu_options.allow_growth = True
          
         # Only allow a total of half the GPU memory to be allocated
-        config.gpu_options.per_process_gpu_memory_fraction = 0.2
+        config.gpu_options.per_process_gpu_memory_fraction = 0.1
          
         # Create a session with the above options specified.
         KBack.tensorflow_backend.set_session(tf.Session(config=config))
-
-
-        # Create a session to pass the above configuration
-        # sess=tf.Session(config=config)
-
-        # Create a tensorflow debugger wrapper
-        # sess = tf_debug.LocalCLIDebugWrapperSession(sess) 
-        
-        # Create a session with the above options specified.
         ###################################
 
         # Generate encoder, decoder and autoencoder
         self._num_iter = self._n_iter
-        self._encoder = get_lstm_encoder_v2(
-            self._node_num,
-            self._n_prev_graphs,
-            self._d,
-            self._n_enc_units,
-            self._actfn,
-            self._nu1,
-            self._nu2,
-            None,
-            None,
-            None
-        )
-        self._decoder = get_lstm_decoder_v2(self._node_num,
-            self._n_prev_graphs,
-            self._d,
-            self._n_enc_units,
-            self._actfn,
-            self._nu1,
-            self._nu2,
-            None,
-            None,
-            None)
-
-        self._autoencoder = get_lstm_autoencoder(
-            self._encoder,
-            self._decoder
-        )
+        self._encoder = get_encoder(self._node_num, self._d,
+                                    self._n_units,
+                                    self._nu1, self._nu2,
+                                    self._actfn)
+        self._decoder = get_decoder(self._node_num, self._d,
+                                    self._n_units,
+                                    self._nu1, self._nu2,
+                                    self._actfn)
+        self._autoencoder = get_autoencoder(self._encoder, self._decoder)
 
         # Initialize self._model
         # Input
-        x_in = Input(
-            shape=(self._n_prev_graphs, self._node_num),
-            name='x_in'
-        )
+        x_in = Input(shape=(self._node_num,), name='x_in')
         x_pred = Input(
             shape=(self._node_num,),
             name='x_pred'
@@ -168,12 +136,12 @@ class DynRNN(DynamicGraphEmbedding):
         self._model = Model(input=[x_in, x_pred], output=x_diff)
         sgd = SGD(lr=self._xeta, decay=1e-5, momentum=0.99, nesterov=True)
         adam = Adam(lr=self._xeta, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
-        self._model.compile(optimizer=adam, loss=weighted_mse_x)
-        # self._model.compile(optimizer='rmsprop', loss=weighted_mse_x)
+        self._model.compile(optimizer=sgd, loss=weighted_mse_x)
 
         # tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+        # pdb.set_trace()
         history = self._model.fit_generator(
-            generator=batch_generator_dynrnn(
+            generator=batch_generator_dynae(
                 graphs,
                 self._beta,
                 self._n_batch,
@@ -193,7 +161,7 @@ class DynRNN(DynamicGraphEmbedding):
             print('Model diverged. Assigning random embeddings')
             self._Y = np.random.randn(self._node_num, self._d)
         else:
-            self._Y, self._next_adj = model_batch_predictor_dynrnn(
+            self._Y, self._next_adj = model_batch_predictor_dynae(
                 self._autoencoder,
                 graphs[len(graphs)-self._n_prev_graphs:],
                 self._n_batch
@@ -220,7 +188,6 @@ class DynRNN(DynamicGraphEmbedding):
                        self._Y)
             np.savetxt('next_pred_' + self._savefilesuffix + '.txt',
                        self._next_adj)
-        # sess.close()
         return self._Y, (t2 - t1)
 
     def get_embeddings(self):
@@ -252,12 +219,9 @@ class DynRNN(DynamicGraphEmbedding):
             return self._decoder.predict(embed, batch_size=self._n_batch)
         else:
             try:
-                print(os.path.exists('./intermediate/decoder_model_'+filesuffix+'.json'))
                 decoder = model_from_json(open('./intermediate/decoder_model_'+filesuffix+'.json').read())
-            except Exception as e:
+            except:
                 print('Error reading file: {0}. Cannot load previous model'.format('decoder_model_'+filesuffix+'.json'))
-                print(e.message, e.args)
-                pdb.set_trace()
                 exit()
             try:
                 decoder.load_weights('./intermediate/decoder_weights_'+filesuffix+'.hdf5')
@@ -268,32 +232,41 @@ class DynRNN(DynamicGraphEmbedding):
 
     def predict_next_adj(self, node_l=None):
         if node_l is not None:
+            # pdb.set_trace()
             return self._next_adj[node_l]
         else:
             return self._next_adj
 
 if __name__ == '__main__':
     parser = ArgumentParser(description='Learns node embeddings for a sequence of graph snapshots')
-    parser.add_argument('-t', '--testDataType', 
+    parser.add_argument('-t',  '--testDataType',  
                          default = 'sbm_cd', 
                          type    = str,
                          help    = 'Type of data to test the code')
-    parser.add_argument('-c', '--criteria', 
+    parser.add_argument('-c',  '--criteria',      
                          default = 'degree', 
                          type    = str, 
                          help    = 'Node Migration criteria')
-    parser.add_argument('-rc', '--criteria_r', 
-                         default = True, 
-                         type    = bool, 
+    parser.add_argument('-rc', '--criteria_r',    
+                         default = 1, 
+                         type    = int, 
                          help    = 'Take highest centrality measure to perform node migration')
-    parser.add_argument('-l', '--timelength', 
-                         default = 7, 
+    parser.add_argument('-l',  '--timelength',    
+                         default = 10, 
                          type    = int, 
                          help    = 'Number of time series graph to generate')
-    parser.add_argument('-lb', '--lookback', 
+    parser.add_argument('-lb', '--lookback',      
                          default = 2, 
+                        type     = int, 
+                        help     = 'number of lookbacks')
+    parser.add_argument('-eta', '--learningrate', 
+                         default = 1e-4, 
+                         type    = float, 
+                         help    = 'learning rate')
+    parser.add_argument('-bs', '--batch',      
+                         default = 100, 
                          type    = int, 
-                         help    = 'number of lookbacks')
+                         help    = 'batch size')
     parser.add_argument('-nm', '--nodemigration', 
                          default = 10, 
                          type    = int, 
@@ -311,21 +284,13 @@ if __name__ == '__main__':
                          default = './results_link_all', 
                          help    = "result directory name")
     parser.add_argument('-sm',  '--samples', 
-                         default = 5000, 
-                         type    = int, 
+                         default = 2000,  
+                         type    = int,  
                          help    = 'samples for test data')
-    parser.add_argument('-eta', '--learningrate', 
-                         default = 1e-3, 
-                         type    = float, 
-                         help    = 'learning rate')
-    parser.add_argument('-bs', '--batch',      
-                        default  = 100, 
-                        type     = int, 
-                        help     = 'batch size')
     parser.add_argument('-ht', '--hypertest',  
-                        default  = 0, 
-                        type     = int, 
-                        help     = 'hyper test')
+                         default = 0, 
+                         type    = int, 
+                         help    = 'hyper test')
     parser.add_argument('-exp',  '--exp', 
                          default = 'lp', 
                          type    = str, 
@@ -339,45 +304,52 @@ if __name__ == '__main__':
 
     if length<lookback+5:
         length=lookback+5
-    
-
     if args.testDataType == 'sbm_rp':
-        node_num = 100
-        community_num = 50
-        node_change_num = 10
-        dynamic_sbm_series = dynamic_SBM_graph.get_random_perturbation_series(node_num, community_num, length, node_change_num)
-        dynamic_embedding = DynRNN(
+        node_num = 10000
+        community_num = 500
+        node_change_num = 100
+        dynamic_sbm_series = dynamic_SBM_graph.get_random_perturbation_series(node_num, 
+                                                                              community_num, 
+                                                                              length, 
+                                                                              node_change_num)
+        dynamic_embedding = DynAE(
             d=100,
-            beta=100,
-            n_prev_graphs=5,
+            beta=5,
+            n_prev_graphs=lookback,
             nu1=1e-6,
             nu2=1e-6,
-            n_units=[50, 30,],
+            n_units=[500, 300,],
             rho=0.3,
-            n_iter=30,
+            n_iter=1000,
             xeta=0.005,
-            n_batch=50,
+            n_batch=500,
             modelfile=['./intermediate/enc_model.json', './intermediate/dec_model.json'],
             weightfile=['./intermediate/enc_weights.hdf5', './intermediate/dec_weights.hdf5'],
         )
         dynamic_embedding.learn_embeddings([g[0] for g in dynamic_sbm_series])
-        plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding(dynamic_embedding.get_embeddings(), dynamic_sbm_series)
+        plt.clf()
+        plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding(dynamic_embedding.get_embeddings(), 
+                                                              dynamic_sbm_series)
         plt.savefig('result/visualization_DynRNN_rp.png')
         plt.show()
+
     elif args.testDataType == 'sbm_cd':
         node_num = 1000
         community_num = 2
         node_change_num = args.nodemigration
         dynamic_sbm_series = dynamic_SBM_graph.get_community_diminish_series_v2(node_num, 
-            community_num, length, 1, node_change_num)
-        dynamic_embedding = DynRNN(
-            d=dim_emb,#128,
+                                                                             community_num, 
+                                                                             length, 
+                                                                             1,     #communitiy to dimisnish
+                                                                             node_change_num 
+                                                                             )
+        dynamic_embedding = DynAE(
+            d=dim_emb,
             beta=5,
-            n_prev_graphs=lookback,
+            n_prev_graphs= lookback,
             nu1=1e-6,
             nu2=1e-6,
-            n_enc_units=[500,300],
-            n_dec_units=[500,300],
+            n_units=[500, 300,],
             rho=0.3,
             n_iter=epochs,
             xeta=args.learningrate,
@@ -387,6 +359,7 @@ if __name__ == '__main__':
             savefilesuffix="testing"
         )
         graphs = [g[0] for g in dynamic_sbm_series]
+        embs = []
 
         outdir=args.resultdir
         if not os.path.exists(outdir):
@@ -395,12 +368,11 @@ if __name__ == '__main__':
         if not os.path.exists(outdir):
             os.mkdir(outdir) 
 
-        outdir= outdir+'/dynRNN' 
+        outdir= outdir+'/dynAE' 
         if not os.path.exists(outdir):
             os.mkdir(outdir)
 
         if args.exp=='emb':
-            embs = []
             result=Parallel(n_jobs=4)(delayed(dynamic_embedding.learn_embeddings)(graphs[:temp_var]) for temp_var in range(lookback+1, length+1))
             for i in xrange(len(result)):
                 embs.append(np.asarray(result[i][0]))
@@ -408,18 +380,19 @@ if __name__ == '__main__':
             for temp_var in range(lookback+1, length+1):
                 emb, _ = dynamic_embedding.learn_embeddings(graphs[:temp_var])
                 embs.append(emb)
-            plt.figure()    
+
+            plt.figure()
             plt.clf()    
             plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
-            plt.savefig('./'+outdir+'/V_DynRNN_nm'+str(args.nodemigration)+'_l'+str(length)+'_epoch'+str(epochs)+'_emb'+str(dim_emb)+'.pdf',bbox_inches='tight',dpi=600)
+            plt.savefig('./'+outdir+'/V_DynAE_nm'+str(args.nodemigration)+'_l'+str(length)+'_epoch'+str(epochs)+'_emb'+str(dim_emb)+'.pdf',bbox_inches='tight',dpi=600)
             plt.show()
 
         if args.hypertest==1:
             fname='epoch'+str(args.epochs)+'_bs'+str(args.batch)+'_lb'+str(args.lookback)+'_eta'+str(args.learningrate)+'_emb'+str(args.embeddimension)
         else:
             fname= 'nm'+str(args.nodemigration)+'_l'+str(length)+'_emb'+str(dim_emb)  
-
-        if args.exp=='lp':        
+        
+        if args.exp =='lp':     
             evaluate_link_prediction.expLP(
                 graphs,
                 dynamic_embedding,
@@ -431,22 +404,21 @@ if __name__ == '__main__':
     elif args.testDataType == 'academic': 
         print("datatype:", args.testDataType)
 
-        dynamic_embedding = DynRNN(
-            d=dim_emb,#128,
+        dynamic_embedding = DynAE(
+            d=dim_emb,
             beta=5,
-            n_prev_graphs=lookback,
+            n_prev_graphs= lookback,
             nu1=1e-6,
             nu2=1e-6,
-            n_enc_units=[500,300],
-            n_dec_units=[500,300],
+            n_units=[500, 300,],
             rho=0.3,
             n_iter=epochs,
-            xeta=1e-3,
-            n_batch=int(args.samples/10),
-            modelfile=['./intermediate/enc_modelRNN.json', './intermediate/dec_modelRNN.json'],
-            weightfile=['./intermediate/enc_weightsRNN.hdf5', './intermediate/dec_weightsRNN.hdf5'],
-            savefilesuffix="testing"
-        )
+            xeta=1e-5,
+            n_batch=100,
+            modelfile=['./intermediate/enc_modelacdm.json', './intermediate/dec_modelacdm.json'],
+            weightfile=['./intermediate/enc_weightsacdm.hdf5', './intermediate/dec_weightsacdm.hdf5'],
+            savefilesuffix="testingacdm"
+        ) 
 
         sample=args.samples
         if not os.path.exists('./test_data/academic/pickle'):
@@ -477,40 +449,39 @@ if __name__ == '__main__':
         if not os.path.exists(outdir):
             os.mkdir(outdir) 
 
-        outdir= outdir+'/dynRNN' 
+        outdir= outdir+'/dynAE' 
         if not os.path.exists(outdir):
             os.mkdir(outdir)
-        
+
         if args.exp=='emb':
             print('plotting embedding not implemented!')
 
-        if args.exp=='lp':     
+        if args.exp=='lp':    
             evaluate_link_prediction.expLP( graphs[-args.timelength:],
                     dynamic_embedding,
                     1,
                     outdir+'/',
-                    'lb'+str(lookback)+'_l'+str(args.timelength)+'_emb'+str(dim_emb)+'_samples'+str(sample),
-                    n_sample_nodes=graphs[i].number_of_nodes()
+                    'lb_'+str(lookback)+'_l'+str(args.timelength)+'_emb'+str(dim_emb)+'_samples'+str(sample),
+                    n_sample_nodes=sample
                 )
-        
+
     elif args.testDataType == 'hep':  
         print("datatype:", args.testDataType)
-        dynamic_embedding = DynRNN(
-            d=dim_emb,#128,
+        dynamic_embedding = DynAE(
+            d=dim_emb,
             beta=5,
-            n_prev_graphs=lookback,
+            n_prev_graphs= lookback,
             nu1=1e-6,
             nu2=1e-6,
-            n_enc_units=[500,300],
-            n_dec_units=[500,300],
+            n_units=[500, 300,],
             rho=0.3,
             n_iter=epochs,
-            xeta=1e-3,
+            xeta=1e-8,
             n_batch=int(args.samples/10),
-            modelfile=['./intermediate/enc_modelRNN.json', './intermediate/dec_modelRNN.json'],
-            weightfile=['./intermediate/enc_weightsRNN.hdf5', './intermediate/dec_weightsRNN.hdf5'],
-            savefilesuffix="testing"
-        )
+            modelfile=['./intermediate/enc_modelhep.json', './intermediate/dec_modelhep.json'],
+            weightfile=['./intermediate/enc_weightshep.hdf5', './intermediate/dec_weightshep.hdf5'],
+            savefilesuffix="testinghep"
+        ) 
         
         if not os.path.exists('./test_data/hep/pickle'):
             os.mkdir('./test_data/hep/pickle')
@@ -555,41 +526,40 @@ if __name__ == '__main__':
         if not os.path.exists(outdir):
             os.mkdir(outdir) 
 
-        outdir= outdir+'/dynRNN' 
+        outdir= outdir+'/dynAE' 
         if not os.path.exists(outdir):
             os.mkdir(outdir)
 
         if args.exp=='emb':
             print('plotting embedding not implemented!')
 
-        if args.exp=='lp':     
+        if args.exp=='lp':    
             evaluate_link_prediction.expLP( graphs[-args.timelength:],
                     dynamic_embedding,
                     1,
                     outdir+'/',
-                    'lb'+str(lookback)+'_l'+str(args.timelength)+'_emb'+str(dim_emb)+'_samples'+str(sample),
-                    n_sample_nodes=graphs[i].number_of_nodes()
+                    'lb_'+str(lookback)+'_l'+str(args.timelength)+'_emb'+str(dim_emb)+'_samples'+str(sample),
+                    n_sample_nodes=sample
                 )
 
     
     elif args.testDataType == 'AS':  
         print("datatype:", args.testDataType)
-        dynamic_embedding = DynRNN(
-            d=dim_emb,#128,
+        dynamic_embedding = DynAE(
+            d=dim_emb,
             beta=5,
             n_prev_graphs=lookback,
             nu1=1e-6,
             nu2=1e-6,
-            n_enc_units=[500,300],
-            n_dec_units=[500,300],
+            n_units=[500, 300,],
             rho=0.3,
             n_iter=epochs,
-            xeta=1e-3,
+            xeta=1e-5,
             n_batch=int(args.samples/10),
-            modelfile=['./intermediate/enc_modelRNN.json', './intermediate/dec_modelRNN.json'],
-            weightfile=['./intermediate/enc_weightsRNN.hdf5', './intermediate/dec_weightsRNN.hdf5'],
-            savefilesuffix="testing"
-        )
+            modelfile=['./intermediate/enc_modelAS.json', './intermediate/dec_modelAS.json'],
+            weightfile=['./intermediate/enc_weightsAS.hdf5', './intermediate/dec_weightsAS.hdf5'],
+            savefilesuffix="testingAS"
+        ) 
         
             
         files=[file for file in os.listdir('./test_data/AS/as-733') if '.gpickle' in file]
@@ -618,40 +588,40 @@ if __name__ == '__main__':
         if not os.path.exists(outdir):
             os.mkdir(outdir) 
 
-        outdir= outdir+'/dynRNN' 
+        outdir= outdir+'/dynAE' 
         if not os.path.exists(outdir):
             os.mkdir(outdir)
         
         if args.exp=='emb':
             print('plotting embedding not implemented!')
 
-        if args.exp=='lp': 
+        if args.exp=='lp':    
             evaluate_link_prediction.expLP( graphs[-args.timelength:],
                     dynamic_embedding,
                     1,
                     outdir+'/',
-                    'lb'+str(lookback)+'_l'+str(args.timelength)+'_emb'+str(dim_emb)+'_samples'+str(sample),
-                    n_sample_nodes=graphs[i].number_of_nodes()
-                )   
+                    'lb_'+str(lookback)+'_l'+str(args.timelength)+'_emb'+str(dim_emb)+'_samples'+str(sample),
+                    n_sample_nodes=sample
+                )
 
     elif args.testDataType == 'enron':  
         print("datatype:", args.testDataType)
-        dynamic_embedding = DynRNN(
-            d=dim_emb,#128,
+
+        dynamic_embedding = DynAE(
+            d=dim_emb,
             beta=5,
-            n_prev_graphs=lookback,
-            nu1=1e-4,
-            nu2=1e-4,
-            n_enc_units=[100,80],
-            n_dec_units=[100,80],
+            n_prev_graphs= lookback,
+            nu1=1e-6,
+            nu2=1e-6,
+            n_units=[500, 300,],
             rho=0.3,
             n_iter=epochs,
-            xeta=1e-7,
-            n_batch=2000,
-            modelfile=['./intermediate/enc_modelRNN.json', './intermediate/dec_modelRNN.json'],
-            weightfile=['./intermediate/enc_weightsRNN.hdf5', './intermediate/dec_weightsRNN.hdf5'],
-            savefilesuffix="testing"
-        )
+            xeta=1e-8,
+            n_batch=20,
+            modelfile=['./intermediate/enc_modelenron.json', './intermediate/dec_modelenron.json'],
+            weightfile=['./intermediate/enc_weightsenron.hdf5', './intermediate/dec_weightsenron.hdf5'],
+            savefilesuffix="testingAS"
+        ) 
         
             
         files=[file for file in os.listdir('./test_data/enron') if 'week' in file]
@@ -663,6 +633,7 @@ if __name__ == '__main__':
             graphs.append(G)
 
         sample=graphs[0].number_of_nodes()
+        print(sample)
 
         outdir=args.resultdir
         if not os.path.exists(outdir):
@@ -671,18 +642,19 @@ if __name__ == '__main__':
         if not os.path.exists(outdir):
             os.mkdir(outdir) 
 
-        outdir= outdir+'/dynRNN' 
+        outdir= outdir+'/dynAE' 
         if not os.path.exists(outdir):
             os.mkdir(outdir)
-        
+
         if args.exp=='emb':
             print('plotting embedding not implemented!')
 
-        if args.exp=='lp':     
+        if args.exp=='lp':    
             evaluate_link_prediction.expLP( graphs[-args.timelength:],
                     dynamic_embedding,
                     1,
                     outdir+'/',
-                    'lb'+str(lookback)+'_l'+str(args.timelength)+'_emb'+str(dim_emb)+'_samples'+str(sample),
+                    'lb_'+str(lookback)+'_l'+str(args.timelength)+'_emb'+str(dim_emb)+'_samples'+str(sample),
                     n_sample_nodes=sample
-                )     
+                )    
+            

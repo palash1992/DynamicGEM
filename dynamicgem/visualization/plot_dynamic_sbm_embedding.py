@@ -13,9 +13,9 @@ import sys
 sys.path.append('./')
 import pdb
 
-from dyngraph2vec.graph_generation import dynamic_SBM_graph
-from dyngraph2vec.utils import graph_util
-from dyngraph2vec.utils import plot_util
+from dynamicgem.graph_generation import dynamic_SBM_graph
+from dynamicgem.utils import graph_util
+from dynamicgem.utils import plot_util
 from .plot_static_embedding import *
 from matplotlib import rc
 import seaborn

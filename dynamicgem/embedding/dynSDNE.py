@@ -14,12 +14,11 @@ import sys
 sys.path.append('./')
 sys.path.append(os.path.realpath(__file__))
 
-from static_graph_embedding import StaticGraphEmbedding
-from utils import graph_util, plot_util
-from evaluation import visualize_embedding as viz
-from sdne_utils import *
-from graph_generation import SBM_graph
-from evaluation import evaluate_graph_reconstruction as gr
+from dynamicgem.utils import graph_util, plot_util
+from dynamicgem.evaluation import visualize_embedding as viz
+from .sdne_utils import *
+from dynamicgem.graph_generation import SBM_graph
+from dynamicgem.evaluation import evaluate_graph_reconstruction as gr
 
 from keras.layers import Input, Dense, Lambda, merge
 from keras.models import Model, model_from_json

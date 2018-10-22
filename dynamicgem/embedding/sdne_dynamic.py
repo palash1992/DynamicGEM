@@ -12,11 +12,11 @@ import scipy.io as sio
 import sys
 sys.path.append('./')
 
-from dynamic_graph_embedding import DynamicGraphEmbedding
-from utils import graph_util, plot_util
-from visualization import plot_dynamic_sbm_embedding
-from graph_generation import dynamic_SBM_graph
-from sdne_utils import *
+from .dynamic_graph_embedding import DynamicGraphEmbedding
+from dynamicgem.utils import graph_util, plot_util
+from dynamicgem.visualization import plot_dynamic_sbm_embedding
+from dynamicgem.graph_generation import dynamic_SBM_graph
+from .sdne_utils import *
 
 from keras.layers import Input, Dense, Lambda, merge
 from keras.models import Model, model_from_json

@@ -14,11 +14,11 @@ import pdb
 import sys
 sys.path.append('./')
 
-from dynamic_graph_embedding import DynamicGraphEmbedding
-from utils import graph_util
-from utils import plot_util
-from visualization import plot_dynamic_sbm_embedding
-from graph_generation import dynamic_SBM_graph
+from .dynamic_graph_embedding import DynamicGraphEmbedding
+from dynamicgem.utils import graph_util
+from dynamicgem.utils import plot_util
+from dynamicgem.visualization import plot_dynamic_sbm_embedding
+from dynamicgem.graph_generation import dynamic_SBM_graph
 		
 		
 class GraphFactorization(DynamicGraphEmbedding):

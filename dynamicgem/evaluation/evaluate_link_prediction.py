@@ -1,14 +1,14 @@
 try: import cPickle as pickle
 except: import pickle
 from .metrics import *
-from dyngraph2vec.utils import evaluation_util
-from dyngraph2vec.utils import graph_util
+from dynamicgem.utils import evaluation_util
+from dynamicgem.utils import graph_util
 import numpy as np
 import networkx as nx
 import pdb
 import sys
 sys.path.insert(0, './')
-from dyngraph2vec.utils import embed_util
+from dynamicgem.utils import embed_util
 
 
 def evaluateDynamicLinkPrediction(graph, 

@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import sys
 import numpy as np
 sys.path.append('./')
-from dyngraph2vec.graph_generation import SBM_graph
-from dyngraph2vec.graph_generation import dynamic_SBM_graph
+from dynamicgem.graph_generation import SBM_graph
+from dynamicgem.graph_generation import dynamic_SBM_graph
 
 outdir ='../data'
 

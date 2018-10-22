@@ -13,10 +13,10 @@ import numpy as np
 import pandas as pd
 sys.path.insert(0, './')
 
-from graph_generation import dynamic_SBM_graph
-from utils      import graph_util, plot_util
-from evaluation.evaluate_graph_reconstruction import expGR
-from evaluation.evaluate_link_prediction import expLP
+from dynamicgem.graph_generation import dynamic_SBM_graph
+from dynamicgem.utils      import graph_util, plot_util
+from dynamicgem.evaluation.evaluate_graph_reconstruction import expGR
+from dynamicgem.evaluation.evaluate_link_prediction import expLP
 
 methClassMap = {"dynAE": "DynAE",
                 "dynAERNN": "DynAERNN",

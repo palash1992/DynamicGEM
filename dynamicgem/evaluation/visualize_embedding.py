@@ -4,7 +4,7 @@ from sklearn.manifold import TSNE
 
 import sys
 sys.path.insert(0, './')
-from dyngraph2vec.utils import plot_util
+from dynamicgem.utils import plot_util
 
 from matplotlib import rc
 import seaborn

@@ -15,10 +15,10 @@ import os
 sys.path.append('./')
 
 from .dynamic_graph_embedding import DynamicGraphEmbedding
-from dyngraph2vec.utils import plot_util, graph_util, dataprep_util
-from dyngraph2vec.visualization import plot_dynamic_sbm_embedding
-from dyngraph2vec.graph_generation import dynamic_SBM_graph
-from dyngraph2vec.evaluation import evaluate_link_prediction
+from dynamicgem.utils import plot_util, graph_util, dataprep_util
+from dynamicgem.visualization import plot_dynamic_sbm_embedding
+from dynamicgem.graph_generation import dynamic_SBM_graph
+from dynamicgem.evaluation import evaluate_link_prediction
 
 from keras import losses
 from keras.layers import Input, Dense, Lambda, merge
