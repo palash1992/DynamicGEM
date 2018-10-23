@@ -12,6 +12,7 @@ import scipy.io as sio
 import sys
 import os
 sys.path.append('./')
+
 from joblib import Parallel, delayed
 from .dynamic_graph_embedding import DynamicGraphEmbedding
 from dynamicgem.utils import plot_util, graph_util, dataprep_util

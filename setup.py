@@ -5,10 +5,10 @@ import subprocess
 import imp
 
 
-DISTNAME = 'dyngraph2vec'
+DISTNAME = 'dynamicgem'
 MAINTAINER = 'Palash Goyal, Sujit Rokka Chhetri'
 MAINTAINER_EMAIL = 'palashgo@usc.edu, schhetri@uci.edu'
-DESCRIPTION = 'dyngrap2vec: A Python module for Dynamic Graph Embedding Methods'
+DESCRIPTION = 'dynamicGEM: A Python module for Dynamic Graph Embedding Methods'
 LONG_DESCRIPTION = open('README.md').read()
 URL = 'https://github.com/palash1992/DynamicGEM'
 DOWNLOAD_URL = 'https://github.com/palash1992/DynamicGEM'
@@ -78,7 +78,7 @@ def git_version():
     return GIT_REVISION
 
 
-def write_version_py(filename='dyngraph2vec/version.py'):
+def write_version_py(filename='dynamicgem/version.py'):
     # Copied from numpy setup.py
     cnt = """
     # THIS FILE IS GENERATED FROM DynamicGEM SETUP.PY
@@ -94,9 +94,9 @@ def write_version_py(filename='dyngraph2vec/version.py'):
     FULLVERSION = VERSION
     if os.path.exists('.git'):
         GIT_REVISION = git_version()
-    elif os.path.exists('dyngraph2vec/version.py'):
+    elif os.path.exists('dynamicgem/version.py'):
         # must be a source distribution, use existing version file
-        version = imp.load_source('DynamicGEM.version', 'dyngraph2vec/version.py')
+        version = imp.load_source('DynamicGEM.version', 'dynamicgem/version.py')
         GIT_REVISION = version.git_revision
     else:
         GIT_REVISION = 'Unknown'
@@ -130,7 +130,7 @@ def setup_package():
         keywords=KEYWORDS,
         install_requires=INSTALL_REQUIRES,
         packages=find_packages(),
-        package_dir={DISTNAME: 'dyngraph2vec'},
+        package_dir={DISTNAME: 'dynamicgem'},
         package_data={DISTNAME: get_package_data('datasets')},
         license=LICENSE,
         long_description=LONG_DESCRIPTION,
