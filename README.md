@@ -1,4 +1,4 @@
-# dyngraph2vec: Dynamic Graph to Vector
+# DynamicGEM: Dynamic Graph to Vector embedding
 
 
 ## Implemented Methods
