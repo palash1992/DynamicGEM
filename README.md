@@ -64,7 +64,6 @@ To install for all users on Unix/Linux:
 ```bash 
     sudo python setup.py install
 ```
-Stay tuned for dynamicTriad and TIMERS automatic setups.
 ## Usage
 ### Example 1
 
