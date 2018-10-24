@@ -29,7 +29,7 @@ dynamicGEM implements the following graph embedding techniques:
 ## Dependencies
 dynamicgem is tested to work on python 3.5. The module with working dependencies are listed as follows:
 
-<li>h5py                   2.8.0</li>
+* h5py                   2.8.0
 joblib                 0.12.5
 Keras                  2.0.2
 Keras-Applications     1.0.6
