@@ -27,7 +27,26 @@ dynamicGEM implements the following graph embedding techniques:
 * **dyngraph2vec/dynamicTriad**:
 
 ## Dependencies
-dyngraph2vec is tested to work on Python 3.6
+dynamicgem is tested to work on python 3.5. The module with working dependencies are listed as follows:
+h5py                   2.8.0
+joblib                 0.12.5
+Keras                  2.0.2
+Keras-Applications     1.0.6
+Keras-Preprocessing    1.0.5
+matlabruntimeforpython R2017a
+matplotlib             3.0.0
+networkx               1.11
+numpy                  1.15.3
+pandas                 0.23.4
+scikit-learn           0.20.0
+scipy                  1.1.0
+seaborn                0.9.0
+setuptools             39.1.0
+six                    1.11.0
+sklearn                0.0
+tensorflow-gpu         1.11.0
+Theano                 1.0.3
+wheel                  0.32.2
 ## Install
 The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
 ```bash
