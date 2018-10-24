@@ -52,7 +52,7 @@ dynamicgem is tested to work on python 3.5. The module with working dependencies
 Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS are properly set up.
 
 * To setup up the dynamicTriad please follow the repository "https://github.com/luckiezhou/DynamicTriad"
-* The TIMERS is originally writtien in matlab, in dynamicgem we have created python modules for Timers using Matlab Library Compiler. We have used Matlab R2017a to generate modules that work with python 3.5. To run the matlab runtime please configure the Matlab runtime by downloading it from "https://www.mathworks.com/products/compiler/matlab-runtime.html" and following steps mentioned in "https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html"
+* The TIMERS is originally written in matlab, in dynamicgem we have created python modules for Timers using Matlab Library Compiler. We have used Matlab R2017a to generate modules that work with python 3.5. To run the matlab runtime please configure the Matlab runtime by downloading it from "https://www.mathworks.com/products/compiler/matlab-runtime.html" and following steps mentioned in "https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html"
 
 
 The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
