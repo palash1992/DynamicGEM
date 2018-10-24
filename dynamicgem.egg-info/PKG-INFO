@@ -1,0 +1,70 @@
+Metadata-Version: 1.2
+Name: dynamicgem
+Version: 1.0.0
+Summary: dynamicGEM: A Python module for Dynamic Graph Embedding Methods
+Home-page: https://github.com/palash1992/DynamicGEM
+Author: Palash Goyal, Sujit Rokka Chhetri
+Author-email: palashgo@usc.edu, schhetri@uci.edu
+Maintainer: Palash Goyal, Sujit Rokka Chhetri
+Maintainer-email: palashgo@usc.edu, schhetri@uci.edu
+License: BSD
+Download-URL: https://github.com/palash1992/DynamicGEM
+Description: # dyngraph2vec: Dynamic Graph to Vector
+        
+        
+        ## Implemented Methods
+        dynamicGEM implements the following graph embedding techniques:
+        * [Incremental SVD]
+        * [Rerun SVD]
+        * [Optimal SVD]
+        * [Dynamic TRIAD]
+        * [Static AE]
+        * [Dynamic AE]
+        * [Dynamic RNN]
+        * [Dynamic AERNN]
+        
+        ## Graph Format
+        
+        ## Repository Structure
+        * **dyngraph2vec/embedding**: 
+        * **dyngraph2vec/evaluation**: 
+        * **dyngraph2vec/utils**: 
+        * **dyngraph2vec/graph_generation**: 
+        * **dyngraph2vec/visualization**:
+        * **dyngraph2vec/matlab**: 
+        * **dyngraph2vec/graphs**:
+        * **dyngraph2vec/experiments**:
+        * **dyngraph2vec/TIMERS**:
+        * **dyngraph2vec/dynamicTriad**:
+        
+        ## Dependencies
+        dyngraph2vec is tested to work on Python 3.6
+        ## Install
+        The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
+        ```bash
+            python setup.py install --user
+        ```
+        
+        To install for all users on Unix/Linux:
+        ```bash 
+            sudo python setup.py install
+        ```
+        Stay tuned for dynamicTriad and TIMERS automatic setups.
+        ## Usage
+        ### Example 1
+        
+        
+        ## Cite
+           
+        
+Keywords: dynamic graph embedding,graph embedding,network analysis,network embedding,data mining,machine learning
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Graph Analysis
+Classifier: Programming Language :: Python :: 2

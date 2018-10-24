@@ -17,7 +17,7 @@ import weakref
 
 class _PathInitializer(object):
     PLATFORM_DICT = {'Windows': ['PATH','dll',''], 'Linux': ['LD_LIBRARY_PATH','so','libmw'], 'Darwin': ['DYLD_LIBRARY_PATH','dylib','libmw']}
-    SUPPORTED_PYTHON_VERSIONS = ['2_7', '3_4', '3_5','3.6']
+    SUPPORTED_PYTHON_VERSIONS = ['2_7', '3_4', '3_5']
     RUNTIME_VERSION_W_DOTS = '9.2'
     RUNTIME_VERSION_W_UNDERSCORES = '9_2'
     PACKAGE_NAME = 'TIMERS_ALL'

@@ -27,7 +27,6 @@ INSTALL_REQUIRES = (
     'keras==2.0.2',
     'seaborn', 
     'sklearn',
-    'tensorflow-gpu==1.4.1',
     'joblib'
 )
 
