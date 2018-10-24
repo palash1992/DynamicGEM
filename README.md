@@ -50,6 +50,8 @@ wheel                  0.32.2
 ## Install
 Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS are properly set up.
 
+"To setup up the dynamicTriad please follow the repository "https://github.com/luckiezhou/DynamicTriad"
+
 The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
 ```bash
     python setup.py install --user
