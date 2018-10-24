@@ -48,6 +48,8 @@ tensorflow-gpu         1.11.0
 Theano                 1.0.3
 wheel                  0.32.2
 ## Install
+Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS are properly set up.
+
 The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
 ```bash
     python setup.py install --user
