@@ -1,4 +1,4 @@
-# DynamicGEM: Dynamic Graph to Vector embedding
+# DynamicGEM: Dynamic graph to vector embedding
 
 
 ## Implemented Methods
