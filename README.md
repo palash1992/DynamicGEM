@@ -3,14 +3,14 @@
 
 ## Implemented Methods
 dynamicGEM implements the following graph embedding techniques:
-* [Incremental SVD]
-* [Rerun SVD]
-* [Optimal SVD]
-* [Dynamic TRIAD]
+* [Incremental SVD] https://pdfs.semanticscholar.org/4e8f/82b0741c2151d36f2201fc11b0b148beab60.pdf
+* [Rerun SVD] https://arxiv.org/pdf/1711.09541.pdf
+* [Optimal SVD] https://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf
+* [Dynamic TRIAD] http://yangy.org/works/dynamictriad/dynamic_triad.pdf
 * [Static AE]
-* [Dynamic AE]
-* [Dynamic RNN]
-* [Dynamic AERNN]
+* [Dynamic AE] https://arxiv.org/pdf/1809.02657.pdf
+* [Dynamic RNN] https://arxiv.org/pdf/1809.02657.pdf
+* [Dynamic AERNN] https://arxiv.org/pdf/1809.02657.pdf
 
 ## Graph Format
 
