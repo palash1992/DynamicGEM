@@ -8,9 +8,9 @@ Each generated synthetic SBM graph is saved as two files:
 
 ## Dynamic SBM graph
 ### Dynamic graph types
-Current we produce two different series of dynamic SBM graphs:
+Currently we produce two different series of dynamic SBM graphs:
 
-1. Random node perturbation: for each time step, we random resample the community for a few nodes and afterwards resample all the edges associated with the nodes whos change their community.
+1. Random node perturbation: for each time step, we randomly resample the community for a few nodes and afterwards resample all the edges associated with the nodes who change their community.
 2. Diminishing community: we choose one community and gradually change its nodes into other communities. The edges of the changed nodes are resampled according to the their new community.
 
 ### Storage
