@@ -87,6 +87,7 @@ To install for all users on Unix/Linux:
     }
    ```
    [2]
+   
     ```
     @misc{zhang2017timers,
     title={TIMERS: Error-Bounded SVD Restart on Dynamic Networks},
@@ -97,8 +98,10 @@ To install for all users on Unix/Linux:
     primaryClass={cs.SI}
     }
     ```
+    
    [3]
-    ```
+   
+   ```
   @inproceedings{ou2016asymmetric,
   title={Asymmetric transitivity preserving graph embedding},
   author={Ou, Mingdong and Cui, Peng and Pei, Jian and Zhang, Ziwei and Zhu, Wenwu},
@@ -106,8 +109,8 @@ To install for all users on Unix/Linux:
   pages={1105--1114},
   year={2016},
   organization={ACM}
-    }
-    ```
+  }
+  ```
    [4]
    ```
   @inproceedings{zhou2018dynamic,
