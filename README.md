@@ -87,8 +87,7 @@ To install for all users on Unix/Linux:
     }
    ```
    [2]
-   
-    ```
+   ```
     @misc{zhang2017timers,
     title={TIMERS: Error-Bounded SVD Restart on Dynamic Networks},
     author={Ziwei Zhang and Peng Cui and Jian Pei and Xiao Wang and Wenwu Zhu},
@@ -97,19 +96,18 @@ To install for all users on Unix/Linux:
     archivePrefix={arXiv},
     primaryClass={cs.SI}
     }
-    ```
-    
-   [3]
-   
    ```
-  @inproceedings{ou2016asymmetric,
-  title={Asymmetric transitivity preserving graph embedding},
-  author={Ou, Mingdong and Cui, Peng and Pei, Jian and Zhang, Ziwei and Zhu, Wenwu},
-  booktitle={Proceedings of the 22nd ACM SIGKDD international conference on Knowledge discovery and data mining},
-  pages={1105--1114},
-  year={2016},
-  organization={ACM}
-  }
+    
+   [3] 
+   ```
+    @inproceedings{ou2016asymmetric,
+    title={Asymmetric transitivity preserving graph embedding},
+    author={Ou, Mingdong and Cui, Peng and Pei, Jian and Zhang, Ziwei and Zhu, Wenwu},
+    booktitle={Proceedings of the 22nd ACM SIGKDD international conference on Knowledge discovery and data mining},
+    pages={1105--1114},
+    year={2016},
+    organization={ACM}
+    }
   ```
    [4]
    ```
@@ -122,7 +120,7 @@ To install for all users on Unix/Linux:
 ```
    [6]
     ```
-   @misc{goyal2018dyngraph2vec,
+    @misc{goyal2018dyngraph2vec,
     title={dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning},
     author={Palash Goyal and Sujit Rokka Chhetri and Arquimedes Canedo},
     year={2018},
