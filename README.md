@@ -121,12 +121,11 @@ To install for all users on Unix/Linux:
    [6]
    
     ```
-        @misc{goyal2018dyngraph2vec,
-        title={dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning},
-        author={Palash Goyal and Sujit Rokka Chhetri and Arquimedes Canedo},
-        year={2018},
-        eprint={1809.02657},
-        archivePrefix={arXiv},
-        primaryClass={cs.SI}
-    }
+     @misc{goyal2018dyngraph2vec,
+     title={dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning},
+     author={Palash Goyal and Sujit Rokka Chhetri and Arquimedes Canedo},
+     year={2018},
+     eprint={1809.02657},
+     archivePrefix={arXiv},
+     primaryClass={cs.SI}}
     ```
