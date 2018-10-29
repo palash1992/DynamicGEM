@@ -3,14 +3,14 @@
 
 ## Implemented Methods
 dynamicGEM implements the following graph embedding techniques:
-* Incremental SVD: https://pdfs.semanticscholar.org/4e8f/82b0741c2151d36f2201fc11b0b148beab60.pdf [1]
-* Rerun SVD: https://arxiv.org/pdf/1711.09541.pdf [2]
-* Optimal SVD: https://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf [3]
-* Dynamic TRIAD: http://yangy.org/works/dynamictriad/dynamic_triad.pdf [4]
-* Static AE: [5]
-* Dynamic AE: https://arxiv.org/pdf/1809.02657.pdf [6]
-* Dynamic RNN: https://arxiv.org/pdf/1809.02657.pdf [6]
-* Dynamic AERNN: https://arxiv.org/pdf/1809.02657.pdf [6]
+* [Incremental SVD](https://pdfs.semanticscholar.org/4e8f/82b0741c2151d36f2201fc11b0b148beab60.pdf) [1]
+* [Rerun SVD](https://arxiv.org/pdf/1711.09541.pdf) [2]
+* [Optimal SVD](https://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf) [3]
+* [Dynamic TRIAD](http://yangy.org/works/dynamictriad/dynamic_triad.pdf) [4]
+* Static AE
+* [Dynamic AE](https://arxiv.org/pdf/1809.02657.pdf) [5]
+* [Dynamic RNN](https://arxiv.org/pdf/1809.02657.pdf) [5]
+* [Dynamic AERNN](https://arxiv.org/pdf/1809.02657.pdf) [5]
 
 ## Graph Format
 
@@ -118,7 +118,7 @@ To install for all users on Unix/Linux:
   year={2018}
   }
 ```
-   [6]
+   [5]
    ```
      @misc{goyal2018dyngraph2vec,
     title={dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning},
