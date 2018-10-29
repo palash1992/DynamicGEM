@@ -69,7 +69,7 @@ To install for all users on Unix/Linux:
 
 
 ## Cite
-   [1]
+   [1] Brand, M. (2006). Fast low-rank modifications of the thin singular value decomposition. Linear algebra and its applications, 415(1), 20-30.
    ```
    @article{BRAND200620,
     title = "Fast low-rank modifications of the thin singular value decomposition",
@@ -86,7 +86,7 @@ To install for all users on Unix/Linux:
     keywords = "Singular value decomposition, Sequential updating, Subspace tracking"
     }
    ```
-   [2]
+   [2] Zhang, Z., Cui, P., Pei, J., Wang, X., & Zhu, W. (2017). TIMERS: Error-Bounded SVD Restart on Dynamic Networks. arXiv                      preprint arXiv:1711.09541.
    ```
     @misc{zhang2017timers,
     title={TIMERS: Error-Bounded SVD Restart on Dynamic Networks},
@@ -98,7 +98,7 @@ To install for all users on Unix/Linux:
     }
    ```
     
-   [3] 
+   [3] Ou, M., Cui, P., Pei, J., Zhang, Z., & Zhu, W. (2016, August). Asymmetric transitivity preserving graph embedding. In Proceedings of the 22nd ACM SIGKDD international conference on Knowledge discovery and data mining (pp. 1105-1114). ACM.
    ```
     @inproceedings{ou2016asymmetric,
     title={Asymmetric transitivity preserving graph embedding},
@@ -109,7 +109,7 @@ To install for all users on Unix/Linux:
     organization={ACM}
     }
   ```
-   [4]
+   [4] Zhou, L. K., Yang, Y., Ren, X., Wu, F., & Zhuang, Y. (2018, February). Dynamic Network Embedding by Modeling Triadic Closure Process. In AAAI.
    ```
   @inproceedings{zhou2018dynamic,
   title={Dynamic Network Embedding by Modeling Triadic Closure Process.},
@@ -118,7 +118,7 @@ To install for all users on Unix/Linux:
   year={2018}
   }
 ```
-   [5]
+   [5] Goyal, P., Chhetri, S. R., & Canedo, A. (2018). dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning. arXiv preprint arXiv:1809.02657.
    ```
      @misc{goyal2018dyngraph2vec,
     title={dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning},
