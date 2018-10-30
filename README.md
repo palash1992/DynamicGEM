@@ -21,7 +21,6 @@ Due to variation in graph formats used by different embedding algorithms, we hav
 * **DynamicGEM/utils**: It consists of various utility functions for graph data preparation, embedding formatting, plotting utilities, etc.
 * **DynamicGEM/graph_generation**: It constis  of functions to generate dynamic stochastic block model with diminishing community.  
 * **DynamicGEM/visualization**: It consists of functions for plotting the static and dynamic embeddings of the dataset.
-* **DynamicGEM/graphs**:
 * **DynamicGEM/experiments**: The functions for hyper-paramter tuning is present in this folder. 
 * **DynamicGEM/TIMERS**: The matlab source code of the TIMERS along with added matlab modules for dataset preparation is present in this folder.
 * **DynamicGEM/dynamicTriad**: It consists of the dynamicTriad source code.
