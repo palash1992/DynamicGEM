@@ -16,16 +16,15 @@ dynamicGEM implements the following graph embedding techniques:
 Due to variation in graph formats used by different embedding algorithms, we have written custom utils: dataprep_util which can convert various data types to the required dynamic graph format stored as list of [Digraph](https://networkx.github.io/documentation/networkx-1.10/reference/classes.digraph.html) (directed weighted graph) corresponding to the time-steps. [Networkx](https://networkx.github.io/documentation/networkx-1.10/index.html) package is used to handle these graph formats. The weight of the edges is stores as attibute "weight". The graphs are saved using [nx.write_gpickle](https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.readwrite.gpickle.write_gpickle.html) and loaded using [nx.read_gpickle](https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.readwrite.gpickle.read_gpickle.html). For datasets that do not have these structure, we have methods (for example "get_graph_academic" for academic dataset) which can convert it into the desired graph format.
 
 ## Repository Structure
-* **DynamicGEM/embedding**: 
-* **DynamicGEM/evaluation**: 
-* **DynamicGEM/utils**: 
-* **DynamicGEM/graph_generation**: 
-* **DynamicGEM/visualization**:
-* **DynamicGEM/matlab**: 
+* **DynamicGEM/embedding**: It consists of the most recent dynamic graph embedding approaches, with each files representing a single embedding method. We also have some static graph embedding approaches as baselines. 
+* **DynamicGEM/evaluation**: Currently, we have graph reconstruction and link prediction implemented for the evaluation. 
+* **DynamicGEM/utils**: It consists of various utility functions for graph data preparation, embedding formatting, plotting utilities, etc.
+* **DynamicGEM/graph_generation**: It constis  of functions to generate dynamic stochastic block model with diminishing community.  
+* **DynamicGEM/visualization**: It consists of functions for plotting the static and dynamic embeddings of the dataset.
 * **DynamicGEM/graphs**:
-* **DynamicGEM/experiments**:
-* **DynamicGEM/TIMERS**:
-* **DynamicGEM/dynamicTriad**:
+* **DynamicGEM/experiments**: The functions for hyper-paramter tuning is present in this folder. 
+* **DynamicGEM/TIMERS**: The matlab source code of the TIMERS along with added matlab modules for dataset preparation is present in this folder.
+* **DynamicGEM/dynamicTriad**: It consists of the dynamicTriad source code.
 
 ## Dependencies
 dynamicgem is tested to work on python 3.5. The module with working dependencies are listed as follows:
