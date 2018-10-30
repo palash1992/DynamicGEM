@@ -12,7 +12,7 @@ This project implements the DynamicTriad algorithm proposed in [1], which is a n
 
 This project is implemented primarily in Python 2.7, with some c/c++ extensions written for time efficiency. 
 
-Though the program falls back to pure Python implementation if c/c++ extensions fail to build, we **DISCOURAGE** you from using these code because they might have not been actively maintained and properly tested.
+Though the program falls back to pure Python implementation if c/c++ extensions fail to build, we **DISCOURAGE** you from using these codes because they might have not been actively maintained and properly tested.
 
 The c/c++ code is **ONLY** compiled and tested with standard GNU gcc/g++ compilers (with c++11 and OpenMP support), and other compilers are explicitly disabled in our build scripts. If you have to use another compiler, modifications on build scripts are required.
 
