@@ -13,6 +13,7 @@ dynamicGEM implements the following graph embedding techniques:
 * [Dynamic AERNN](https://arxiv.org/pdf/1809.02657.pdf) [5]
 
 ## Graph Format
+Due to variation in graph formats used by different embedding algorithms, we have written custom utils: dataprep_util which can convert various data types to the required dynamic graph format stored as list of Digraph (directed weighted graph) corresponding to the time-steps. Networkx package is used to handle these graph formats. The weight of the edges is stores as attibute "weight". The graphs are saved using nx.write_gpickle and loaded using nx.read_gpickle. For datasets that do not have these structure, we have methods (for example "get_graph_academic" for academic dataset) which can convert it into the desired graph format.
 
 ## Repository Structure
 * **DynamicGEM/embedding**: 
