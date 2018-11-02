@@ -62,16 +62,16 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
          sudo python setup.py install
       ```
 
-* The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
-
-```bash
-    python setup.py install --user
-```
-
-To install for all users on Unix/Linux:
-```bash 
-    sudo python setup.py install
-```
+* For setting of rest of the methods, the package uses setuptools, which is a common way of installing python modules. 
+  - To install in your home directory, use:
+    ```bash
+      python setup.py install --user
+     ```
+  - To install for all users on Unix/Linux:
+    ```bash 
+       sudo python setup.py install
+    ```
+    
 ## Usage
 ### Example 1
 
