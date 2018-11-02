@@ -7,10 +7,10 @@ dynamicGEM implements the following graph embedding techniques:
 * [Rerun SVD](https://arxiv.org/pdf/1711.09541.pdf) [2]
 * [Optimal SVD](https://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf) [3]
 * [Dynamic TRIAD](http://yangy.org/works/dynamictriad/dynamic_triad.pdf) [4]
-* Static AE
-* [Dynamic AE](https://arxiv.org/pdf/1809.02657.pdf) [5]
-* [Dynamic RNN](https://arxiv.org/pdf/1809.02657.pdf) [5]
-* [Dynamic AERNN](https://arxiv.org/pdf/1809.02657.pdf) [5]
+* [Static AE](https://arxiv.org/pdf/1805.11273.pdf)
+* [Dynamic AE](https://arxiv.org/pdf/1809.02657.pdf) [6]
+* [Dynamic RNN](https://arxiv.org/pdf/1809.02657.pdf) [6]
+* [Dynamic AERNN](https://arxiv.org/pdf/1809.02657.pdf) [6]
 
 ## Graph Format
 Due to variation in graph formats used by different embedding algorithms, we have written custom utils: dataprep_util which can convert various data types to the required dynamic graph format stored as list of [Digraph](https://networkx.github.io/documentation/networkx-1.10/reference/classes.digraph.html) (directed weighted graph) corresponding to the time-steps. [Networkx](https://networkx.github.io/documentation/networkx-1.10/index.html) package is used to handle these graph formats. The weight of the edges is stores as attibute "weight". The graphs are saved using [nx.write_gpickle](https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.readwrite.gpickle.write_gpickle.html) and loaded using [nx.read_gpickle](https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.readwrite.gpickle.read_gpickle.html). For datasets that do not have these structure, we have methods (for example "get_graph_academic" for academic dataset) which can convert it into the desired graph format.
@@ -318,7 +318,16 @@ for embedding in models:
   year={2018}
   }
 ```
-   [5] Goyal, P., Chhetri, S. R., & Canedo, A. (2018). dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning. arXiv preprint arXiv:1809.02657.
+  [5] Goyal, P., Kamra, N., He, X., & Liu, Y. (2018). DynGEM: Deep Embedding Method for Dynamic Graphs. arXiv preprint arXiv:1805.11273.
+```
+@article{goyal2018dyngem,
+  title={DynGEM: Deep Embedding Method for Dynamic Graphs},
+  author={Goyal, Palash and Kamra, Nitin and He, Xinran and Liu, Yan},
+  journal={arXiv preprint arXiv:1805.11273},
+  year={2018}
+}
+```
+   [6] Goyal, P., Chhetri, S. R., & Canedo, A. (2018). dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning. arXiv preprint arXiv:1809.02657.
    ```
      @misc{goyal2018dyngraph2vec,
     title={dyngraph2vec: Capturing Network Dynamics using Dynamic Graph Representation Learning},
