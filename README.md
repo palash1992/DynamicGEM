@@ -7,7 +7,7 @@ dynamicGEM implements the following graph embedding techniques:
 * [Rerun SVD](https://arxiv.org/pdf/1711.09541.pdf) [2]
 * [Optimal SVD](https://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf) [3]
 * [Dynamic TRIAD](http://yangy.org/works/dynamictriad/dynamic_triad.pdf) [4]
-* [Static AE](https://arxiv.org/pdf/1805.11273.pdf)
+* [Static AE](https://arxiv.org/pdf/1805.11273.pdf)[5]
 * [Dynamic AE](https://arxiv.org/pdf/1809.02657.pdf) [6]
 * [Dynamic RNN](https://arxiv.org/pdf/1809.02657.pdf) [6]
 * [Dynamic AERNN](https://arxiv.org/pdf/1809.02657.pdf) [6]
