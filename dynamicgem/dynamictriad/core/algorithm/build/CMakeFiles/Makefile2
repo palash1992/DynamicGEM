@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sujit/DynamicTriad/core/algorithm
+CMAKE_SOURCE_DIR = /home/sujito/Fall2018/DynamicTriad/core/algorithm
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sujit/DynamicTriad/core/algorithm/build
+CMAKE_BINARY_DIR = /home/sujito/Fall2018/DynamicTriad/core/algorithm/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/dynamic_triad.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/sujit/DynamicTriad/core/algorithm/build
 CMakeFiles/dynamic_triad.dir/all:
 	$(MAKE) -f CMakeFiles/dynamic_triad.dir/build.make CMakeFiles/dynamic_triad.dir/depend
 	$(MAKE) -f CMakeFiles/dynamic_triad.dir/build.make CMakeFiles/dynamic_triad.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sujit/DynamicTriad/core/algorithm/build/CMakeFiles --progress-num=1,2 "Built target dynamic_triad"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sujito/Fall2018/DynamicTriad/core/algorithm/build/CMakeFiles --progress-num=1,2 "Built target dynamic_triad"
 .PHONY : CMakeFiles/dynamic_triad.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/dynamic_triad.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/dynamic_triad.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujit/DynamicTriad/core/algorithm/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujito/Fall2018/DynamicTriad/core/algorithm/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/dynamic_triad.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujit/DynamicTriad/core/algorithm/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujito/Fall2018/DynamicTriad/core/algorithm/build/CMakeFiles 0
 .PHONY : CMakeFiles/dynamic_triad.dir/rule
 
 # Convenience name for target.

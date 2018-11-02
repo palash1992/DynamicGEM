@@ -1,6 +1,5 @@
 import sys
-from . import gconfig
-# import gconfig 
+import gconfig
 from os import path
 
 file_dir = path.dirname(path.abspath(__file__))
@@ -19,7 +18,7 @@ try:
         language="c++"
     ))
     sys.argv = _old_argv
-    from .utils_cy import *
+    from utils_cy import *
     __impl__ = 'cython'
 except ImportError as e:
     sys.argv = _old_argv

@@ -294,7 +294,6 @@ if __name__ == '__main__':
     # so that it may not be a problem to leave the old cache not removed
     ds = Dataset(args.datafn, args.starttime, args.nsteps,
                  stepsize=args.stepsize, stepstride=args.stepstride)
-    
     if args.cachefn is not None:
         load_or_update_cache(ds, args.cachefn)
 

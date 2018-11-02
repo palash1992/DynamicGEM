@@ -12,7 +12,7 @@ This project implements the DynamicTriad algorithm proposed in [1], which is a n
 
 This project is implemented primarily in Python 2.7, with some c/c++ extensions written for time efficiency. 
 
-Though the program falls back to pure Python implementation if c/c++ extensions fail to build, we **DISCOURAGE** you from using these codes because they might have not been actively maintained and properly tested.
+Though the program falls back to pure Python implementation if c/c++ extensions fail to build, we **DISCOURAGE** you from using these code because they might have not been actively maintained and properly tested.
 
 The c/c++ code is **ONLY** compiled and tested with standard GNU gcc/g++ compilers (with c++11 and OpenMP support), and other compilers are explicitly disabled in our build scripts. If you have to use another compiler, modifications on build scripts are required.
 
@@ -41,7 +41,7 @@ Before building the project, we recommend switching the working directory to the
 ```
 cd <dynamic_triad_root>
 ```
-Note that all the commands presented in the rest of this documentation assume your current working directory is ``<dynamic_triad_root>``.
+Note that we assume ``<dynamic_triad_root>`` as your working directory in all the commands presented in the rest of this documentation.
 
 A building script ```build.sh``` is available in the root directory of this project, simplifying the building process to executing a single command
 ```
@@ -140,7 +140,7 @@ Some of the arguments may require extra explanation:
 - ``--beta-smooth/--beta-triad``, two hyper parameters used in the model, see reference [1] for details about the hyper parameters of DynamicTriad. Empirically, the hyper parameters need to be tuned in order to achieve the best performance, and the best choice depends on the task and the stability of the target dynamic network.
 - ``-l/--stepsize`` and ``-s/--stepstride``, see [Time Model](#time-model) for details.
 - ``--cachefn``, sometimes you find that the data preprocessing becomes intolerably time consuming (see [Time Model](#time-model)), and a solution is to specify ``--cachefn`` so that the program creates or uses a cache file of the preprocessed data. The cache file consists of two parts -- a file named ``<--cachefile>.cache`` as well as a file named ``<--cachefile>.cache.args``. If you have changed your configuration for preprocessing, remove ``<--cachefile>.cache.args`` and the cache will be regenerated.
-- ``--validation``, the four tasks available for validation is as defined in [1], please refer to the paper for details.
+- ``--validation``, the four tasks available for validation are as defined in [1], please refer to the paper for details.
 
 ### Demo
 
@@ -161,7 +161,7 @@ bash scripts/demo.sh
 
 ### Time Model
 
-TL;DR: If you would like the main script to treat your graphs exactly as they are specified in your input files, please leave the arguments ``-l`` and ``-s`` to their default value.
+TL;DR: If you would like the main script to treat your graphs exactly as they are specified in your input files, please leave the arguments ``-l`` and ``-s`` to their default values.
 
 For flexibility, a part of the data preprocessing functionalities are included into our main script. Specifically, if we call each graph file in the input directory a **unit graph**, our main script provides interfaces to create the graph for each time step out of these unit graphs.
 
@@ -186,6 +186,8 @@ One out of the three data sets reported in [1] -- the Academic Data Set -- was m
 In this data set, labels are extracted for each researcher indicating the research fields he/she focuses on. We manually specify a set of representing conferences for each research field, and try to find out for a researcher in which field he/she publishes most of his/her work, given a certain time step.
 
 A toy data is included in this project as ``data/academic_toy.pickle``, which was originally the ``ACM-Citation-network V8`` data set from AMiner, and was preprocessed as we describe above, with the only difference that the vertices are further sampled to a limited size of 2000. And our full preprocessing result can be downloaded [here](https://drive.google.com/file/d/1AF5soBDb2AbAhCNKUeYa_om6IcldEU83/view?usp=sharing).
+
+__Update__: For those who are interested in the academic dataset and wish to avoid the bothering building process, the dataset in clean format is released [here](https://drive.google.com/file/d/1vzvVhZ-FIY3iY3nBQlW77GRfJO0o_Ugg/view?usp=sharing) (Please cite the [original publisher](https://www.aminer.cn/citation) of the data if you wish use the dataset). See readme.txt in the package for detailed information, and feel free to contact me if there are anything wrong or unclarified in the data.
 
 ### Performance
 

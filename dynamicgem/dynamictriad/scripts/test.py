@@ -10,14 +10,14 @@ print("Checking mygraph submodule ...")
 try:
     import core.mygraph
 except ImportError as e:
-    raise RuntimeError("mygraph submodule not avaiable: {}".format(e.message))
+    raise RuntimeError("mygraph submodule not avaiable: {}".format(str(e)))
 print("OK\n")
 
 print("Checking c extension ...")
 try:
     import core.algorithm.dynamic_triad_cimpl
 except ImportError as e:
-    raise RuntimeError("c extention not available: {}".format(e.messages))
+    raise RuntimeError("c extention not available: {}".format(str(e)))
 print("OK\n")
 
 print("Checking Cython modules ...")

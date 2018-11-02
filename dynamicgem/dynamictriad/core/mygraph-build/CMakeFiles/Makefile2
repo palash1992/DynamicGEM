@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sujit/DynamicTriad/core/graph
+CMAKE_SOURCE_DIR = /home/sujito/Fall2018/DynamicTriad/core/graph
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sujit/DynamicTriad/core/mygraph-build
+CMAKE_BINARY_DIR = /home/sujito/Fall2018/DynamicTriad/core/mygraph-build
 
 #=============================================================================
 # Target rules for target CMakeFiles/mygraph.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/sujit/DynamicTriad/core/mygraph-build
 CMakeFiles/mygraph.dir/all:
 	$(MAKE) -f CMakeFiles/mygraph.dir/build.make CMakeFiles/mygraph.dir/depend
 	$(MAKE) -f CMakeFiles/mygraph.dir/build.make CMakeFiles/mygraph.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sujit/DynamicTriad/core/mygraph-build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target mygraph"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sujito/Fall2018/DynamicTriad/core/mygraph-build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target mygraph"
 .PHONY : CMakeFiles/mygraph.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/mygraph.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/mygraph.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujit/DynamicTriad/core/mygraph-build/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujito/Fall2018/DynamicTriad/core/mygraph-build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/mygraph.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujit/DynamicTriad/core/mygraph-build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujito/Fall2018/DynamicTriad/core/mygraph-build/CMakeFiles 0
 .PHONY : CMakeFiles/mygraph.dir/rule
 
 # Convenience name for target.

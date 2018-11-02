@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sujit/DynamicTriad/core/algorithm
+CMAKE_SOURCE_DIR = /home/sujito/Fall2018/DynamicTriad/core/algorithm
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sujit/DynamicTriad/core/algorithm/build
+CMAKE_BINARY_DIR = /home/sujito/Fall2018/DynamicTriad/core/algorithm/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -124,9 +124,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujit/DynamicTriad/core/algorithm/build/CMakeFiles /home/sujit/DynamicTriad/core/algorithm/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujito/Fall2018/DynamicTriad/core/algorithm/build/CMakeFiles /home/sujito/Fall2018/DynamicTriad/core/algorithm/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujit/DynamicTriad/core/algorithm/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sujito/Fall2018/DynamicTriad/core/algorithm/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

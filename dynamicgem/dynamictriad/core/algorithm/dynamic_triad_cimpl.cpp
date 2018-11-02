@@ -170,6 +170,9 @@ py::list _emcoef(py::list data, py::object py_emb, py::object py_theta, py::list
     GILRelease gilrelease;
 
     OMP_INIT_FOR(datalen, pardeg);
+#ifdef DEBUG
+    cout << "step size " << __omp_step_size << ' ' << __omp_sz << ' ' << __omp_deg << endl;
+#endif
 #pragma omp parallel for shared(data, localstep, graphs, emb, theta, nodenames, ret) num_threads(num_threads) schedule(dynamic, 1)
     OMP_BEGIN_FOR(lb, ub);
 
@@ -235,7 +238,6 @@ py::list _emcoef(py::list data, py::object py_emb, py::object py_theta, py::list
         }
         curC[i - lb] = float(C);
     }
-    
     { GILAcquire gil;
     for(int i = lb; i < ub; i++)
     {

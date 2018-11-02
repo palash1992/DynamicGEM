@@ -6,5 +6,5 @@ CXX_FLAGS =  -O2 -ftemplate-backtrace-limit=0 -O3 -DNDEBUG -fPIC   -std=gnu++11
 
 CXX_DEFINES = -Dmygraph_EXPORTS
 
-CXX_INCLUDES = -I/usr/include/python2.7 -I/usr/local/include 
+CXX_INCLUDES = -I/usr/include/python3.5m -I/home/sujito/Fall2018/libFolder/boost_1_67_0 -I/usr/include/python2.7 
 

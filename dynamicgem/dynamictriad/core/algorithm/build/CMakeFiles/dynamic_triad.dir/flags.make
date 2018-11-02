@@ -6,5 +6,5 @@ CXX_FLAGS =  -O2 -fopenmp -O3 -DNDEBUG -fPIC   -std=gnu++11
 
 CXX_DEFINES = -Ddynamic_triad_EXPORTS
 
-CXX_INCLUDES = -I/home/sujit/DynamicTriad/core/algorithm/.. -I/usr/include/python2.7 -I/usr/local/lib/python2.7/dist-packages/numpy/core/include -I/home/sujit/eigen -I/usr/local/include 
+CXX_INCLUDES = -I/home/sujito/Fall2018/DynamicTriad/core/algorithm/.. -I/usr/include/python3.5m -I/usr/lib/python2.7/dist-packages/numpy/core/include -I/usr/include/Eigen -I/home/sujito/Fall2018/libFolder/boost_1_67_0 
 

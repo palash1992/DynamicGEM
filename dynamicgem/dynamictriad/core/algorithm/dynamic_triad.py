@@ -309,7 +309,7 @@ class Model(Sampler, TrainFlow, WithData, Validator):
         nodenames = list(self.__dataset.gtgraphs['any'].vp['name'])
         emb, theta = [K.get_value(v) for v in self.pretrain['vars']]
         mygraphs = list(self.__dataset.mygraphs)
-
+        
         res = cimpl.emcoef(data, emb, theta, mygraphs, nodenames, self.__dataset.localstep)
         neg1_int = [r[0] for r in res]
         neg1_float = [r[1] for r in res]

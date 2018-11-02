@@ -15,6 +15,7 @@
             int lbvar = __omp_par * __omp_step_size; \
             int ubvar = (__omp_par + 1) * __omp_step_size; \
             ubvar = (ubvar > __omp_sz ? __omp_sz : ubvar); \
+            lbvar = (lbvar > __omp_sz ? __omp_sz : lbvar);
 
 #define OMP_END_FOR() \
         } \

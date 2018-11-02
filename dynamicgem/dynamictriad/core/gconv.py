@@ -1,9 +1,9 @@
 from __future__ import print_function
 
-from .graphtool_utils import graphtool_utils as gtutils
-from .utils import utils
+import graphtool_utils as gtutils
+import utils
 import mygraph
-from .mygraph_utils import mygraph_utils as mgutils
+import mygraph_utils as mgutils
 
 
 def graphtool2mygraph(g, **_):

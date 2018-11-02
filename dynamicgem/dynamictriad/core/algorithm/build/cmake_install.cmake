@@ -1,4 +1,4 @@
-# Install script for directory: /home/sujit/DynamicTriad/core/algorithm
+# Install script for directory: /home/sujito/Fall2018/DynamicTriad/core/algorithm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,29 +33,25 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  if(EXISTS "$ENV{DESTDIR}/home/sujit/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/sujit/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so")
+  if(EXISTS "$ENV{DESTDIR}/home/sujito/Fall2018/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/home/sujito/Fall2018/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}/home/sujit/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so"
+         FILE "$ENV{DESTDIR}/home/sujito/Fall2018/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so"
          RPATH "")
   endif()
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/sujit/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so")
+   "/home/sujito/Fall2018/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/sujit/DynamicTriad/core/algorithm" TYPE SHARED_LIBRARY FILES "/home/sujit/DynamicTriad/core/algorithm/build/dynamic_triad_cimpl.so")
-  if(EXISTS "$ENV{DESTDIR}/home/sujit/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/sujit/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so")
-    file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}/home/sujit/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so"
-         OLD_RPATH "/usr/local/lib:"
-         NEW_RPATH "")
+file(INSTALL DESTINATION "/home/sujito/Fall2018/DynamicTriad/core/algorithm" TYPE SHARED_LIBRARY FILES "/home/sujito/Fall2018/DynamicTriad/core/algorithm/build/dynamic_triad_cimpl.so")
+  if(EXISTS "$ENV{DESTDIR}/home/sujito/Fall2018/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/home/sujito/Fall2018/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/home/sujit/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/home/sujito/Fall2018/DynamicTriad/core/algorithm/dynamic_triad_cimpl.so")
     endif()
   endif()
 endif()
@@ -68,5 +64,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/sujit/DynamicTriad/core/algorithm/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/sujito/Fall2018/DynamicTriad/core/algorithm/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
