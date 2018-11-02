@@ -72,8 +72,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
        sudo python setup.py install
     ```
     
-## Usage
-### Example 1
+##Usage Example
 
 
 ## Cite
