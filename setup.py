@@ -24,7 +24,7 @@ INSTALL_REQUIRES = (
     'networkx==1.11',
     'matplotlib>=2.0.0',
     'theano>=0.9.0',
-    'keras==2.0.2',
+    'keras>=2.0.2',
     'seaborn', 
     'sklearn',
     'joblib'
