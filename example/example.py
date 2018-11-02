@@ -28,7 +28,7 @@ community_num      = 2
 # At each iteration migrate 10 nodes from one community to the another
 node_change_num    = 10
 # Length of total time steps the graph will dynamically change
-length             = 10
+length             = 7
 # output directory for result
 outdir = './output'
 testDataType = 'sbm_cd'
@@ -47,8 +47,8 @@ for idx in range(node_colors.shape[0]):
 models  = []
 # parameters for the dynamic embedding
 # dimension of the embedding
-dim_emb = 128
-
+dim_emb  = 128
+lookback = 2
 # Load the models you want to run
 models.append(AE(d          = dim_emb, 
                  beta       = 5, 
@@ -95,7 +95,7 @@ models.append(dynamicTriad(niters     = 20,
                  node_num     = node_num ))
 
 datafile  = dataprep_util.prep_input_TIMERS(graphs, length, testDataType) 
-models.append(TIMERS(K        = dim_emb, 
+models.append(TIMERS(K         = dim_emb, 
                  Theta         = 0.5, 
                  datafile      = datafile,
                  length        =  length,
@@ -105,7 +105,7 @@ models.append(TIMERS(K        = dim_emb,
 
 models.append(DynAE(d           = dim_emb,
                  beta           = 5,
-                 n_prev_graphs  = 2,
+                 n_prev_graphs  = lookback,
                  nu1            = 1e-6,
                  nu2            = 1e-6,
                  n_units        = [500, 300,],
@@ -121,7 +121,7 @@ models.append(DynAE(d           = dim_emb,
 
 models.append(DynRNN(d        = dim_emb,
                 beta           = 5,
-                n_prev_graphs  = 2,
+                n_prev_graphs  = lookback,
                 nu1            = 1e-6,
                 nu2            = 1e-6,
                 n_enc_units    = [500,300],
@@ -138,7 +138,7 @@ models.append(DynRNN(d        = dim_emb,
 
 models.append(DynAERNN(d   = dim_emb,
             beta           = 5,
-            n_prev_graphs  = 2,
+            n_prev_graphs  = lookback,
             nu1            = 1e-6,
             nu2            = 1e-6,
             n_aeunits      = [500, 300],
@@ -156,17 +156,36 @@ models.append(DynAERNN(d   = dim_emb,
 
 # For each model, learn the embedding and evaluate on graph reconstruction and visualization
 for embedding in models:
-    print ('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
+    embs  = []
     t1 = time()
-    # Learn embedding - accepts a networkx graph or file with edge list
-    Y, t = embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
+
+    #ae static
+    for temp_var in range(length):
+        emb, _= embedding.learn_embeddings(graphs[temp_var])
+        embs.append(emb)
+
+    # dynamicTriad
+    embedding.learn_embedding()
+
+    # TIMERS
+    embedding.learn_embedding()
+    # embedding.get_embedding(outdir_tmp, 'incrementalSVD')
+    # embedding.get_embedding(outdir_tmp, 'rerunSVD')
+    # embedding.get_embedding(outdir_tmp, 'optimalSVD')
+
+    #dynAE, dynRNN, dynAERNN
+    for temp_var in range(lookback+1, length+1):
+        emb, _ = dynamic_embedding.learn_embeddings(graphs[:temp_var])
+        embs.append(emb)
+
     print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
     # Evaluate on graph reconstruction
-    MAP, prec_curv, err, err_baseline = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
+    # MAP, prec_curv, err, err_baseline = gr.evaluateStaticGraphReconstruction(graphs, embedding, embs, None)
     #---------------------------------------------------------------------------------
-    print(("\tMAP: {} \t precision curve: {}\n\n\n\n"+'-'*100).format(MAP,prec_curv[:5]))
+    # print(("\tMAP: {} \t precision curve: {}\n\n\n\n"+'-'*100).format(MAP,prec_curv[:5]))
     #---------------------------------------------------------------------------------
     # Visualize
-    viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=node_colors_arr)
-    plt.show()
-    plt.clf()
+    # plt.figure()
+    # viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])
+     #viz.plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])
+    # plt.show()
