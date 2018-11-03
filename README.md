@@ -150,8 +150,10 @@ plt.figure()
 plt.clf()
 viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])   
 plt.show() 
+```
+The output of the above execution is:
 
-
+```python
 #dynamicTriad
 datafile  = dataprep_util.prep_input_dynTriad(graphs, length, testDataType)
 embedding= dynamicTriad(niters     = 20,
