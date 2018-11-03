@@ -152,6 +152,15 @@ viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])
 plt.show() 
 ```
 The output of the above execution is:
+```
+ae ---Training time: 108.40005850791931
+```
+The visualization of the the embedding is as follows:
+
+<p align="center">
+  <img width="420" height="300" src="images/ae_static.png">
+</p>
+
 
 ```python
 #dynamicTriad

@@ -71,8 +71,7 @@ t1 = time()
 for temp_var in range(length):
     emb, _= embedding.learn_embeddings(graphs[temp_var])
     embs.append(emb)
-    
-print(embedding._method_name,"---Training time:", (time() - t1))
+    print(embedding._method_name,"---Training time:", (time() - t1))
 viz.plot_static_sbm_embedding(embs[-4:], list(dynamic_sbm_series)[-4:])   
 
 

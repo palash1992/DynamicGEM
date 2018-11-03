@@ -106,5 +106,6 @@ def plot_static_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
 
         plot_single_step(nodes_pos_list[t], 
                          dynamic_sbm_series[t], 
-                         dynamic_sbm_series[t][3])  
+                         dynamic_sbm_series[t][3]) 
+    plt.savefig('./'+outdir+'/ae_static.png',bbox_inches='tight',dpi=600) 
     plt.show()    
