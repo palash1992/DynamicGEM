@@ -1,3 +1,3 @@
 debug = False 
-use_cython = True 
+use_cython = False 
 njobs = 30
