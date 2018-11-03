@@ -81,8 +81,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
 import matplotlib.pyplot as plt
 from time import time
 import networkx as nx
-try: import cPickle as pickle
-except: import pickle
+import pickle
 import numpy as np
 
 #import helper libraries
@@ -119,11 +118,6 @@ dynamic_sbm_series = sbm.get_community_diminish_series_v2(node_num,
                                                           1, #comminity ID to perturb
                                                           node_change_num)
 graphs     = [g[0] for g in dynamic_sbm_series]
-
-node_colors_arr = [None] * node_colors.shape[0]
-for idx in range(node_colors.shape[0]):
-    node_colors_arr[idx] = np.where(node_colors[idx, :].toarray() == 1)[1][0]
-
 # parameters for the dynamic embedding
 # dimension of the embedding
 dim_emb  = 128
@@ -137,7 +131,7 @@ embedding = AE(d            = dim_emb,
                  nu2        = 1e-6,
                  K          = 3, 
                  n_units    = [500, 300, ],
-                 n_iter     = epochs, 
+                 n_iter     = 200, 
                  xeta       = 1e-4,
                  n_batch    = 100,
                  modelfile  = ['./intermediate/enc_modelsbm.json',
