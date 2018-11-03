@@ -188,7 +188,10 @@ t1 = time()
 embedding.learn_embedding()
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.get_embedding()
+```
+The output of the above execution is:
 
+```python
 #TIMERS
 datafile  = dataprep_util.prep_input_TIMERS(graphs, length, testDataType) 
 embedding = TIMERS(K         = dim_emb, 
@@ -222,7 +225,10 @@ t1 = time()
 embedding.get_embedding(outdir_tmp, 'optimalSVD')
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.plotresults()  
+```
+The output of the above execution is:
 
+```python
 #dynAE
 embedding= DynAE(d           = dim_emb,
                  beta           = 5,
@@ -249,7 +255,10 @@ plt.figure()
 plt.clf()    
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
+```
+The output of the above execution is:
 
+```python
 #dynRNN
 embedding= DynRNN(d        = dim_emb,
                 beta           = 5,
@@ -277,7 +286,10 @@ plt.figure()
 plt.clf()    
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
+```
+The output of the above execution is:
 
+```python
 #dynAERNN
 embedding = DynAERNN(d   = dim_emb,
             beta           = 5,
@@ -307,6 +319,8 @@ plt.clf()
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 ```
+The output of the above execution is:
+
 
 
 ## Cite
