@@ -46,7 +46,7 @@ dim_emb  = 128
 lookback = 2
 
 
-#AE Static
+#AE Static----------
 embedding = AE(d            = dim_emb, 
                  beta       = 5, 
                  nu1        = 1e-6, 
@@ -75,7 +75,7 @@ viz.plot_static_sbm_embedding(embs[-4:], list(dynamic_sbm_series)[-4:])
 plt.show() 
 
 
-#dynamicTriad
+#dynamicTriad------------
 datafile  = dataprep_util.prep_input_dynTriad(graphs, length, testDataType)
 embedding= dynamicTriad(niters     = 20,
                  starttime  = 0,
@@ -110,7 +110,7 @@ embedding.learn_embedding()
 print(embedding._method_name,"---Training time:", (time() - t1))
 embedding.get_embedding()
 
-#TIMERS
+#TIMERS-----------
 datafile  = dataprep_util.prep_input_TIMERS(graphs, length, testDataType) 
 embedding = TIMERS(K         = dim_emb, 
                  Theta         = 0.5, 
@@ -144,7 +144,7 @@ embedding.get_embedding(outdir_tmp, 'optimalSVD')
 print(embedding._method_name,"---Training time:", (time() - t1))
 embedding.plotresults()  
 
-#dynAE
+#dynAE------------
 embedding= DynAE(d           = dim_emb,
                  beta           = 5,
                  n_prev_graphs  = lookback,
@@ -172,7 +172,7 @@ plt.clf()
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], list(dynamic_sbm_series)[-5:])    
 plt.show()
 
-#dynRNN
+#dynRNN-------------
 embedding= DynRNN(d        = dim_emb,
                 beta           = 5,
                 n_prev_graphs  = lookback,
@@ -201,7 +201,7 @@ plt.clf()
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], list(dynamic_sbm_series)[-5:])    
 plt.show()
 
-#dynAERNN
+#dynAERNN------------
 embedding = DynAERNN(d   = dim_emb,
             beta           = 5,
             n_prev_graphs  = lookback,
