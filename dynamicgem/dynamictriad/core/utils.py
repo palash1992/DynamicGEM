@@ -1,5 +1,5 @@
 import sys
-import gconfig
+from dynamicgem.dynamictriad.core import gconfig
 from os import path
 
 file_dir = path.dirname(path.abspath(__file__))
@@ -23,8 +23,8 @@ try:
 except ImportError as e:
     sys.argv = _old_argv
     print("Cython not avaiable, falling back to python implemented utils")
-    print("Err msg: {}".format(e.message))
-    from utils_py import *
+    print("Err msg: {}".format(e))
+    from dynamicgem.dynamictriad.core.utils_py import *
     __impl__ = 'python'
 
 

@@ -84,6 +84,7 @@ class TIMERS(StaticGraphEmbedding):
         
         
         plt.savefig('./'+resultdir+'/V_'+self._method+'_nm'+str(self._nodemigration)+'_l'+str(self._length)+'_theta'+str(theta)+'_emb'+str(self._K*2)+'.pdf',bbox_inches='tight',dpi=600)
+        plt.show()
         # plt.close()  
 
     

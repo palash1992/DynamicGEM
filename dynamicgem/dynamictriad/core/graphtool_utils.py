@@ -4,8 +4,11 @@ import graph_tool as gt
 import itertools
 from collections import defaultdict
 import numpy as np
-import utils
-from itertools import izip
+import dynamicgem.dynamictriad.core.utils
+try:
+    from itertools import izip
+except:
+    izip = zip    
 
 __gtutils_debug = True
 

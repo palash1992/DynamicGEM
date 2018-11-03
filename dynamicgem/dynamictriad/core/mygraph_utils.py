@@ -1,7 +1,7 @@
 from __future__ import print_function
 import itertools
 import math
-import mygraph
+import dynamicgem.dynamictriad.core.mygraph
 
 
 def type2python(tp):

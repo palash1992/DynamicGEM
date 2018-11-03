@@ -459,7 +459,7 @@ class dynamicTriad(StaticGraphEmbedding):
         if not os.path.exists('./'+outdir):
             os.mkdir('./'+outdir)
         plt.savefig('./'+outdir+'/V_dynTriad_nm'+str(args.nodemigration)+'_l'+str(length)+'_epoch'+str(epochs)+'_emb'+str(args.embdim)+'.pdf',bbox_inches='tight',dpi=600)
-        # plt.show()
+        plt.show()
         # plt.close()
 
 if __name__ == '__main__':
@@ -615,7 +615,7 @@ if __name__ == '__main__':
                                  repeat     = args.repeat,
                                  resultdir  = args.resultdir,
                                  testDataType = args.testDataType,
-                                 clname=   'lr',
+                                 clname =   'lr',
                                  node_num = node_num 
 
                                  )

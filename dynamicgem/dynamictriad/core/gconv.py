@@ -1,9 +1,9 @@
 from __future__ import print_function
 
-import graphtool_utils as gtutils
-import utils
-import mygraph
-import mygraph_utils as mgutils
+import dynamicgem.dynamictriad.core.graphtool_utils as gtutils
+import dynamicgem.dynamictriad.core.utils
+import dynamicgem.dynamictriad.core.mygraph
+import dynamicgem.dynamictriad.core.mygraph_utils as mgutils
 
 
 def graphtool2mygraph(g, **_):
