@@ -5,9 +5,8 @@ import networkx as nx
 import operator
 import sys
 sys.path.append('./')
-# from graph_generation import SBM_graph
+from dynamicgem.graph_generation import SBM_graph
 from dynamicgem.utils import graph_util
-from .SBM_graph import *
 
 function_mapping={'degree'            : nx.degree_centrality,
                   'eigenvector'       : nx.eigenvector_centrality,

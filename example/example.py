@@ -39,11 +39,6 @@ dynamic_sbm_series = sbm.get_community_diminish_series_v2(node_num,
                                                           1, #comminity ID to perturb
                                                           node_change_num)
 graphs     = [g[0] for g in dynamic_sbm_series]
-
-node_colors_arr = [None] * node_colors.shape[0]
-for idx in range(node_colors.shape[0]):
-    node_colors_arr[idx] = np.where(node_colors[idx, :].toarray() == 1)[1][0]
-
 # parameters for the dynamic embedding
 # dimension of the embedding
 dim_emb  = 128
