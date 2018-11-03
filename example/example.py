@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 from time import time
 import networkx as nx
-try: import cPickle as pickle
-except: import pickle
+import pickle
 import numpy as np
 
 #import helper libraries
@@ -52,7 +51,7 @@ embedding = AE(d            = dim_emb,
                  nu2        = 1e-6,
                  K          = 3, 
                  n_units    = [500, 300, ],
-                 n_iter     = epochs, 
+                 n_iter     = 200, 
                  xeta       = 1e-4,
                  n_batch    = 100,
                  modelfile  = ['./intermediate/enc_modelsbm.json',

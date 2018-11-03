@@ -22,13 +22,13 @@ class SBMGraph(object):
 
     def set_mtx_B(self, inblock_prob=0.1, crossblock_prob=0.01):
         self._B = np.ones((self._community_num, self._community_num)) * crossblock_prob
-        for i in xrange(self._community_num):
+        for i in range(self._community_num):
             self._B[i, i] = inblock_prob
         return self._B
 
     def set_mtx_B_v2(self, inblock_prob=0.1, crossblock_prob=0.01):
         self._B = np.ones((self._community_num, self._community_num)) * crossblock_prob
-        for i in xrange(self._community_num):
+        for i in range(self._community_num):
             self._B[i, i] = inblock_prob
         return self._B
 
@@ -48,8 +48,8 @@ class SBMGraph(object):
         # add nodes
         self._graph.add_nodes_from(range(self._node_num))
         # add edges
-        for i in xrange(self._node_num):
-            for j in xrange(i):
+        for i in range(self._node_num):
+            for j in range(i):
                 prob = self._B[self._node_community[i], self._node_community[j]]
                 if np.random.uniform() <= prob:
                     self._graph.add_edge(i, j)
@@ -66,9 +66,9 @@ class SBMGraph(object):
         chngnodes = []
         cnt=0
         cFlag=False
-        for i in xrange(self._node_num):
+        for i in range(self._node_num):
             
-            for j in xrange(i):
+            for j in range(i):
                 prob = self._B[self._node_community[i], self._node_community[j]]
 
                 if self._node_community[i] != self._node_community[j] and cnt<nodes2change and self._node_community[i]==self._community_id:
@@ -106,13 +106,13 @@ class SBMGraph(object):
         #         count+=1
         #     i+=1
 
-        nodes= [i for i in xrange(self._node_num) if self._node_community[i]==self._community_id]
+        nodes= [i for i in range(self._node_num) if self._node_community[i]==self._community_id]
 
         chngnodes =random.sample(nodes, self._nodes_to_purturb)
         chngedges = {}
-        for i in xrange(self._node_num):
+        for i in range(self._node_num):
             
-            for j in xrange(i):
+            for j in range(i):
                 prob = self._B[self._node_community[i], self._node_community[j]]
 
                 if self._node_community[i] != self._node_community[j] and (i in chngnodes or j in chngnodes):
@@ -167,13 +167,13 @@ class SBMGraph(object):
         #         count+=1
         #     i+=1
 
-        nodes= [i for i in xrange(self._node_num) if self._node_community[i]==self._community_id]
+        nodes= [i for i in range(self._node_num) if self._node_community[i]==self._community_id]
 
         chngnodes =random.sample(nodes, self._nodes_to_purturb)
         chngedges = {}
-        for i in xrange(self._node_num):
+        for i in range(self._node_num):
             
-            for j in xrange(i):
+            for j in range(i):
                 prob = self._B[self._node_community[i], self._node_community[j]]
                 if np.random.uniform() <= prob:
                         self._graph.add_edge(i, j)
@@ -188,9 +188,9 @@ class SBMGraph(object):
         nodes_draw.set_edgecolor('w') 
         plt.title("(a)",fontsize=10) 
 
-        for i in xrange(self._node_num):
+        for i in range(self._node_num):
         
-            for j in xrange(i):
+            for j in range(i):
                 if self._node_community[i] != self._node_community[j] and (i in chngnodes or j in chngnodes):
                     if i in chngnodes:
                         if i not in chngedges.keys():
