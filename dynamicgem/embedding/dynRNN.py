@@ -20,7 +20,7 @@ from dynamicgem.graph_generation import dynamic_SBM_graph
 from dynamicgem.evaluation import evaluate_link_prediction
 
 from keras import losses
-from keras.layers import Input, Dense, Lambda, merge
+from keras.layers import Input, Dense, Lambda, merge, Subtract
 from keras.models import Model, model_from_json
 import keras.regularizers as Reg
 from keras.optimizers import SGD, Adam
@@ -148,9 +148,10 @@ class DynRNN(DynamicGraphEmbedding):
         # Process inputs
         [x_hat, y] = self._autoencoder(x_in)
         # Outputs
-        x_diff = merge([x_hat, x_pred],
-                       mode=lambda a, b: a - b,
-                       output_shape=lambda L: L[1])
+        x_diff = Subtract()([x_hat, x_in]) 
+#         x_diff = merge([x_hat, x_pred],
+#                        mode=lambda a, b: a - b,
+#                        output_shape=lambda L: L[1])
 
         # Objectives
         def weighted_mse_x(y_true, y_pred):
