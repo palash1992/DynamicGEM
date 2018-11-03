@@ -124,13 +124,14 @@ node_colors_arr = [None] * node_colors.shape[0]
 for idx in range(node_colors.shape[0]):
     node_colors_arr[idx] = np.where(node_colors[idx, :].toarray() == 1)[1][0]
 
-models  = []
 # parameters for the dynamic embedding
 # dimension of the embedding
 dim_emb  = 128
 lookback = 2
-# Load the models you want to run
-models.append(AE(d          = dim_emb, 
+
+
+#AE Static
+embedding = AE(d            = dim_emb, 
                  beta       = 5, 
                  nu1        = 1e-6, 
                  nu2        = 1e-6,
@@ -142,10 +143,24 @@ models.append(AE(d          = dim_emb,
                  modelfile  = ['./intermediate/enc_modelsbm.json',
                              './intermediate/dec_modelsbm.json'],
                  weightfile = ['./intermediate/enc_weightssbm.hdf5',
-                             './intermediate/dec_weightssbm.hdf5']))
+                             './intermediate/dec_weightssbm.hdf5'])
+embs  = []
+t1 = time()
+#ae static
+for temp_var in range(length):
+    emb, _= embedding.learn_embeddings(graphs[temp_var])
+    embs.append(emb)
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 
+plt.figure()
+plt.clf()
+viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])   
+plt.show() 
+
+
+#dynamicTriad
 datafile  = dataprep_util.prep_input_dynTriad(graphs, length, testDataType)
-models.append(dynamicTriad(niters     = 20,
+embedding= dynamicTriad(niters     = 20,
                  starttime  = 0,
                  datafile   = datafile,
                  batchsize  = 1000,
@@ -172,18 +187,48 @@ models.append(dynamicTriad(niters     = 20,
                  resultdir  = outdir,
                  testDataType = testDataType,
                  clname       = 'lr',
-                 node_num     = node_num ))
+                 node_num     = node_num )
+t1 = time()
+embedding.learn_embedding()
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+embedding.get_embedding()
 
+#TIMERS
 datafile  = dataprep_util.prep_input_TIMERS(graphs, length, testDataType) 
-models.append(TIMERS(K         = dim_emb, 
+embedding = TIMERS(K         = dim_emb, 
                  Theta         = 0.5, 
                  datafile      = datafile,
                  length        =  length,
                  nodemigration = node_change_num,
                  resultdir     = output,
-                 datatype      = testDataType))
+                 datatype      = testDataType)
 
-models.append(DynAE(d           = dim_emb,
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+if not os.path.exists(outdir+'/incrementalSVD'):
+    os.mkdir(outdir+'/incrementalSVD')
+if not os.path.exists(outdir+'/rerunSVD'):
+    os.mkdir(outdir+'/rerunSVD') 
+if not os.path.exists(outdir+'/optimalSVD'):
+    os.mkdir(outdir+'/optimalSVD') 
+
+t1 = time()
+embedding.get_embedding(outdir_tmp, 'incrementalSVD')
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+embedding.plotresults()  
+
+t1 = time()
+embedding.get_embedding(outdir_tmp, 'rerunSVD')
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+embedding.plotresults()  
+
+t1 = time()
+embedding.get_embedding(outdir_tmp, 'optimalSVD')
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+embedding.plotresults()  
+
+#dynAE
+embedding= DynAE(d           = dim_emb,
                  beta           = 5,
                  n_prev_graphs  = lookback,
                  nu1            = 1e-6,
@@ -197,9 +242,20 @@ models.append(DynAE(d           = dim_emb,
                                    './intermediate/dec_model_dynAE.json'],
                  weightfile     = ['./intermediate/enc_weights_dynAE.hdf5', 
                                    './intermediate/dec_weights_dynAE.hdf5'],
-                 savefilesuffix = "testing" ))
+                 savefilesuffix = "testing" )
+embs = []
+t1 = time()
+for temp_var in range(lookback+1, length+1):
+                emb, _ = embedding.learn_embeddings(graphs[:temp_var])
+                embs.append(emb)
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+plt.figure()
+plt.clf()    
+plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
+plt.show()
 
-models.append(DynRNN(d        = dim_emb,
+#dynRNN
+embedding= DynRNN(d        = dim_emb,
                 beta           = 5,
                 n_prev_graphs  = lookback,
                 nu1            = 1e-6,
@@ -214,9 +270,20 @@ models.append(DynRNN(d        = dim_emb,
                                   './intermediate/dec_model_dynRNN.json'],
                 weightfile     = ['./intermediate/enc_weights_dynRNN.hdf5', 
                                   './intermediate/dec_weights_dynRNN.hdf5'],
-                savefilesuffix = "testing"  ))
+                savefilesuffix = "testing"  )
+embs = []
+t1 = time()
+for temp_var in range(lookback+1, length+1):
+                emb, _ = embedding.learn_embeddings(graphs[:temp_var])
+                embs.append(emb)
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+plt.figure()
+plt.clf()    
+plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
+plt.show()
 
-models.append(DynAERNN(d   = dim_emb,
+#dynAERNN
+embedding = DynAERNN(d   = dim_emb,
             beta           = 5,
             n_prev_graphs  = lookback,
             nu1            = 1e-6,
@@ -231,44 +298,18 @@ models.append(DynAERNN(d   = dim_emb,
                               './intermediate/dec_model_dynAERNN.json'],
             weightfile     = ['./intermediate/enc_weights_dynAERNN.hdf5', 
                               './intermediate/dec_weights_dynAERNN.hdf5'],
-            savefilesuffix = "testing"
-        ))
+            savefilesuffix = "testing")
 
-# For each model, learn the embedding and evaluate on graph reconstruction and visualization
-for embedding in models:
-    embs  = []
-    t1 = time()
-
-    #ae static
-    for temp_var in range(length):
-        emb, _= embedding.learn_embeddings(graphs[temp_var])
-        embs.append(emb)
-
-    # dynamicTriad
-    embedding.learn_embedding()
-
-    # TIMERS
-    embedding.learn_embedding()
-    # embedding.get_embedding(outdir_tmp, 'incrementalSVD')
-    # embedding.get_embedding(outdir_tmp, 'rerunSVD')
-    # embedding.get_embedding(outdir_tmp, 'optimalSVD')
-
-    #dynAE, dynRNN, dynAERNN
-    for temp_var in range(lookback+1, length+1):
-        emb, _ = dynamic_embedding.learn_embeddings(graphs[:temp_var])
-        embs.append(emb)
-
-    print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
-    # Evaluate on graph reconstruction
-    # MAP, prec_curv, err, err_baseline = gr.evaluateStaticGraphReconstruction(graphs, embedding, embs, None)
-    #---------------------------------------------------------------------------------
-    # print(("\tMAP: {} \t precision curve: {}\n\n\n\n"+'-'*100).format(MAP,prec_curv[:5]))
-    #---------------------------------------------------------------------------------
-    # Visualize
-    # plt.figure()
-    # viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])
-     #viz.plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])
-    # plt.show()
+embs = []
+t1 = time()
+for temp_var in range(lookback+1, length+1):
+                emb, _ = embedding.learn_embeddings(graphs[:temp_var])
+                embs.append(emb)
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+plt.figure()
+plt.clf()    
+plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
+plt.show()
 ```
 
 
