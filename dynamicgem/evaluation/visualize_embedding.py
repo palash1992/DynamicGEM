@@ -99,6 +99,7 @@ def plot_static_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
         nodes_pos_list = [model.fit_transform(X) for X in nodes_pos_list]
 
     pos = 1
+    plt.figure()
     for t in range(length):
         plt.subplot(220 + pos)
         pos += 1
@@ -106,3 +107,4 @@ def plot_static_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
         plot_single_step(nodes_pos_list[t], 
                          dynamic_sbm_series[t], 
                          dynamic_sbm_series[t][3])  
+    plt.show()    

@@ -68,11 +68,7 @@ for temp_var in range(length):
     embs.append(emb)
     
 print(embedding._method_name,"---Training time:", (time() - t1))
-
-plt.figure()
-plt.clf()
 viz.plot_static_sbm_embedding(embs[-4:], list(dynamic_sbm_series)[-4:])   
-plt.show() 
 
 
 #dynamicTriad------------
