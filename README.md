@@ -76,7 +76,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
        sudo python setup.py install
     ```
     
-##Usage Example
+## Usage Example
 ```python
 import matplotlib.pyplot as plt
 from time import time
