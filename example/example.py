@@ -32,6 +32,7 @@ node_change_num    = 10
 length             = 7
 # output directory for result
 outdir = './output'
+intr   =  './intermediate'
 testDataType = 'sbm_cd'
 #Generate the dynamic graph
 dynamic_sbm_series = sbm.get_community_diminish_series_v2(node_num, 
@@ -45,6 +46,10 @@ graphs     = [g[0] for g in dynamic_sbm_series]
 dim_emb  = 128
 lookback = 2
 
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+if not os.path.exists(intr):
+    os.mkdir(intr)    
 
 #AE Static----------
 embedding = AE(d            = dim_emb, 
@@ -116,8 +121,7 @@ embedding = TIMERS(K         = dim_emb,
                  resultdir     = output,
                  datatype      = testDataType)
 
-if not os.path.exists(outdir):
-    os.mkdir(outdir)
+
 if not os.path.exists(outdir+'/incrementalSVD'):
     os.mkdir(outdir+'/incrementalSVD')
 if not os.path.exists(outdir+'/rerunSVD'):
