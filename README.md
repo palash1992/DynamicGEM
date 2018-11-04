@@ -7,8 +7,8 @@ dynamicGEM implements the following graph embedding techniques:
 * [Rerun SVD](https://arxiv.org/pdf/1711.09541.pdf): This method uses incremental SVD to create the dynamic graph embed-ding.  In addition to that, it uses a tolerance threshold to restart the optimal SVD calculations and avoid deviation in incremental graph embedding. [2]
 * [Optimal SVD](https://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf): This method decomposes adjacency matrix of the graph at each timestep using Singular Value Decomposition (SVD) to represent each node using thedlargest singular values. [3]
 * [Dynamic TRIAD](http://yangy.org/works/dynamictriad/dynamic_triad.pdf): This method utilizes the triadic closure process to generate a graphembedding that preserves structural and evolution patterns of the graph. [4]
-* [Static AE](https://arxiv.org/pdf/1805.11273.pdf)[5]
-* [Dynamic AE](https://arxiv.org/pdf/1809.02657.pdf): This method models the interconnection of nodes within and acrosstime using multiple fully connected layers. [6]
+* [Static AE](https://arxiv.org/pdf/1805.11273.pdf): This method uses deep autoencoder to learn the representation of each node in the graph. [5]
+* [Dynamic AE](https://arxiv.org/pdf/1809.02657.pdf): This method models the interconnection of nodes within and acrosstime using multiple fully connected layers. It extends Static AE for dynamic graphs. [6]
 * [Dynamic RNN](https://arxiv.org/pdf/1809.02657.pdf): This method uses sparsely connected Long Short Term Memory(LSTM) networks to learn the embedding. [6]
 * [Dynamic AERNN](https://arxiv.org/pdf/1809.02657.pdf): This method uses a fully connected encoder to initially ac-quire low dimensional hidden representation and feeds this representation into LSTMs to capture network dynamics. [6]
 
