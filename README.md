@@ -4,13 +4,13 @@ Learning graph representations is a fundamental task aimed at capturing various 
 ## Implemented Methods
 dynamicGEM implements the following graph embedding techniques:
 * [Incremental SVD](https://pdfs.semanticscholar.org/4e8f/82b0741c2151d36f2201fc11b0b148beab60.pdf): This method utilizes a perturbation matrix capturing the dynamicsof the graphs along with performing additive modification on the SVD. [1]
-* [Rerun SVD](https://arxiv.org/pdf/1711.09541.pdf): This method uses incremental SVD to create the dynamic graph embed-ding.  In addition to that, it uses a tolerance threshold to restart the optimal SVDcalculations and avoid deviation in incremental graph embedding. [2]
+* [Rerun SVD](https://arxiv.org/pdf/1711.09541.pdf): This method uses incremental SVD to create the dynamic graph embed-ding.  In addition to that, it uses a tolerance threshold to restart the optimal SVD calculations and avoid deviation in incremental graph embedding. [2]
 * [Optimal SVD](https://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf): This method decomposes adjacency matrix of the graph at each timestep using Singular Value Decomposition (SVD) to represent each node using thedlargest singular values. [3]
 * [Dynamic TRIAD](http://yangy.org/works/dynamictriad/dynamic_triad.pdf): This method utilizes the triadic closure process to generate a graphembedding that preserves structural and evolution patterns of the graph. [4]
 * [Static AE](https://arxiv.org/pdf/1805.11273.pdf)[5]
 * [Dynamic AE](https://arxiv.org/pdf/1809.02657.pdf): This method models the interconnection of nodes within and acrosstime using multiple fully connected layers. [6]
 * [Dynamic RNN](https://arxiv.org/pdf/1809.02657.pdf): This method uses sparsely connected Long Short Term Memory(LSTM) networks to learn the embedding. [6]
-* [Dynamic AERNN](https://arxiv.org/pdf/1809.02657.pdf): This method uses a fully connected encoder to initially ac-quire low dimensional hidden representation and feeds this representation into LSTMsto capture network dynamics. [6]
+* [Dynamic AERNN](https://arxiv.org/pdf/1809.02657.pdf): This method uses a fully connected encoder to initially ac-quire low dimensional hidden representation and feeds this representation into LSTMs to capture network dynamics. [6]
 
 ## Graph Format
 Due to variation in graph formats used by different embedding algorithms, we have written custom utils: dataprep_util which can convert various data types to the required dynamic graph format stored as list of [Digraph](https://networkx.github.io/documentation/networkx-1.10/reference/classes.digraph.html) (directed weighted graph) corresponding to the time-steps. [Networkx](https://networkx.github.io/documentation/networkx-1.10/index.html) package is used to handle these graph formats. The weight of the edges is stores as attibute "weight". The graphs are saved using [nx.write_gpickle](https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.readwrite.gpickle.write_gpickle.html) and loaded using [nx.read_gpickle](https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.readwrite.gpickle.read_gpickle.html). For datasets that do not have these structure, we have methods (for example "get_graph_academic" for academic dataset) which can convert it into the desired graph format.
@@ -213,7 +213,8 @@ embedding = TIMERS(K         = dim_emb,
 
 if not os.path.exists(outdir):
     os.mkdir(outdir)
-if not os.path.exists(outdir+'/incrementalSVD'):
+if not os.path.exists(outdir+'/incremental
+'):
     os.mkdir(outdir+'/incrementalSVD')
 if not os.path.exists(outdir+'/rerunSVD'):
     os.mkdir(outdir+'/rerunSVD') 
