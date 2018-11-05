@@ -151,14 +151,11 @@ plt.clf()
 viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])   
 plt.show() 
 ```
-The output of the above execution is:
-```
-ae ---Training time: 108.40005850791931
-```
+
 The visualization of the the embedding is as follows:
 
 <p align="center">
-  <img width="420" height="300" src="images/ae_static.png">
+  <img width="420" height="300" src="images/ae_static.pdf">
 </p>
 
 
@@ -198,7 +195,11 @@ embedding.learn_embedding()
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.get_embedding()
 ```
-The output of the above execution is:
+The visualization of the the embedding is as follows:
+
+<p align="center">
+  <img width="420" height="300" src="images/dyntriad.pdf">
+</p>
 
 ```python
 #TIMERS
@@ -222,21 +223,15 @@ if not os.path.exists(outdir+'/optimalSVD'):
     os.mkdir(outdir+'/optimalSVD') 
 
 t1 = time()
-embedding.get_embedding(outdir_tmp, 'incrementalSVD')
-print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
-embedding.plotresults()  
-
-t1 = time()
-embedding.get_embedding(outdir_tmp, 'rerunSVD')
-print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
-embedding.plotresults()  
-
-t1 = time()
 embedding.get_embedding(outdir_tmp, 'optimalSVD')
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.plotresults()  
 ```
-The output of the above execution is:
+The visualization of the the embedding is as follows:
+
+<p align="center">
+  <img width="420" height="300" src="images/optimalsvd.pdf">
+</p>
 
 ```python
 #dynAE
@@ -266,7 +261,11 @@ plt.clf()
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 ```
-The output of the above execution is:
+The visualization of the the embedding is as follows:
+
+<p align="center">
+  <img width="420" height="300" src="images/dynae.pdf">
+</p>
 
 ```python
 #dynRNN
@@ -297,7 +296,11 @@ plt.clf()
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 ```
-The output of the above execution is:
+The visualization of the the embedding is as follows:
+
+<p align="center">
+  <img width="420" height="300" src="images/dynrnn.pdf">
+</p>
 
 ```python
 #dynAERNN
@@ -329,7 +332,11 @@ plt.clf()
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 ```
-The output of the above execution is:
+The visualization of the the embedding is as follows:
+
+<p align="center">
+  <img width="420" height="300" src="images/dynaernn.pdf">
+</p>
 
 
 
