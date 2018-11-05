@@ -155,7 +155,7 @@ plt.show()
 The visualization of the the embedding is as follows:
 
 <p align="center">
-  <img width="420" height="300" src="images/ae_static.pdf">
+  <img width="420" height="300" src="images/ae_static.png">
 </p>
 
 
@@ -198,7 +198,7 @@ embedding.get_embedding()
 The visualization of the the embedding is as follows:
 
 <p align="center">
-  <img width="420" height="300" src="images/dyntriad.pdf">
+  <img width="420" height="300" src="images/dyntriad.png">
 </p>
 
 ```python
@@ -230,7 +230,7 @@ embedding.plotresults()
 The visualization of the the embedding is as follows:
 
 <p align="center">
-  <img width="420" height="300" src="images/optimalsvd.pdf">
+  <img width="420" height="300" src="images/optimalsvd.png">
 </p>
 
 ```python
@@ -264,7 +264,7 @@ plt.show()
 The visualization of the the embedding is as follows:
 
 <p align="center">
-  <img width="420" height="300" src="images/dynae.pdf">
+  <img width="420" height="300" src="images/dynae.png">
 </p>
 
 ```python
@@ -299,7 +299,7 @@ plt.show()
 The visualization of the the embedding is as follows:
 
 <p align="center">
-  <img width="420" height="300" src="images/dynrnn.pdf">
+  <img width="420" height="300" src="images/dynrnn.png">
 </p>
 
 ```python
@@ -335,7 +335,7 @@ plt.show()
 The visualization of the the embedding is as follows:
 
 <p align="center">
-  <img width="420" height="300" src="images/dynaernn.pdf">
+  <img width="420" height="300" src="images/dynaernn.png">
 </p>
 
 
