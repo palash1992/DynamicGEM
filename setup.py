@@ -19,15 +19,27 @@ VERSION = '1.0.0'
 ISRELEASED = True
 
 INSTALL_REQUIRES = (
-    'numpy>=1.12.0',
-    'scipy>=0.19.0',
-    'networkx==1.11',
-    'matplotlib>=2.0.0',
-    'theano>=0.9.0',
-    'keras>=2.0.2',
-    'seaborn', 
-    'sklearn',
-    'joblib'
+            'Cython>=0.29',
+            'decorator>=4.3.0',
+            'dill>=0.2.8.2',
+            'h5py>=2.8.0',
+            'joblib>=0.12.5',
+            'Keras>=2.2.4',
+            'Keras-Applications>=1.0.6',
+            'Keras-Preprocessing>=1.0.5',
+            'matplotlib>=3.0.1',
+            'networkx>=1.11',
+            'numpy>=1.15.3',
+            'pandas>=0.23.4',
+            'protobuf>=3.6.1',
+            'scikit-learn>=0.20.0',
+            'scipy>=1.1.0',
+            'seaborn>=0.9.0',
+            'six>=1.11.0',
+            'sklearn>=0.0',
+            'tensorboard>=1.11.0',
+            'tensorflow>=1.11.0',
+            'Theano==1.0.3
 )
 
 
