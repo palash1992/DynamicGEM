@@ -64,7 +64,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
       ```bash 
          sudo python setup.py install
       ```
-* To setup up the dynamicTriad please follow the repository "https://github.com/luckiezhou/DynamicTriad". Make sure to build it using python3.5.
+* We have build the dynamicTriad using python 3.5. If you want to setup for python3.6 or other python please follow the repository "https://github.com/luckiezhou/DynamicTriad". 
 
 * For setting of rest of the methods, the package uses setuptools, which is a common way of installing python modules. 
   - To install in your home directory, use:
