@@ -39,7 +39,7 @@ INSTALL_REQUIRES = (
             'sklearn>=0.0',
             'tensorboard>=1.11.0',
             'tensorflow>=1.11.0',
-            'Theano==1.0.3
+            'Theano==1.0.3'
 )
 
 
