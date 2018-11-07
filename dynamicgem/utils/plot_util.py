@@ -1,12 +1,9 @@
 try: import cPickle as pickle
 except: import pickle
 from os import environ
-# if 'DISPLAY' not in environ:
-#     import matplotlib
-#     matplotlib.use('Agg')
-
-import matplotlib
-matplotlib.use('Agg')
+if 'DISPLAY' not in environ:
+    import matplotlib
+    matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import itertools
 from matplotlib import rc
