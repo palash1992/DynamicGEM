@@ -3,7 +3,7 @@ import itertools
 import math
 import os
 import ctypes
-mygraph=ctypes.cdll.LoadLibrary(os.path.realpath('')+'dynamicgem/dynamictriad/core/mygraph.so')
+mygraph=ctypes.cdll.LoadLibrary(os.path.realpath('')+'/dynamicgem/dynamictriad/core/mygraph.so')
 
 
 def type2python(tp):
