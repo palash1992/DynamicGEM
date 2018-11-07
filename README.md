@@ -73,7 +73,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
          sudo find . -name graph_tool  #to find the <path-to-graph_tool> to graph)tool
          export PYTHONPATH="<path-to-graph_tool>:$PYTHONPATH"
      ```
-    - Also for compile c mygraph.so module change the <your-path-to-dynamicGEM>/dynamicGEM/dynamcigem/dynamictriad/core/gconv.py  file    by replacing <your-path-to-dynamicGEM> with the absolute path of the dynamicGEM folder.
+    - Also for compiled c mygraph.so module change the <your-path-to-dynamicGEM>/dynamicGEM/dynamcigem/dynamictriad/core/gconv.py  file    by replacing <your-path-to-dynamicGEM> with the absolute path of the dynamicGEM folder.
 * For setting of rest of the methods, the package uses setuptools, which is a common way of installing python modules. 
   - To install in your home directory, use:
     ```bash
