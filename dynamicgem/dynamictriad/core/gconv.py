@@ -3,10 +3,11 @@ from __future__ import print_function
 import dynamicgem.dynamictriad.core.graphtool_utils as gtutils
 import dynamicgem.dynamictriad.core.utils
 # import dynamicgem.dynamictriad.core.mygraph
-import dynamicgem.dynamictriad.core.mygraph_utils as mgutils
+
 import ctypes
 import os
 mygraph=ctypes.cdll.LoadLibrary(os.path.realpath('gconv.py').split('gconv.py')[0]+'mygraph.so')
+import dynamicgem.dynamictriad.core.mygraph_utils as mgutils
 
 def graphtool2mygraph(g, **_):
     names = g.vp.get('name')
