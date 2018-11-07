@@ -69,6 +69,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
       ```
 * We have build the dynamicTriad using python 3.5. Please follow "https://github.com/luckiezhou/DynamicTriad" to install the necessary library for running the dynmicTriad. Moreover, you may build it of particular version of python as well. For graph_tool setup, if you are using virtual environment and not using sudo for setting up python modules, make sure to to perform following:"
      ```bash 
+         sudo find . -name graph_tool  #to find the <path-to-graph_tool> to graph)tool
          export PYTHONPATH="<path-to-graph_tool>:$PYTHONPATH"
      ```
 
