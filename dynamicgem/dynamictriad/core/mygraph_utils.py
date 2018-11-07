@@ -1,7 +1,10 @@
 from __future__ import print_function
 import itertools
 import math
-import dynamicgem.dynamictriad.core.mygraph
+# import dynamicgem.dynamictriad.core.mygraph
+import os
+import ctypes
+mygraph=ctypes.cdll.LoadLibrary(os.path.realpath('mygraph_utils.py').split('mygraph_utils.py')[0]+'mygraph.so')
 
 
 def type2python(tp):
