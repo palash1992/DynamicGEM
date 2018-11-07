@@ -1,6 +1,6 @@
 import os
 from glob import glob
-# from setuptools import setup, find_packages
+from setuptools import setup, find_packages
 import subprocess
 import imp
 
