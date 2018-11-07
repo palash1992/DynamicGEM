@@ -167,49 +167,6 @@ The visualization of the the embedding is as follows:
   <img width="420" height="300" src="images/ae_static.png">
 </p>
 
-
-```python
-#dynamicTriad
-datafile  = dataprep_util.prep_input_dynTriad(graphs, length, testDataType)
-embedding= dynamicTriad(niters     = 20,
-                 starttime  = 0,
-                 datafile   = datafile,
-                 batchsize  = 1000,
-                 nsteps     = length,
-                 embdim     = dim_emb,
-                 stepsize   = 1,
-                 stepstride = 1,
-                 outdir     = outdir,
-                 cachefn    = '/tmp/'+ testDataType,
-                 lr         = 0.1,
-                 beta       = [0.1,0.1],
-                 negdup     = 1,
-                 datasetmod = 'core.dataset.adjlist',
-                 trainmod   = 'dynamicgem.dynamictriad.core.algorithm.dynamic_triad',
-                 pretrain_size = length,
-                 sampling_args = {},
-                 validation = 'link_reconstruction',
-                 datatype   = testDataType,
-                 scale      = 1,
-                 classifier = 'lr',
-                 debug      = False,
-                 test       = 'link_predict',
-                 repeat     = 1,
-                 resultdir  = outdir,
-                 testDataType = testDataType,
-                 clname       = 'lr',
-                 node_num     = node_num )
-t1 = time()
-embedding.learn_embedding()
-print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
-embedding.get_embedding()
-```
-The visualization of the the embedding is as follows:
-
-<p align="center">
-  <img width="420" height="300" src="images/dyntriad.png">
-</p>
-
 ```python
 #TIMERS
 datafile  = dataprep_util.prep_input_TIMERS(graphs, length, testDataType) 
@@ -347,6 +304,47 @@ The visualization of the the embedding is as follows:
   <img width="420" height="300" src="images/dynaernn.png">
 </p>
 
+```python
+#dynamicTriad
+datafile  = dataprep_util.prep_input_dynTriad(graphs, length, testDataType)
+embedding= dynamicTriad(niters     = 20,
+                 starttime  = 0,
+                 datafile   = datafile,
+                 batchsize  = 1000,
+                 nsteps     = length,
+                 embdim     = dim_emb,
+                 stepsize   = 1,
+                 stepstride = 1,
+                 outdir     = outdir,
+                 cachefn    = '/tmp/'+ testDataType,
+                 lr         = 0.1,
+                 beta       = [0.1,0.1],
+                 negdup     = 1,
+                 datasetmod = 'core.dataset.adjlist',
+                 trainmod   = 'dynamicgem.dynamictriad.core.algorithm.dynamic_triad',
+                 pretrain_size = length,
+                 sampling_args = {},
+                 validation = 'link_reconstruction',
+                 datatype   = testDataType,
+                 scale      = 1,
+                 classifier = 'lr',
+                 debug      = False,
+                 test       = 'link_predict',
+                 repeat     = 1,
+                 resultdir  = outdir,
+                 testDataType = testDataType,
+                 clname       = 'lr',
+                 node_num     = node_num )
+t1 = time()
+embedding.learn_embedding()
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+embedding.get_embedding()
+```
+The visualization of the the embedding is as follows:
+
+<p align="center">
+  <img width="420" height="300" src="images/dyntriad.png">
+</p>
 
 
 ## Cite
