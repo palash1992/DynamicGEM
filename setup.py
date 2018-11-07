@@ -3,11 +3,6 @@ from glob import glob
 # from setuptools import setup, find_packages
 import subprocess
 import imp
-try:
-    from setuptools import setup, find_packages
-except ImportError:
-    from distutils.core import setup, find_packages
-
 
 DISTNAME = 'dynamicgem'
 MAINTAINER = 'Palash Goyal, Sujit Rokka Chhetri'
