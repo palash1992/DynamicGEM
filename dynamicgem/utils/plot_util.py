@@ -4,6 +4,7 @@ from os import environ
 if 'DISPLAY' not in environ:
     import matplotlib
     matplotlib.use('Agg')
+import matplotlib    
 import matplotlib.pyplot as plt
 import itertools
 from matplotlib import rc
