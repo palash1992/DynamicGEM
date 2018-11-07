@@ -75,41 +75,6 @@ viz.plot_static_sbm_embedding(embs[-4:], list(dynamic_sbm_series)[-4:])
 plt.savefig('./'+outdir+'/ae_static.png',bbox_inches='tight',dpi=600) 
 plt.show() 
 
-#dynamicTriad------------
-datafile  = dataprep_util.prep_input_dynTriad(graphs, length, testDataType)
-embedding= dynamicTriad(niters     = 20,
-                 starttime  = 0,
-                 datafile   = datafile,
-                 batchsize  = 1000,
-                 nsteps     = length,
-                 embdim     = dim_emb,
-                 stepsize   = 1,
-                 stepstride = 1,
-                 outdir     = outdir,
-                 cachefn    = '/tmp/'+ testDataType,
-                 lr         = 0.1,
-                 beta       = [0.1,0.1],
-                 negdup     = 1,
-                 datasetmod = 'core.dataset.adjlist',
-                 trainmod   = 'dynamicgem.dynamictriad.core.algorithm.dynamic_triad',
-                 pretrain_size = length,
-                 sampling_args = {},
-                 validation = 'link_reconstruction',
-                 datatype   = testDataType,
-                 scale      = 1,
-                 classifier = 'lr',
-                 debug      = False,
-                 test       = 'link_predict',
-                 repeat     = 1,
-                 resultdir  = outdir,
-                 testDataType = testDataType,
-                 clname       = 'lr',
-                 node_num     = node_num )
-t1 = time()
-embedding.learn_embedding()
-print(embedding._method_name,"---Training time:", (time() - t1))
-embedding.get_embedding()
-
 #TIMERS-----------
 datafile  = dataprep_util.prep_input_TIMERS(graphs, length, testDataType) 
 embedding = TIMERS(K         = dim_emb, 
@@ -230,3 +195,37 @@ plt.clf()
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], list(dynamic_sbm_series)[-5:])    
 plt.show()
 
+#dynamicTriad------------
+datafile  = dataprep_util.prep_input_dynTriad(graphs, length, testDataType)
+embedding= dynamicTriad(niters     = 20,
+                 starttime  = 0,
+                 datafile   = datafile,
+                 batchsize  = 1000,
+                 nsteps     = length,
+                 embdim     = dim_emb,
+                 stepsize   = 1,
+                 stepstride = 1,
+                 outdir     = outdir,
+                 cachefn    = '/tmp/'+ testDataType,
+                 lr         = 0.1,
+                 beta       = [0.1,0.1],
+                 negdup     = 1,
+                 datasetmod = 'core.dataset.adjlist',
+                 trainmod   = 'dynamicgem.dynamictriad.core.algorithm.dynamic_triad',
+                 pretrain_size = length,
+                 sampling_args = {},
+                 validation = 'link_reconstruction',
+                 datatype   = testDataType,
+                 scale      = 1,
+                 classifier = 'lr',
+                 debug      = False,
+                 test       = 'link_predict',
+                 repeat     = 1,
+                 resultdir  = outdir,
+                 testDataType = testDataType,
+                 clname       = 'lr',
+                 node_num     = node_num )
+t1 = time()
+embedding.learn_embedding()
+print(embedding._method_name,"---Training time:", (time() - t1))
+embedding.get_embedding()
