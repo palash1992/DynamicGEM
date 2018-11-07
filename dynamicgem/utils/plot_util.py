@@ -16,7 +16,7 @@ import pdb
 from argparse import ArgumentParser
 
 font = {'family': 'serif', 'serif': ['computer modern roman']}
-rc('text', usetex=True)
+rc('text', usetex=False)
 rc('font', weight='bold')
 rc('font', size=20)
 rc('lines', markersize=10)
