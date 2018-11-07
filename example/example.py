@@ -5,6 +5,7 @@ from time import time
 import networkx as nx
 import pickle
 import numpy as np
+import os
 
 #import helper libraries
 from dynamicgem.utils      import graph_util, plot_util, dataprep_util
