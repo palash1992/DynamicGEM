@@ -37,9 +37,7 @@ INSTALL_REQUIRES = (
             'seaborn>=0.9.0',
             'six>=1.11.0',
             'sklearn>=0.0',
-            'tensorboard>=1.11.0',
-            'tensorflow>=1.11.0',
-            'Theano==1.0.3'
+            'Theano>=1.0.3'
 )
 
 
@@ -153,7 +151,7 @@ def setup_package():
                      'Topic :: Scientific/Engineering',
                      'Topic :: Scientific/Engineering :: Artificial Intelligence',
                      'Topic :: Scientific/Engineering :: Graph Analysis',
-                     'Programming Language :: Python :: 2',],
+                     'Programming Language :: Python :: 3',],
         )
 
 
