@@ -121,11 +121,11 @@ length             = 7
 outdir = './output'
 testDataType = 'sbm_cd'
 #Generate the dynamic graph
-dynamic_sbm_series = sbm.get_community_diminish_series_v2(node_num, 
+dynamic_sbm_series = list(sbm.get_community_diminish_series_v2(node_num, 
                                                           community_num, 
                                                           length, 
                                                           1, #comminity ID to perturb
-                                                          node_change_num)
+                                                          node_change_num))
 graphs     = [g[0] for g in dynamic_sbm_series]
 # parameters for the dynamic embedding
 # dimension of the embedding
