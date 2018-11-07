@@ -34,11 +34,11 @@ outdir = './output'
 intr   =  './intermediate'
 testDataType = 'sbm_cd'
 #Generate the dynamic graph
-dynamic_sbm_series = sbm.get_community_diminish_series_v2(node_num, 
+dynamic_sbm_series = list(sbm.get_community_diminish_series_v2(node_num, 
                                                           community_num, 
                                                           length, 
                                                           1, #comminity ID to perturb
-                                                          node_change_num)
+                                                          node_change_num))
 graphs     = [g[0] for g in dynamic_sbm_series]
 # parameters for the dynamic embedding
 # dimension of the embedding
@@ -71,7 +71,7 @@ for temp_var in range(length):
     emb, _= embedding.learn_embeddings(graphs[temp_var])
     embs.append(emb)
 print(embedding._method_name,"---Training time:", (time() - t1))
-viz.plot_static_sbm_embedding(embs[-4:], list(dynamic_sbm_series)[-4:])   
+viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])   
 plt.savefig('./'+outdir+'/ae_static.png',bbox_inches='tight',dpi=600) 
 plt.show() 
 
@@ -133,7 +133,7 @@ for temp_var in range(lookback+1, length+1):
 print(embedding._method_name,"---Training time:", (time() - t1))
 plt.figure()
 plt.clf()    
-plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], list(dynamic_sbm_series)[-5:])    
+plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 
 #dynRNN-------------
@@ -162,7 +162,7 @@ for temp_var in range(lookback+1, length+1):
 print(embedding._method_name,"---Training time:", (time() - t1))
 plt.figure()
 plt.clf()    
-plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], list(dynamic_sbm_series)[-5:])    
+plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 
 #dynAERNN------------
@@ -192,7 +192,7 @@ for temp_var in range(lookback+1, length+1):
 print(embedding._method_name,"---Training time:", (time() - t1))
 plt.figure()
 plt.clf()    
-plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], list(dynamic_sbm_series)[-5:])    
+plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 
 #dynamicTriad------------
