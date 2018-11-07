@@ -44,7 +44,7 @@ expMap2 = {"gr": "GR MAP", "lp": "LP P@100",
 
 
 def get_node_color(node_community):
-    cnames = [item[0] for item in matplotlib.colors.cnames.iteritems()]
+    cnames = [item[0] for item in matplotlib.colors.cnames.items()]
     node_colors = [cnames[c] for c in node_community]
     return node_colors
 
