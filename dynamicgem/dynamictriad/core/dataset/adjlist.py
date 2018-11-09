@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from dataset_utils import DatasetBase
+from dynamicgem.dynamictriad.core.dataset.dataset_utils import DatasetBase
 from .. import mygraph
 from .. import mygraph_utils as mgutils
 
