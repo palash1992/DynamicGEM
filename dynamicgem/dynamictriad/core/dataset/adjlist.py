@@ -24,7 +24,7 @@ class Dataset(DatasetBase):
 
     # required by Timeline
     def _time2unit(self, tm):
-        return int(tm)
+        return int(float(tm))
 
     def _unit2time(self, unit):
         return str(unit)
