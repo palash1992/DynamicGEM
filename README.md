@@ -96,6 +96,7 @@ import os
 #import helper libraries
 from dynamicgem.utils      import graph_util, plot_util, dataprep_util
 from dynamicgem.evaluation import visualize_embedding as viz
+from dynamicgem.visualization import plot_dynamic_sbm_embedding
 from dynamicgem.evaluation import evaluate_graph_reconstruction as gr
 from dynamicgem.graph_generation import dynamic_SBM_graph as sbm
 
