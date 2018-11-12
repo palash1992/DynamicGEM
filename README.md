@@ -192,9 +192,10 @@ if not os.path.exists(outdir_tmp+'/optimalSVD'):
     os.mkdir(outdir_tmp+'/optimalSVD') 
 
 t1 = time()
+embedding.learn_embedding()
 embedding.get_embedding(outdir_tmp, 'optimalSVD')
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
-embedding.plotresults()  
+embedding.plotresults(dynamic_sbm_series)  
 ```
 The visualization of the the embedding is as follows:
 
