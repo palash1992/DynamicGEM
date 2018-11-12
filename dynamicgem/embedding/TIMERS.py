@@ -68,7 +68,7 @@ class TIMERS(StaticGraphEmbedding):
         timers=TIMERS_ALL.initialize()
         timers.TIMERS(self._datafile,self._K/2, self._Theta,self._datatype, nargout=0)
 
-    def plotresults(self):
+    def plotresults(self,dynamic_sbm_series):
         
         plt.figure()
         plt.clf()
