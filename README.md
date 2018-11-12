@@ -155,10 +155,7 @@ for temp_var in range(length):
     embs.append(emb)
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 
-plt.figure()
-plt.clf()
 viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])   
-plt.show() 
 ```
 
 The visualization of the the embedding is as follows:
@@ -189,7 +186,7 @@ if not os.path.exists(outdir+'/optimalSVD'):
     os.mkdir(outdir+'/optimalSVD') 
 
 t1 = time()
-embedding.get_embedding(outdir_tmp, 'optimalSVD')
+embedding.get_embedding(outdir+'/optimalSVD', 'optimalSVD')
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.plotresults()  
 ```
