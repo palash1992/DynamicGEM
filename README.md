@@ -119,6 +119,11 @@ node_change_num    = 10
 length             = 7
 # output directory for result
 outdir = './output'
+int='./intermediate'
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+if not os.path.exists(intr):
+    os.mkdir(intr)  
 testDataType = 'sbm_cd'
 #Generate the dynamic graph
 dynamic_sbm_series = list(sbm.get_community_diminish_series_v2(node_num, 
