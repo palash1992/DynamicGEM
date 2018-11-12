@@ -179,7 +179,8 @@ embedding = TIMERS(K         = dim_emb,
                  nodemigration = node_change_num,
                  resultdir     = outdir,
                  datatype      = testDataType)
-
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
 outdir_tmp=outdir+'/sbm_cd'
 if not os.path.exists(outdir_tmp):
     os.mkdir(outdir_tmp)
