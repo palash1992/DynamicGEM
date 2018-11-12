@@ -180,17 +180,18 @@ embedding = TIMERS(K         = dim_emb,
                  resultdir     = outdir,
                  datatype      = testDataType)
 
-if not os.path.exists(outdir):
-    os.mkdir(outdir)
-if not os.path.exists(outdir+'/incremental'):
-    os.mkdir(outdir+'/incrementalSVD')
-if not os.path.exists(outdir+'/rerunSVD'):
-    os.mkdir(outdir+'/rerunSVD') 
-if not os.path.exists(outdir+'/optimalSVD'):
-    os.mkdir(outdir+'/optimalSVD') 
+outdir_tmp=outdir+'/sbm_cd'
+if not os.path.exists(outdir_tmp):
+    os.mkdir(outdir_tmp)
+if not os.path.exists(outdir_tmp+'/incremental'):
+    os.mkdir(outdir_tmp+'/incrementalSVD')
+if not os.path.exists(outdir_tmp+'/rerunSVD'):
+    os.mkdir(outdir_tmp+'/rerunSVD') 
+if not os.path.exists(outdir_tmp+'/optimalSVD'):
+    os.mkdir(outdir_tmp+'/optimalSVD') 
 
 t1 = time()
-embedding.get_embedding(outdir+'/optimalSVD', 'optimalSVD')
+embedding.get_embedding(outdir_tmp+'/optimalSVD', 'optimalSVD')
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.plotresults()  
 ```
