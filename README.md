@@ -177,7 +177,7 @@ embedding = TIMERS(K         = dim_emb,
                  datafile      = datafile,
                  length        =  length,
                  nodemigration = node_change_num,
-                 resultdir     = output,
+                 resultdir     = outdir,
                  datatype      = testDataType)
 
 if not os.path.exists(outdir):
