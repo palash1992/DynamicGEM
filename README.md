@@ -192,7 +192,7 @@ if not os.path.exists(outdir_tmp+'/optimalSVD'):
     os.mkdir(outdir_tmp+'/optimalSVD') 
 
 t1 = time()
-embedding.get_embedding(outdir_tmp+'/optimalSVD', 'optimalSVD')
+embedding.get_embedding(outdir_tmp, 'optimalSVD')
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.plotresults()  
 ```
