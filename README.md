@@ -182,8 +182,7 @@ embedding = TIMERS(K         = dim_emb,
 
 if not os.path.exists(outdir):
     os.mkdir(outdir)
-if not os.path.exists(outdir+'/incremental
-'):
+if not os.path.exists(outdir+'/incremental'):
     os.mkdir(outdir+'/incrementalSVD')
 if not os.path.exists(outdir+'/rerunSVD'):
     os.mkdir(outdir+'/rerunSVD') 
