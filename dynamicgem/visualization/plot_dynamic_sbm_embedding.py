@@ -162,7 +162,7 @@ def plot_dynamic_sbm_embedding_v2(nodes_pos_list, dynamic_sbm_series):
         nodes_pos_list = [model.fit_transform(X) for X in nodes_pos_list]
 
     pos = 1
-    for t in xrange(length):
+    for t in range(length):
         # print(t)
         plt.subplot(220 + pos)
         pos += 1
