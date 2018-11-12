@@ -64,7 +64,7 @@ class TIMERS(StaticGraphEmbedding):
     def get_method_summary(self):
         return '%s_%d' % (self._method_name, self._d)
 
-    def learn_embedding(self):
+    def learn_embedding(self, graph=None):
         timers=TIMERS_ALL.initialize()
         timers.TIMERS(self._datafile,self._K/2, self._Theta,self._datatype, nargout=0)
 
