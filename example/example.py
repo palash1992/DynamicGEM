@@ -72,8 +72,6 @@ for temp_var in range(length):
     embs.append(emb)
 print(embedding._method_name,"---Training time:", (time() - t1))
 viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])   
-plt.savefig('./'+outdir+'/ae_static.png',bbox_inches='tight',dpi=600) 
-plt.show() 
 
 #TIMERS-----------
 datafile  = dataprep_util.prep_input_TIMERS(graphs, length, testDataType) 
@@ -94,17 +92,17 @@ if not os.path.exists(outdir+'/optimalSVD'):
     os.mkdir(outdir+'/optimalSVD') 
 
 t1 = time()
-embedding.get_embedding(outdir_tmp, 'incrementalSVD')
+embedding.get_embedding(outdir, 'incrementalSVD')
 print(embedding._method_name,"---Training time:", (time() - t1))
 embedding.plotresults()  
 
 t1 = time()
-embedding.get_embedding(outdir_tmp, 'rerunSVD')
+embedding.get_embedding(outdir, 'rerunSVD')
 print(embedding._method_name,"---Training time:", (time() - t1))
 embedding.plotresults()  
 
 t1 = time()
-embedding.get_embedding(outdir_tmp, 'optimalSVD')
+embedding.get_embedding(outdir, 'optimalSVD')
 print(embedding._method_name,"---Training time:", (time() - t1))
 embedding.plotresults()  
 
