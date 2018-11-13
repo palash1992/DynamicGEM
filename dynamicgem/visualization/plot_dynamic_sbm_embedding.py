@@ -80,7 +80,7 @@ def plot_single_step_v2(node_pos, graph_info, graph_info_next, purturbed_nodes, 
     node_colors= plot_util.get_node_color(graph_info_next[1])
     node_num, embedding_dimension = node_pos.shape
     pos = {}
-    for i in xrange(node_num):
+    for i in range(node_num):
         pos[i] = node_pos[i, :]
     # unchanged_nodes = list(set(range(node_num)) - set(purturbed_nodes) - set(dyn_changed_node))
     unchanged_nodes = list(set(range(node_num)) - set(dyn_changed_node))
@@ -139,7 +139,7 @@ def plot_dynamic_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
         nodes_pos_list = [model.fit_transform(X) for X in nodes_pos_list]
 
     pos = 1
-    for t in xrange(length):
+    for t in range(length):
         # print(t)
         plt.subplot(220 + pos)
         pos += 1
