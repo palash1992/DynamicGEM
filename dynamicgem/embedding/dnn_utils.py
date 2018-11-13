@@ -847,7 +847,7 @@ def get_lstm_autoencoder(encoder, decoder):
     # Generate reconstruction
     x_hat = decoder(y)
     # Autoencoder Model
-    autoencoder = Model(input=x, output=[x_hat, y])
+    autoencoder = Model(input=x, outputs=[x_hat, y])
     return autoencoder
 
 
