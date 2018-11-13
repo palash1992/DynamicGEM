@@ -40,7 +40,7 @@ def plot_single_step(node_pos, graph_info, graph_info_next, changed_node):
     node_colors= plot_util.get_node_color(graph_info_next[1])
     node_num, embedding_dimension = node_pos.shape
     pos = {}
-    for i in xrange(node_num):
+    for i in range(node_num):
         pos[i] = node_pos[i, :]
     unchanged_nodes = list(set(range(node_num)) - set(changed_node))
 
