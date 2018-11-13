@@ -24,11 +24,11 @@ from keras.layers import Input, Dense, Lambda, merge, Subtract
 from keras.models import Model, model_from_json
 import keras.regularizers as Reg
 from keras.optimizers import SGD, Adam
-from keras.callbacks import TensorBoard
+# from keras.callbacks import TensorBoard
 from keras import callbacks
 from keras import backend as KBack
 from .dnn_utils import *
-import tensorflow as tf
+# import tensorflow as tf
 from tensorflow.python import debug as tf_debug
 import operator
 import pdb
@@ -84,16 +84,16 @@ class DynRNN(DynamicGraphEmbedding):
 
         ###################################
         # TensorFlow wizardry
-        config = tf.ConfigProto()
+#         config = tf.ConfigProto()
          
         # Don't pre-allocate memory; allocate as-needed
-        config.gpu_options.allow_growth = True
+#         config.gpu_options.allow_growth = True
          
         # Only allow a total of half the GPU memory to be allocated
-        config.gpu_options.per_process_gpu_memory_fraction = 0.2
+#         config.gpu_options.per_process_gpu_memory_fraction = 0.2
          
         # Create a session with the above options specified.
-        KBack.tensorflow_backend.set_session(tf.Session(config=config))
+#         KBack.tensorflow_backend.set_session(tf.Session(config=config))
 
 
         # Create a session to pass the above configuration
