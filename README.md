@@ -120,7 +120,7 @@ node_change_num    = 10
 length             = 7
 # output directory for result
 outdir = './output'
-int='./intermediate'
+intr='./intermediate'
 if not os.path.exists(outdir):
     os.mkdir(outdir)
 if not os.path.exists(intr):
