@@ -182,7 +182,7 @@ class DynRNN(DynamicGraphEmbedding):
                 True
             ),
             epochs=self._num_iter,
-            samples_per_epoch=(
+            steps_per_epoch=(
                 graphs[0].number_of_nodes() *  self._n_prev_graphs
             ) // self._n_batch,
             verbose=1
