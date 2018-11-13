@@ -8,6 +8,7 @@ import os
 #import helper libraries
 from dynamicgem.utils      import graph_util, plot_util, dataprep_util
 from dynamicgem.evaluation import visualize_embedding as viz
+from dynamicgem.visualization import plot_dynamic_sbm_embedding
 from dynamicgem.evaluation import evaluate_graph_reconstruction as gr
 from dynamicgem.graph_generation import dynamic_SBM_graph as sbm
 
@@ -31,7 +32,11 @@ node_change_num    = 10
 length             = 7
 # output directory for result
 outdir = './output'
-intr   =  './intermediate'
+int='./intermediate'
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+if not os.path.exists(intr):
+    os.mkdir(intr)  
 testDataType = 'sbm_cd'
 #Generate the dynamic graph
 dynamic_sbm_series = list(sbm.get_community_diminish_series_v2(node_num, 
@@ -45,12 +50,8 @@ graphs     = [g[0] for g in dynamic_sbm_series]
 dim_emb  = 128
 lookback = 2
 
-if not os.path.exists(outdir):
-    os.mkdir(outdir)
-if not os.path.exists(intr):
-    os.mkdir(intr)    
 
-#AE Static----------
+#AE Static
 embedding = AE(d            = dim_emb, 
                  beta       = 5, 
                  nu1        = 1e-6, 
@@ -70,43 +71,38 @@ t1 = time()
 for temp_var in range(length):
     emb, _= embedding.learn_embeddings(graphs[temp_var])
     embs.append(emb)
-print(embedding._method_name,"---Training time:", (time() - t1))
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+
 viz.plot_static_sbm_embedding(embs[-4:], dynamic_sbm_series[-4:])   
 
-#TIMERS-----------
+#TIMERS
 datafile  = dataprep_util.prep_input_TIMERS(graphs, length, testDataType) 
 embedding = TIMERS(K         = dim_emb, 
                  Theta         = 0.5, 
                  datafile      = datafile,
                  length        =  length,
                  nodemigration = node_change_num,
-                 resultdir     = output,
+                 resultdir     = outdir,
                  datatype      = testDataType)
-
-
-if not os.path.exists(outdir+'/incrementalSVD'):
-    os.mkdir(outdir+'/incrementalSVD')
-if not os.path.exists(outdir+'/rerunSVD'):
-    os.mkdir(outdir+'/rerunSVD') 
-if not os.path.exists(outdir+'/optimalSVD'):
-    os.mkdir(outdir+'/optimalSVD') 
-
-t1 = time()
-embedding.get_embedding(outdir, 'incrementalSVD')
-print(embedding._method_name,"---Training time:", (time() - t1))
-embedding.plotresults()  
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+outdir_tmp=outdir+'/sbm_cd'
+if not os.path.exists(outdir_tmp):
+    os.mkdir(outdir_tmp)
+if not os.path.exists(outdir_tmp+'/incremental'):
+    os.mkdir(outdir_tmp+'/incrementalSVD')
+if not os.path.exists(outdir_tmp+'/rerunSVD'):
+    os.mkdir(outdir_tmp+'/rerunSVD') 
+if not os.path.exists(outdir_tmp+'/optimalSVD'):
+    os.mkdir(outdir_tmp+'/optimalSVD') 
 
 t1 = time()
-embedding.get_embedding(outdir, 'rerunSVD')
-print(embedding._method_name,"---Training time:", (time() - t1))
-embedding.plotresults()  
+embedding.learn_embedding()
+embedding.get_embedding(outdir_tmp, 'optimalSVD')
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+embedding.plotresults(dynamic_sbm_series)  
 
-t1 = time()
-embedding.get_embedding(outdir, 'optimalSVD')
-print(embedding._method_name,"---Training time:", (time() - t1))
-embedding.plotresults()  
-
-#dynAE------------
+#dynAE
 embedding= DynAE(d           = dim_emb,
                  beta           = 5,
                  n_prev_graphs  = lookback,
@@ -127,14 +123,13 @@ t1 = time()
 for temp_var in range(lookback+1, length+1):
                 emb, _ = embedding.learn_embeddings(graphs[:temp_var])
                 embs.append(emb)
-      
-print(embedding._method_name,"---Training time:", (time() - t1))
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 plt.figure()
 plt.clf()    
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 
-#dynRNN-------------
+#dynRNN
 embedding= DynRNN(d        = dim_emb,
                 beta           = 5,
                 n_prev_graphs  = lookback,
@@ -156,14 +151,13 @@ t1 = time()
 for temp_var in range(lookback+1, length+1):
                 emb, _ = embedding.learn_embeddings(graphs[:temp_var])
                 embs.append(emb)
-      
-print(embedding._method_name,"---Training time:", (time() - t1))
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 plt.figure()
 plt.clf()    
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 
-#dynAERNN------------
+#dynAERNN
 embedding = DynAERNN(d   = dim_emb,
             beta           = 5,
             n_prev_graphs  = lookback,
@@ -186,14 +180,13 @@ t1 = time()
 for temp_var in range(lookback+1, length+1):
                 emb, _ = embedding.learn_embeddings(graphs[:temp_var])
                 embs.append(emb)
-      
-print(embedding._method_name,"---Training time:", (time() - t1))
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 plt.figure()
 plt.clf()    
 plot_dynamic_sbm_embedding.plot_dynamic_sbm_embedding_v2(embs[-5:-1], dynamic_sbm_series[-5:])    
 plt.show()
 
-#dynamicTriad------------
+#dynamicTriad
 datafile  = dataprep_util.prep_input_dynTriad(graphs, length, testDataType)
 embedding= dynamicTriad(niters     = 20,
                  starttime  = 0,
@@ -225,5 +218,5 @@ embedding= dynamicTriad(niters     = 20,
                  node_num     = node_num )
 t1 = time()
 embedding.learn_embedding()
-print(embedding._method_name,"---Training time:", (time() - t1))
+print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.get_embedding()
