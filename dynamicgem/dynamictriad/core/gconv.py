@@ -6,7 +6,8 @@ import dynamicgem.dynamictriad.core.utils
 
 import ctypes
 import os
-mygraph=ctypes.cdll.LoadLibrary(os.path.realpath('')+'/dynamicgem/dynamictriad/core/mygraph.so')
+# mygraph=ctypes.cdll.LoadLibrary(os.path.realpath('')+'/dynamicgem/dynamictriad/core/mygraph.so')
+import dynamicgem.dynamictriad.core.mygraph as mygraph
 import dynamicgem.dynamictriad.core.mygraph_utils as mgutils
 
 def graphtool2mygraph(g, **_):
