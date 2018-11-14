@@ -74,7 +74,7 @@ class Archivable(object):
 
 class OffsetList(Archivable):
     def __init__(self, offset, length, datasrc, copy=True, managed=None):
-        self.offset = offset
+        self.offset = int(offset)
         self.length = length
         self.__managed = managed
         if hasattr(datasrc, '__getitem__'):
@@ -191,6 +191,7 @@ class OffsetList(Archivable):
         return ret
 
     def _load_item(self, step):
+        step=int(step)
         # do some caching
         if self.__accessed.get(step, None) is None:
             self.__items[step - self.offset] = self.__factory(step)
