@@ -4,7 +4,7 @@ import math
 import os
 import ctypes
 # mygraph=ctypes.cdll.LoadLibrary(os.path.realpath('')+'/dynamicgem/dynamictriad/core/mygraph.so')
-import dynamicgem.dynamictriad.core.mygraph
+import dynamicgem.dynamictriad.core.mygraph as mygraph
 
 
 def type2python(tp):
