@@ -177,7 +177,10 @@ class Sampler(pos_neg.Sampler, WithData):
     @staticmethod
     def __sample_one_uncached(data, nodenames, name2idx, mygraphs, localstep):
         k, src, tgt = [int(d) for d in data]  # convert from np types to int, to avoid problems in c extensions
-
+        k=int(k)
+        src=int(src)
+        tgt=int(tgt)
+        localstep=int(localstep)
         myg = mygraphs[k - localstep]
         mynextg = mygraphs[k + 1 - localstep]
 
