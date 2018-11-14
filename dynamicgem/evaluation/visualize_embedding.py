@@ -87,7 +87,7 @@ def plot_single_step(node_pos, graph_info,  dyn_changed_node):
                                       node_color='r', 
                                       node_size=80, 
                                       with_labels=False)
-    nodes_draw.set_edgecolor('k')
+#     nodes_draw.set_edgecolor('k')
 
 def plot_static_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
     length = len(dynamic_sbm_series)
