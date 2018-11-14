@@ -448,18 +448,18 @@ class dynamicTriad(StaticGraphEmbedding):
         plt.clf()
         viz.plot_static_sbm_embedding(self._X[-4:], dynamic_sbm_series[-4:])
 
-        outdir=self._resultdir
-        if not os.path.exists(outdir):
-            os.mkdir(outdir)
-        outdir=outdir+ '/'+self._testDataType   
-        if not os.path.exists(outdir):
-            os.mkdir(outdir) 
+#         outdir=self._resultdir
+#         if not os.path.exists(outdir):
+#             os.mkdir(outdir)
+#         outdir=outdir+ '/'+self._testDataType   
+#         if not os.path.exists(outdir):
+#             os.mkdir(outdir) 
 
-        outdir= outdir+'/dynTRIAD' 
-        if not os.path.exists('./'+outdir):
-            os.mkdir('./'+outdir)
-        plt.savefig('./'+outdir+'/V_dynTriad_nm'+str(args.nodemigration)+'_l'+str(length)+'_epoch'+str(epochs)+'_emb'+str(args.embdim)+'.pdf',bbox_inches='tight',dpi=600)
-        plt.show()
+#         outdir= outdir+'/dynTRIAD' 
+#         if not os.path.exists('./'+outdir):
+#             os.mkdir('./'+outdir)
+#         plt.savefig('./'+outdir+'/V_dynTriad_nm'+str(args.nodemigration)+'_l'+str(length)+'_epoch'+str(epochs)+'_emb'+str(args.embdim)+'.pdf',bbox_inches='tight',dpi=600)
+#         plt.show()
         # plt.close()
 
 if __name__ == '__main__':
