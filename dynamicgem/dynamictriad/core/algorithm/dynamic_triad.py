@@ -13,9 +13,9 @@ try:
     from sklearn.model_selection import cross_val_score, KFold, StratifiedKFold
 except ImportError:
     from sklearn.cross_validation import cross_val_score, KFold, StratifiedKFold
-from core import utils
-from core import gconfig as gconf
-from .embutils import TrainFlow, WithData, Validator
+from dynamicgem.dynamictriad.core import utils
+from dynamicgem.dynamictriad.core import gconfig as gconf
+from dynamicgem.dynamictriad.core.algorithm.embutils import TrainFlow, WithData, Validator
 
 try:
     import dynamicgem.dynamictriad.core.algorithm.dynamic_triad_cimpl as cimpl
