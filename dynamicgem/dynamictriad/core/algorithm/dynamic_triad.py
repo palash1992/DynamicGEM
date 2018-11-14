@@ -8,7 +8,7 @@ import numpy as np
 import math
 import warnings
 import sys
-from .samplers.pos_neg_tri import Sampler
+from dynamicgem.dynamictriad.core.algorithm.samplers.pos_neg_tri import Sampler
 try:
     from sklearn.model_selection import cross_val_score, KFold, StratifiedKFold
 except ImportError:
