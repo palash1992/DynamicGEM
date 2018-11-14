@@ -32,7 +32,7 @@ def prep_input_dynTriad(graphs, length, dataname):
         for i,adj in enumerate(nx.generate_adjlist(G)):
 
            text_file.write(str(i))
-           for nodes in adj:
+           for nodes in adj.split(" "):
               weight= 1.0
               text_file.write(" ")
               text_file.write(str(nodes))
