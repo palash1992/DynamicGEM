@@ -36,8 +36,8 @@ def prep_input_dynTriad(graphs, length, dataname):
               weight= 1.0
               text_file.write(" ")
               text_file.write(str(nodes))
-#               text_file.write(" ")
-#               text_file.write(str(weight))
+              text_file.write(" ")
+              text_file.write(str(weight))
            text_file.write("\n")
   return os.path.abspath(dirname)
 
