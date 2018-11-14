@@ -344,6 +344,7 @@ t1 = time()
 embedding.learn_embedding()
 print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
 embedding.get_embedding()
+embedding.plotresults(dynamic_sbm_series)
 ```
 The visualization of the the embedding is as follows:
 
