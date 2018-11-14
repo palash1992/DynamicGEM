@@ -286,7 +286,7 @@ class dynamicTriad(StaticGraphEmbedding):
             self.export(tm.dataset.mygraphs['any'].vertices(), tm.export(), self._outdir)
 
         # online training disabled
-        startstep = tm.dataset.time2step(self._starttime)
+        startstep = int(tm.dataset.time2step(self._starttime))
         for y in range(startstep + self._pretrain_size, startstep + self._nsteps):
             raise NotImplementedError()
 
