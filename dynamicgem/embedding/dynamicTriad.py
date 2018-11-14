@@ -207,7 +207,7 @@ class dynamicTriad(StaticGraphEmbedding):
         Dataset = self.load_datamod(self._datasetmod)
 
         ds = Dataset(self._datafile, self._starttime, self._nsteps, stepsize=self._stepsize, stepstride=self._stepstride)
-        self.load_or_update_cache(ds, self._cachefn)
+#         self.load_or_update_cache(ds, self._cachefn)
         # dsargs = {'datafile': self._datafile, 'starttime': self._starttime, 'nsteps': self._nsteps,
         #           'stepsize': self._stepsize, 'stepstride': self._stepstride, 'datasetmod': self._datasetmod}
         tm = TrainModel(ds, pretrain_size=self._pretrain_size, embdim=self._embdim, beta=self._beta,
