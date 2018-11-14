@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 import dynamicgem.dynamictriad.core.graphtool_utils as gtutils
-import dynamicgem.dynamictriad.core.utils
+import dynamicgem.dynamictriad.core.utils as utils
 # import dynamicgem.dynamictriad.core.mygraph
 
 import ctypes
