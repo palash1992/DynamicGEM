@@ -2,7 +2,7 @@ from __future__ import print_function
 from __future__ import print_function
 
 import keras.backend as K
-from core.kerasext import keras_backend_patches
+from dynamicgem.dynamictriad.core.kerasext import keras_backend_patches
 from keras import optimizers, constraints
 import numpy as np
 import math
@@ -18,7 +18,7 @@ from core import gconfig as gconf
 from .embutils import TrainFlow, WithData, Validator
 
 try:
-    import dynamic_triad_cimpl as cimpl
+    import dynamicgem.dynamictriad.core.algorithm.dynamic_triad_cimpl as cimpl
 except ImportError:
     warnings.warn("dynamic_triad_cimpl.so not found, falling back to python implementation")
     cimpl = None
