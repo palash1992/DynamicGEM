@@ -218,7 +218,7 @@ class dynamicTriad(StaticGraphEmbedding):
         print("{} edges in pretraining graphs".format(k_edgecnt))
 
         if self._pretrain_size > 0:
-            initstep = ds.time2step(self._starttime)
+            initstep = int(ds.time2step(self._starttime))
             tm.pretrain_begin(initstep, initstep + self._pretrain_size)
 
             print("generating validation set")
