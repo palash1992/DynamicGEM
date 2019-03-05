@@ -58,6 +58,11 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
       ```bash 
          export LD_LIBRARY_PATH="/usr/local/MATLAB/MATLAB_Runtime/v92/bin/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v92/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v92/sys/os/glnxa64:$LD_LIBRARY_PATH"
       ```
+    - Due to a bug in the MATLAB runtime R2017a, please perform the following steps to resolve the issue:
+     ```bash
+        cd /full_path_to_matlab_mcrroot/v94/bin/glnxa64
+        mv libexpat.so.1 libexpat.so.1.NOFIND
+     ```
     - To setup TIMERS perform the following steps:
       ```bash
          cd dynamicgem/TIMERS/TIMERS_ALL/for_redistribution_files_only
