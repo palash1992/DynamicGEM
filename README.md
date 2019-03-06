@@ -60,7 +60,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
       ```
     - Due to a bug in the MATLAB runtime R2017a, please perform the following steps to resolve the issue:
      ```bash
-        cd /full_path_to_matlab_mcrroot/v92/bin/glnxa64
+        cd /<full-path-to-MATLAB_Runtime>/v92/bin/glnxa64
         mv libexpat.so.1 libexpat.so.1.NOFIND
      ```
     - To setup TIMERS perform the following steps:
