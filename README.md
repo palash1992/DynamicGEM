@@ -82,6 +82,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
 * For setting of rest of the methods, the package uses setuptools, which is a common way of installing python modules. 
   - To install in your home directory, use:
     ```bash
+      export PYTHONPATH="/<...>/python3.5/site-packages/:$PYTHONPATH"
       python setup.py install --user
      ```
   - To install for all users on Unix/Linux:
