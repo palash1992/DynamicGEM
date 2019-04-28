@@ -60,7 +60,7 @@ def model_batch_predictor_v2(model, X, batch_size):
 
 
 def batch_generator_ae(X, beta, batch_size, shuffle):
-    number_of_batches = X.shape[0] / batch_size
+    number_of_batches = X.shape[0] // batch_size
     counter = 0
     sample_index = np.arange(X.shape[0])
     if shuffle:
@@ -80,7 +80,7 @@ def batch_generator_ae(X, beta, batch_size, shuffle):
         # y_batch[X_batch == 0] = 0#np.random.choice([0, 1], p=[0.9, 0.1])
         counter += 1
         yield X_batch, y_batch
-        if (counter == number_of_batches):
+        if counter == number_of_batches:
             if shuffle:
                 np.random.shuffle(sample_index)
             counter = 0
