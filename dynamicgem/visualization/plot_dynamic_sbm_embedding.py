@@ -1,8 +1,10 @@
 disp_avlbl = True
 from os import environ
+
 if 'DISPLAY' not in environ:
     disp_avlbl = False
     import matplotlib
+
     matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
@@ -10,6 +12,7 @@ import networkx as nx
 import numpy as np
 from sklearn.manifold import TSNE
 import sys
+
 sys.path.append('./')
 import pdb
 
@@ -35,21 +38,20 @@ plt.rc('font', **font)
 seaborn.set_style("darkgrid")
 
 
-
 def plot_single_step(node_pos, graph_info, graph_info_next, changed_node):
-    node_colors= plot_util.get_node_color(graph_info_next[1])
+    node_colors = plot_util.get_node_color(graph_info_next[1])
     node_num, embedding_dimension = node_pos.shape
     pos = {}
     for i in range(node_num):
         pos[i] = node_pos[i, :]
     unchanged_nodes = list(set(range(node_num)) - set(changed_node))
 
-    nodes_draw=nx.draw_networkx_nodes(graph_info[0], 
-                           pos, 
-                           nodelist=unchanged_nodes, 
-                           node_color=[node_colors[p] for p in unchanged_nodes], 
-                           node_size=40, 
-                           with_labels=False)
+    nodes_draw = nx.draw_networkx_nodes(graph_info[0],
+                                        pos,
+                                        nodelist=unchanged_nodes,
+                                        node_color=[node_colors[p] for p in unchanged_nodes],
+                                        node_size=40,
+                                        with_labels=False)
     nodes_draw.set_edgecolor('w')
 
     # nodes_draw=nx.draw_networkx_nodes(graph_info[0], 
@@ -68,16 +70,17 @@ def plot_single_step(node_pos, graph_info, graph_info_next, changed_node):
     #                        with_labels=False)
     # nodes_draw.set_edgecolor('w')
 
-    nodes_draw=nx.draw_networkx_nodes(graph_info[0], 
-                                      pos, 
-                                      nodelist=changed_node, 
-                                      node_color='r', 
-                                      node_size=80, 
-                                      with_labels=False)
+    nodes_draw = nx.draw_networkx_nodes(graph_info[0],
+                                        pos,
+                                        nodelist=changed_node,
+                                        node_color='r',
+                                        node_size=80,
+                                        with_labels=False)
     nodes_draw.set_edgecolor('k')
 
+
 def plot_single_step_v2(node_pos, graph_info, graph_info_next, purturbed_nodes, dyn_changed_node):
-    node_colors= plot_util.get_node_color(graph_info_next[1])
+    node_colors = plot_util.get_node_color(graph_info_next[1])
     node_num, embedding_dimension = node_pos.shape
     pos = {}
     for i in range(node_num):
@@ -85,12 +88,12 @@ def plot_single_step_v2(node_pos, graph_info, graph_info_next, purturbed_nodes, 
     # unchanged_nodes = list(set(range(node_num)) - set(purturbed_nodes) - set(dyn_changed_node))
     unchanged_nodes = list(set(range(node_num)) - set(dyn_changed_node))
 
-    nodes_draw=nx.draw_networkx_nodes(graph_info[0], 
-                           pos, 
-                           nodelist=unchanged_nodes, 
-                           node_color=[node_colors[p] for p in unchanged_nodes], 
-                           node_size=40, 
-                           with_labels=False)
+    nodes_draw = nx.draw_networkx_nodes(graph_info[0],
+                                        pos,
+                                        nodelist=unchanged_nodes,
+                                        node_color=[node_colors[p] for p in unchanged_nodes],
+                                        node_size=40,
+                                        with_labels=False)
     nodes_draw.set_edgecolor('w')
 
     # nodes_draw=nx.draw_networkx_nodes(graph_info[0], 
@@ -117,19 +120,19 @@ def plot_single_step_v2(node_pos, graph_info, graph_info_next, purturbed_nodes, 
     #                                   with_labels=False)
     # nodes_draw.set_edgecolor('k')
 
-    nodes_draw=nx.draw_networkx_nodes(graph_info[0], 
-                                      pos, 
-                                      nodelist=dyn_changed_node, 
-                                      node_color='r', 
-                                      node_size=80, 
-                                      with_labels=False)
+    nodes_draw = nx.draw_networkx_nodes(graph_info[0],
+                                        pos,
+                                        nodelist=dyn_changed_node,
+                                        node_color='r',
+                                        node_size=80,
+                                        with_labels=False)
     nodes_draw.set_edgecolor('k')
 
 
 def plot_dynamic_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
     # print("dynamic_sbm_series: ", len(dynamic_sbm_series)) 
     # print("nodes_pos_list: ", len(nodes_pos_list)) 
-    length = len(dynamic_sbm_series)-1
+    length = len(dynamic_sbm_series) - 1
     # length = len(dynamic_sbm_series)
     node_num, dimension = nodes_pos_list[0].shape
 
@@ -144,15 +147,16 @@ def plot_dynamic_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
         plt.subplot(220 + pos)
         pos += 1
 
-        plot_single_step(nodes_pos_list[t], 
-                         dynamic_sbm_series[t], 
-                         dynamic_sbm_series[t+1],
-                         dynamic_sbm_series[t+1][2])
+        plot_single_step(nodes_pos_list[t],
+                         dynamic_sbm_series[t],
+                         dynamic_sbm_series[t + 1],
+                         dynamic_sbm_series[t + 1][2])
+
 
 def plot_dynamic_sbm_embedding_v2(nodes_pos_list, dynamic_sbm_series):
     # print("dynamic_sbm_series: ", len(dynamic_sbm_series)) 
     # print("nodes_pos_list: ", len(nodes_pos_list)) 
-    length = len(dynamic_sbm_series)-1
+    length = len(dynamic_sbm_series) - 1
     # length = len(dynamic_sbm_series)
     node_num, dimension = nodes_pos_list[0].shape
 
@@ -167,11 +171,11 @@ def plot_dynamic_sbm_embedding_v2(nodes_pos_list, dynamic_sbm_series):
         plt.subplot(220 + pos)
         pos += 1
 
-        plot_single_step_v2(nodes_pos_list[t], 
-                         dynamic_sbm_series[t], 
-                         dynamic_sbm_series[t+1],
-                         dynamic_sbm_series[t][2],
-                         dynamic_sbm_series[t][3])        
+        plot_single_step_v2(nodes_pos_list[t],
+                            dynamic_sbm_series[t],
+                            dynamic_sbm_series[t + 1],
+                            dynamic_sbm_series[t][2],
+                            dynamic_sbm_series[t][3])
 
 
 if __name__ == '__main__':

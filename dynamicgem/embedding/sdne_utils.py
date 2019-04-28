@@ -27,6 +27,7 @@ def model_batch_predictor(model, X, batch_size):
             pred = curr_pred
     return pred
 
+
 def model_batch_predictor_v2(model, X, batch_size):
     n_samples = X.shape[0]
     counter = 0
@@ -34,7 +35,7 @@ def model_batch_predictor_v2(model, X, batch_size):
     pred2 = None
     while counter < n_samples // batch_size:
         next_pred, curr_pred = \
-            model.predict(X[batch_size * counter:batch_size * (counter + 1),:].toarray())
+            model.predict(X[batch_size * counter:batch_size * (counter + 1), :].toarray())
         if counter:
             pred = np.vstack((pred, curr_pred))
             pred2 = np.vstack((pred2, next_pred))
@@ -55,7 +56,8 @@ def model_batch_predictor_v2(model, X, batch_size):
         return pred, pred2
     except:
         import pdb
-        pdb.set_trace()    
+        pdb.set_trace()
+
 
 def batch_generator_ae(X, beta, batch_size, shuffle):
     number_of_batches = X.shape[0] / batch_size
@@ -73,7 +75,7 @@ def batch_generator_ae(X, beta, batch_size, shuffle):
         #     for idx2 in range(X_batch.shape[1]):
         #         if X_batch[idx, idx2] == 0:
         #             y_batch[idx, idx2] = np.random.choice([0, 1], p=[0.9, 0.1])
-        y_batch[X_batch != 0] = beta#np.random.choice([0, 1], p=[0.9, 0.1])
+        y_batch[X_batch != 0] = beta  # np.random.choice([0, 1], p=[0.9, 0.1])
         y_batch[X_batch == 0] = -2
         # y_batch[X_batch == 0] = 0#np.random.choice([0, 1], p=[0.9, 0.1])
         counter += 1

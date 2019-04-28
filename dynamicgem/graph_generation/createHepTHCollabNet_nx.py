@@ -26,8 +26,8 @@ for curr_folder in sorted(folder_names):	# Go through all the years
 			nx.write_gpickle(G, f_name)
 			file_sno += 1
 
-			print prevFolder + '_' + prevMonth + ': Number of nodes = ' + str(G.number_of_nodes())
-			print prevFolder + '_' + prevMonth + ': Number of edges = ' + str(G.number_of_edges())
+			print(prevFolder + '_' + prevMonth + ': Number of nodes = ' + str(G.number_of_nodes()))
+			print(prevFolder + '_' + prevMonth + ': Number of edges = ' + str(G.number_of_edges()))
 			prevMonth = month
 			prevFolder = curr_folder
 
@@ -62,8 +62,8 @@ for curr_folder in sorted(folder_names):	# Go through all the years
 f_name = "data/real/hep-th/graphs/month_" + str(file_sno) + "_graph.gpickle"
 nx.write_gpickle(G, f_name)
 pickle.dump(author_namesD, open("data/real/hep-th/graphs/authorsD.pickle", "wb"))
-print curr_folder + '_' + month + ': Number of nodes = ' + str(G.number_of_nodes())
-print curr_folder + '_' + month + ': Number of edges = ' + str(G.number_of_edges())							
+print(curr_folder + '_' + month + ': Number of nodes = ' + str(G.number_of_nodes()))
+print(curr_folder + '_' + month + ': Number of edges = ' + str(G.number_of_edges())	)
 
 
 

@@ -1,60 +1,37 @@
 from __future__ import print_function
-
 disp_avlbl = True
 import os
-
 if 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
 
     matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
-import numpy as np
-import scipy.io as sio
 import networkx as nx
-
 import sys
-
 sys.path.append('./')
 sys.path.append(os.path.realpath(__file__))
-
 from .static_graph_embedding import StaticGraphEmbedding
 from dynamicgem.utils import graph_util, plot_util, dataprep_util
 from dynamicgem.evaluation import visualize_embedding as viz
 from .sdne_utils import *
-from dynamicgem.graph_generation import SBM_graph
-from dynamicgem.evaluation import evaluate_graph_reconstruction as gr
-from keras.callbacks import TensorBoard
-
-from keras.layers import Input, Dense, Lambda, merge
-from keras.models import Model, model_from_json
-import keras.regularizers as Reg
-from keras.optimizers import SGD, Adam
 from keras import backend as KBack
-from keras import callbacks
 import tensorflow as tf
-from tensorflow.python import debug as tf_debug
 import argparse
 from dynamicgem.graph_generation import dynamic_SBM_graph
 import operator
-# modules required for dynamic triad
 import time
 from os import sys, path
-
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-
 from dynamicgem.dynamictriad.core import *
 from six.moves import cPickle
 import importlib
 from os.path import isfile
 import dynamicgem.dynamictriad.core.dataset.dataset_utils as du
 import dynamicgem.dynamictriad.core.algorithm.embutils as eu
-from dynamicgem.dynamictriad.scripts.stdtests import StdTests
 from dynamicgem.evaluation import evaluate_link_prediction as lp
 import pdb
 from sklearn.linear_model import LogisticRegression
-from sklearn import svm
 import random
 
 try:
@@ -65,12 +42,8 @@ from sklearn import svm
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
 
 
-# from dynamictriad.scripts import *
-
-# from theano.printing import debugprint as dbprint, pprint
-
 class dynamicTriad(StaticGraphEmbedding):
-    ''' Initialize the embedding class
+    """ Initialize the embedding class
         Args:
        t    : Type of data to test the code
        nm   : number of nodes to migrate
@@ -96,9 +69,14 @@ class dynamicTriad(StaticGraphEmbedding):
        classifier  : lr, svm
        repeat      : number of times to repeat experiment
        sm   : samples for test data
-    '''
+    """
 
-    def __init__(self, *hyper_dict, **kwargs):
+    def __init__(self, d, *hyper_dict, **kwargs):
+        super().__init__(d)
+        self._d = None
+        self._method_name = None
+        self._datatype = None
+        self._clname = None
         hyper_params = {
             'method_name': 'Dynamic TRIAD',
             'modelfile': None,
@@ -452,25 +430,10 @@ class dynamicTriad(StaticGraphEmbedding):
             return self.get_reconstructed_adj(t)
 
     def plotresults(self, dynamic_sbm_series):
-        # plt.close()
         plt.figure()
         plt.clf()
         viz.plot_static_sbm_embedding(self._X[-4:], dynamic_sbm_series[-4:])
 
-
-#         outdir=self._resultdir
-#         if not os.path.exists(outdir):
-#             os.mkdir(outdir)
-#         outdir=outdir+ '/'+self._testDataType   
-#         if not os.path.exists(outdir):
-#             os.mkdir(outdir) 
-
-#         outdir= outdir+'/dynTRIAD' 
-#         if not os.path.exists('./'+outdir):
-#             os.mkdir('./'+outdir)
-#         plt.savefig('./'+outdir+'/V_dynTriad_nm'+str(args.nodemigration)+'_l'+str(length)+'_epoch'+str(epochs)+'_emb'+str(args.embdim)+'.pdf',bbox_inches='tight',dpi=600)
-#         plt.show()
-# plt.close()
 
 if __name__ == '__main__':
 
@@ -626,9 +589,7 @@ if __name__ == '__main__':
                                  resultdir=args.resultdir,
                                  testDataType=args.testDataType,
                                  clname='lr',
-                                 node_num=node_num
-
-                                 )
+                                 node_num=node_num )
 
         embedding.learn_embedding()
         embedding.get_embedding()

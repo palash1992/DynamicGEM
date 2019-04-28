@@ -7,47 +7,31 @@ if 'DISPLAY' not in environ:
 
     matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
-import numpy as np
-import scipy.io as sio
-
 import sys
 import os
-
 sys.path.append('./')
-
 from .dynamic_graph_embedding import DynamicGraphEmbedding
 from dynamicgem.utils import plot_util, graph_util, dataprep_util
 from dynamicgem.visualization import plot_dynamic_sbm_embedding
 from dynamicgem.graph_generation import dynamic_SBM_graph
 from dynamicgem.evaluation import evaluate_link_prediction
-
-from keras import losses
 from keras.layers import Input, Dense, Lambda, merge, Subtract
 from keras.models import Model, model_from_json
-import keras.regularizers as Reg
 from keras.optimizers import SGD, Adam
 from keras.callbacks import TensorBoard, EarlyStopping
-from keras import callbacks
 from keras import backend as KBack
 from .dnn_utils import *
 import tensorflow as tf
-from tensorflow.python import debug as tf_debug
 import operator
-import pdb
 from argparse import ArgumentParser
 from time import time
 from joblib import Parallel, delayed
 
 
-# os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-# # The GPU id to use, usually either "0" or "1"
-# os.environ["CUDA_VISIBLE_DEVICES"]="1" 
-
 class DynAERNN(DynamicGraphEmbedding):
 
-    def __init__(self, *hyper_dict, **kwargs):
-        ''' Initialize the DynAERNN class
+    def __init__(self, d, *hyper_dict, **kwargs):
+        """ Initialize the DynAERNN class
 
         Args:
             d: dimension of the embedding
@@ -59,13 +43,40 @@ class DynAERNN(DynamicGraphEmbedding):
                      layers of encoder/decoder, not including the units
                      in the embedding layer
             rho: bounding ratio for number of units in consecutive layers (< 1)
-            n_iter: number of iterations for embedding 
+            n_iter: number of iterations for embedding
             xeta: sgd step size parameter
             n_batch: minibatch size for SGD or Adam
             modelfile: Files containing previous encoder and decoder models
             weightfile: Files containing previous encoder and decoder weights
             savefilesuffix: suffix for saving the files
-        '''
+        """
+        super().__init__(d)
+        self._n_lstmunits = None
+        self._n_aeunits = None
+        self._n_prev_graphs = None
+        self._savefilesuffix = None
+        self._modelfile = None
+        self._weightfile = None
+        self._n_batch = None
+        self._beta = None
+        self._xeta = None
+        self._actfn = None
+        self._nu2 = None
+        self._nu1 = None
+        self._n_units = None
+        self._n_iter = None
+        self._d = None
+        self._method_name = None
+        self._node_num = None
+        self._num_iter = None
+        self._lstmencoder = None
+        self._aedecoder= None
+        self._lstmdecoders = None
+        self._aeencoders = None
+        self._autoencoder=None
+        self._model = None
+        self._Y = None
+        self._next_adj = None
         hyper_params = {
             'method_name': 'dynAERNN',
             'actfn': 'relu',
@@ -89,23 +100,17 @@ class DynAERNN(DynamicGraphEmbedding):
     def learn_embeddings(self, graphs):
         self._node_num = graphs[0].number_of_nodes()
         t1 = time()
-
         ###################################
         # TensorFlow wizardry
         config = tf.ConfigProto()
-
         # Don't pre-allocate memory; allocate as-needed
         config.gpu_options.allow_growth = True
-
         # Only allow a total of half the GPU memory to be allocated
         config.gpu_options.per_process_gpu_memory_fraction = 0.2
-
         # Create a session to pass the above configuration
         # sess=tf.Session(config=config)
-
         # Create a tensorflow debugger wrapper
-        # sess = tf_debug.LocalCLIDebugWrapperSession(sess) 
-
+        # sess = tf_debug.LocalCLIDebugWrapperSession(sess)
         # Create a session with the above options specified.
         KBack.tensorflow_backend.set_session(tf.Session(config=config))
         # KBack.tensorflow_backend.set_session(sess)
@@ -150,7 +155,6 @@ class DynAERNN(DynamicGraphEmbedding):
             self._lstmencoder,
             self._aedecoder
         )
-
         # Initialize self._model
         # Input
         x_in = Input(
@@ -161,15 +165,10 @@ class DynAERNN(DynamicGraphEmbedding):
             shape=(self._node_num,),
             name='x_pred'
         )
-        # pdb.set_trace()
-        # Process inputs
+
         [x_hat, y] = self._autoencoder(x_in)
         # Outputs
         x_diff = Subtract()([x_hat, x_pred])
-
-        #         x_diff = merge([x_hat, x_pred],
-        #                        mode=lambda a, b: a - b,
-        #                        output_shape=lambda L: L[1])
 
         # Objectives
         def weighted_mse_x(y_true, y_pred):
@@ -220,15 +219,15 @@ class DynAERNN(DynamicGraphEmbedding):
             )
         t2 = time()
         # Save the autoencoder and its weights
-        if (self._weightfile is not None):
+        if self._weightfile is not None:
             pass
             # saveweights(self._encoder, self._weightfile[0])
             # saveweights(self._decoder, self._weightfile[1])
-        if (self._modelfile is not None):
+        if self._modelfile is not None:
             pass
             # savemodel(self._encoder, self._modelfile[0])
             # savemodel(self._decoder, self._modelfile[1])
-        if (self._savefilesuffix is not None):
+        if self._savefilesuffix is not None:
             pass
             # saveweights(self._encoder,
             #             'encoder_weights_' + self._savefilesuffix + '.hdf5')

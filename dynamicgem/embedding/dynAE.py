@@ -7,10 +7,6 @@ if 'DISPLAY' not in environ:
 
     matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
-import numpy as np
-import scipy.io as sio
-
 import sys
 import os
 
@@ -32,8 +28,6 @@ from keras import callbacks
 from keras import backend as KBack
 from .dnn_utils import *
 import tensorflow as tf
-
-import pdb
 from argparse import ArgumentParser
 from time import time
 import operator
@@ -41,8 +35,8 @@ import operator
 
 class DynAE(DynamicGraphEmbedding):
 
-    def __init__(self, *hyper_dict, **kwargs):
-        ''' Initialize the DynAE class
+    def __init__(self, d, *hyper_dict, **kwargs):
+        """ Initialize the DynAE class
 
         Args:
             d: dimension of the embedding
@@ -54,13 +48,36 @@ class DynAE(DynamicGraphEmbedding):
                      layers of encoder/decoder, not including the units
                      in the embedding layer
             rho: bounding ratio for number of units in consecutive layers (< 1)
-            n_iter: number of iterations for embedding 
+            n_iter: number of iterations for embedding
             xeta: sgd step size parameter
             n_batch: minibatch size for SGD or Adam
             modelfile: Files containing previous encoder and decoder models
             weightfile: Files containing previous encoder and decoder weights
             savefilesuffix: suffix for saving the files
-        '''
+        """
+        super().__init__(d)
+        self._n_prev_graphs = None
+        self._savefilesuffix = None
+        self._modelfile = None
+        self._weightfile = None
+        self._n_batch = None
+        self._beta = None
+        self._xeta = None
+        self._actfn = None
+        self._nu2 = None
+        self._nu1 = None
+        self._n_units = None
+        self._n_iter = None
+        self._d = None
+        self._method_name = None
+        self._node_num = None
+        self._num_iter = None
+        self._encoder = None
+        self._decoder = None
+        self._autoencoder = None
+        self._model = None
+        self._Y = None
+        self._next_adj = None
         hyper_params = {
             'method_name': 'dynAE',
             'actfn': 'relu',
@@ -84,21 +101,16 @@ class DynAE(DynamicGraphEmbedding):
     def learn_embeddings(self, graphs):
         self._node_num = graphs[0].number_of_nodes()
         t1 = time()
-
         ###################################
         # TensorFlow wizardry
         config = tf.ConfigProto()
-
         # Don't pre-allocate memory; allocate as-needed
         config.gpu_options.allow_growth = True
-
         # Only allow a total of half the GPU memory to be allocated
         config.gpu_options.per_process_gpu_memory_fraction = 0.1
-
         # Create a session with the above options specified.
         KBack.tensorflow_backend.set_session(tf.Session(config=config))
         ###################################
-
         # Generate encoder, decoder and autoencoder
         self._num_iter = self._n_iter
         self._encoder = get_encoder(self._node_num, self._d,
@@ -123,17 +135,13 @@ class DynAE(DynamicGraphEmbedding):
         # Outputs
         x_diff = Subtract()([x_hat, x_in])
 
-        #         x_diff = merge([x_hat, x_pred],
-        #                        mode=lambda a, b: a - b,
-        #                        output_shape=lambda L: L[1])
-
         # Objectives
         def weighted_mse_x(y_true, y_pred):
-            ''' Hack: This fn doesn't accept additional arguments.
+            """ Hack: This fn doesn't accept additional arguments.
                       We use y_true to pass them.
                 y_pred: Contains x_hat - x_pred
                 y_true: Contains b
-            '''
+            """
             return KBack.sum(
                 KBack.square(y_pred * y_true[:, 0:self._node_num]),
                 axis=-1
@@ -175,13 +183,13 @@ class DynAE(DynamicGraphEmbedding):
             )
         t2 = time()
         # Save the autoencoder and its weights
-        if (self._weightfile is not None):
+        if self._weightfile is not None:
             saveweights(self._encoder, self._weightfile[0])
             saveweights(self._decoder, self._weightfile[1])
-        if (self._modelfile is not None):
+        if self._modelfile is not None:
             savemodel(self._encoder, self._modelfile[0])
             savemodel(self._decoder, self._modelfile[1])
-        if (self._savefilesuffix is not None):
+        if self._savefilesuffix is not None:
             saveweights(self._encoder,
                         'encoder_weights_' + self._savefilesuffix + '.hdf5')
             saveweights(self._decoder,

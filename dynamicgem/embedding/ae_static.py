@@ -1,6 +1,8 @@
-disp_avlbl = True
 import os
+import networkx as nx
+import sys
 
+disp_avlbl = True
 if 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
@@ -8,46 +10,31 @@ if 'DISPLAY' not in os.environ:
     matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-import numpy as np
-import scipy.io as sio
-import networkx as nx
-
-import sys
-
 sys.path.append('./')
 sys.path.append(os.path.realpath(__file__))
 
 from .static_graph_embedding import StaticGraphEmbedding
-from dynamicgem.utils import graph_util, plot_util, dataprep_util
+from dynamicgem.utils import graph_util, dataprep_util
 from dynamicgem.evaluation import visualize_embedding as viz
 from .sdne_utils import *
-from dynamicgem.graph_generation import SBM_graph
-from dynamicgem.evaluation import evaluate_graph_reconstruction as gr
 from dynamicgem.evaluation import evaluate_link_prediction as lp
-from keras.callbacks import TensorBoard
-
 from keras.layers import Input, Dense, Lambda, merge, Subtract
 from keras.models import Model, model_from_json
-import keras.regularizers as Reg
 from keras.optimizers import SGD, Adam
 from keras import backend as KBack
-from keras import callbacks
 import tensorflow as tf
-from tensorflow.python import debug as tf_debug
 from argparse import ArgumentParser
 from dynamicgem.graph_generation import dynamic_SBM_graph
 import pdb
 from joblib import Parallel, delayed
 import operator
-
-# from theano.printing import debugprint as dbprint, pprint
 from time import time
 
 
 class AE(StaticGraphEmbedding):
 
-    def __init__(self, *hyper_dict, **kwargs):
-        ''' Initialize the Autoencoder class
+    def __init__(self, d, *hyper_dict, **kwargs):
+        """ Initialize the Autoencoder class
         Args:
             d: dimension of the embedding
             beta: penalty parameter in matrix B of 2nd order objective
@@ -68,7 +55,30 @@ class AE(StaticGraphEmbedding):
             node_frac: Fraction of nodes to use for random walk
             n_walks_per_node: Number of random walks to do for each selected nodes
             len_rw: Length of every random walk
-        '''
+        """
+        super().__init__(d)
+        self._savefilesuffix = None
+        self._modelfile = None
+        self._weightfile = None
+        self._n_batch = None
+        self._beta = None
+        self._xeta = None
+        self._actfn = None
+        self._nu2 = None
+        self._nu1 = None
+        self._n_units = None
+        self._n_iter = None
+        self._d = None
+        self._method_name = None
+        self._node_num = None
+        self._num_iter = None
+        self._encoder = None
+        self._decoder = None
+        self._autoencoder = None
+        self._model = None
+        self._Y = None
+        self._next_adj = None
+
         hyper_params = {
             'method_name': 'ae',
             'actfn': 'relu',
@@ -90,18 +100,13 @@ class AE(StaticGraphEmbedding):
     def get_method_summary(self):
         return '%s_%d' % (self._method_name, self._d)
 
-    def learn_embeddings(self, graph=None, edge_f=None,
-                         is_weighted=False, no_python=False):
-
+    def learn_embeddings(self, graph=None, edge_f=None):
         # TensorFlow wizardry
         config = tf.ConfigProto()
-
         # Don't pre-allocate memory; allocate as-needed
         config.gpu_options.allow_growth = True
-
         # Only allow a total of half the GPU memory to be allocated
         config.gpu_options.per_process_gpu_memory_fraction = 0.1
-
         # Create a session with the above options specified.
         KBack.tensorflow_backend.set_session(tf.Session(config=config))
 
@@ -134,17 +139,13 @@ class AE(StaticGraphEmbedding):
         # Outputs
         x_diff = Subtract()([x_hat, x_in])
 
-        #         x_diff = merge([x_hat, x_in],
-        #                        mode=lambda a, b: a - b,
-        #                        output_shape=lambda L: L[1])
-
         # Objectives
         def weighted_mse_x(y_true, y_pred):
-            ''' Hack: This fn doesn't accept additional arguments.
+            """ Hack: This fn doesn't accept additional arguments.
                       We use y_true to pass them.
                 y_pred: Contains x_hat - x
                 y_true: Contains b
-            '''
+            """
             return KBack.sum(
                 KBack.square(y_pred * y_true[:, 0:self._node_num]),
                 axis=-1
@@ -155,8 +156,6 @@ class AE(StaticGraphEmbedding):
         sgd = SGD(lr=self._xeta, decay=1e-5, momentum=0.99, nesterov=True)
         adam = Adam(lr=self._xeta, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
         self._model.compile(optimizer=sgd, loss=weighted_mse_x)
-
-        # tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
         history = self._model.fit_generator(
             generator=batch_generator_ae(S, self._beta, self._n_batch, True),
@@ -184,7 +183,7 @@ class AE(StaticGraphEmbedding):
         if self._modelfile is not None:
             savemodel(self._encoder, self._modelfile[0])
             savemodel(self._decoder, self._modelfile[1])
-        if (self._savefilesuffix is not None):
+        if self._savefilesuffix is not None:
             saveweights(self._encoder,
                         'encoder_weights_' + self._savefilesuffix + '.hdf5')
             saveweights(self._decoder,
@@ -505,7 +504,6 @@ if __name__ == '__main__':
                            'l' + str(args.timelength) + '_emb' + str(dim_emb) + '_samples' + str(sample),
                            n_sample_nodes=graphs[i].number_of_nodes()
                            )
-
 
     elif args.testDataType == 'AS':
         print("datatype:", args.testDataType)

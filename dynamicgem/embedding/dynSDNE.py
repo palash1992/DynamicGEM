@@ -35,7 +35,7 @@ from time import time
 class DynSDNE(DynamicGraphEmbedding):
 
     def __init__(self, *hyper_dict, **kwargs):
-        ''' Initialize the DynSDNE class
+        """ Initialize the DynSDNE class
 
         Args:
             d: dimension of the embedding
@@ -53,7 +53,7 @@ class DynSDNE(DynamicGraphEmbedding):
             n_batch: minibatch size for SGD
             modelfile: Files containing previous encoder and decoder models
             weightfile: Files containing previous encoder and decoder weights
-        '''
+        """
         hyper_params = {
             'method_name': 'dynSDNE',
             'actfn': 'relu',
@@ -182,13 +182,13 @@ class DynSDNE(DynamicGraphEmbedding):
         self._Y = model_batch_predictor(self._autoencoder, S, self._n_batch)
         t2 = time()
         # Save the autoencoder and its weights
-        if(self._weightfile is not None):
+        if self._weightfile is not None:
             saveweights(self._encoder, self._weightfile[0])
             saveweights(self._decoder, self._weightfile[1])
-        if(self._modelfile is not None):
+        if self._modelfile is not None:
             savemodel(self._encoder, self._modelfile[0])
             savemodel(self._decoder, self._modelfile[1])
-        if(self._savefilesuffix is not None):
+        if self._savefilesuffix is not None:
             saveweights(
                 self._encoder,
                 'encoder_weights_' + self._savefilesuffix + '.hdf5'

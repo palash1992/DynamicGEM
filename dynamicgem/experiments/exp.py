@@ -4,7 +4,6 @@ from time import time
 from argparse import ArgumentParser
 import importlib
 import json
-import cPickle
 import networkx as nx
 import itertools
 import pdb
@@ -31,10 +30,10 @@ def learn_emb(MethObj, graphs, params, res_pre, m_summ):
     if params["experiments"] == ["lp"]:
         X = None
     else:
-        print 'Learning Embedding: %s' % m_summ
+        print('Learning Embedding: %s' % m_summ)
         if not bool(int(params["load_emb"])):
             X, learn_t = MethObj.learn_embeddings(graphs)
-            print '\tTime to learn embedding: %f sec' % learn_t
+            print('\tTime to learn embedding: %f sec' % learn_t)
             pickle.dump(
                 X,
                 open('%s_%s_%d.emb' % (res_pre, m_summ, len(graphs)), 'wb')
@@ -51,9 +50,9 @@ def learn_emb(MethObj, graphs, params, res_pre, m_summ):
                     open('%s_%s_%d.learnT' % (res_pre, m_summ, len(graphs)),
                                            'rb')
                 )
-                print '\tTime to learn emb.: %f sec' % learn_t
+                print('\tTime to learn emb.: %f sec' % learn_t)
             except IOError:
-                print '\tTime info not found'
+                print('\tTime info not found')
     return X
 
 
@@ -126,7 +125,7 @@ def choose_best_hyp(data_set, graphs, params):
         for hyp in itertools.product(*meth_hyp_range.values()):
             hyp_d = {"d": dim}
             hyp_d.update(dict(zip(meth_hyp_range.keys(), hyp)))
-            print hyp_d
+            print(hyp_d)
             if meth == "dynAE" or meth == "dynRNN" or meth == "dynAERNN":
                 hyp_d.update({
                     "modelfile": [
@@ -334,7 +333,7 @@ if __name__ == '__main__':
 
     params = json.load(open('experiments/config/params.conf', 'r'))
     args = vars(parser.parse_args())
-    print args
+    print(args)
     for k, v in args.iteritems():
         if v is not None:
             params[k] = v
@@ -353,7 +352,7 @@ if __name__ == '__main__':
     else:
         params["methods"] = params["methods"].split(',')
     params["dimensions"] = params["dimensions"].split(',')
-    print params
+    print(params)
     for data_set in params["data_sets"]:
         if not int(params["load_exp"]):
             call_exps(params, data_set, int(params["n_graphs"]))

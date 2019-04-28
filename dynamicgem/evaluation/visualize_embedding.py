@@ -3,6 +3,7 @@ import networkx as nx
 from sklearn.manifold import TSNE
 
 import sys
+
 sys.path.insert(0, './')
 from dynamicgem.utils import plot_util
 
@@ -26,7 +27,7 @@ seaborn.set_style("darkgrid")
 
 def plot_embedding2D(node_pos, node_colors=None, di_graph=None):
     node_num, embedding_dimension = node_pos.shape
-    if(embedding_dimension > 2):
+    if (embedding_dimension > 2):
         print("Embedding dimension greater than 2, use tSNE to reduce it to 2")
         model = TSNE(n_components=2)
         node_pos = model.fit_transform(node_pos)
@@ -40,16 +41,16 @@ def plot_embedding2D(node_pos, node_colors=None, di_graph=None):
         for i in range(node_num):
             pos[i] = node_pos[i, :]
         if node_colors:
-            nodes_draw=nx.draw_networkx_nodes(di_graph, pos,
-                                   node_color=node_colors,
-                                   width=0.1, node_size=40,
-                                   arrows=False, alpha=0.8,
-                                   font_size=5)
+            nodes_draw = nx.draw_networkx_nodes(di_graph, pos,
+                                                node_color=node_colors,
+                                                width=0.1, node_size=40,
+                                                arrows=False, alpha=0.8,
+                                                font_size=5)
             nodes_draw.set_edgecolor('w')
         else:
-            nodes_draw=nx.draw_networkx(di_graph, pos, node_color=node_colors,
-                             width=0.1, node_size=40, arrows=False,
-                             alpha=0.8, font_size=12)
+            nodes_draw = nx.draw_networkx(di_graph, pos, node_color=node_colors,
+                                          width=0.1, node_size=40, arrows=False,
+                                          alpha=0.8, font_size=12)
             nodes_draw.set_edgecolor('w')
 
 
@@ -65,28 +66,31 @@ def expVis(X, res_pre, m_summ, node_labels=None, di_graph=None):
                 format='pdf', bbox_inches='tight')
     plt.figure()
 
-def plot_single_step(node_pos, graph_info,  dyn_changed_node):
-    node_colors= plot_util.get_node_color(graph_info[1])
+
+def plot_single_step(node_pos, graph_info, dyn_changed_node):
+    node_colors = plot_util.get_node_color(graph_info[1])
     node_num, embedding_dimension = node_pos.shape
     pos = {}
     for i in range(node_num):
         pos[i] = node_pos[i, :]
     unchanged_nodes = list(set(range(node_num)) - set(dyn_changed_node))
 
-    nodes_draw=nx.draw_networkx_nodes(graph_info[0], 
-                           pos, 
-                           nodelist=unchanged_nodes, 
-                           node_color=[node_colors[p] for p in unchanged_nodes], 
-                           node_size=40, 
-                           with_labels=False)
+    nodes_draw = nx.draw_networkx_nodes(graph_info[0],
+                                        pos,
+                                        nodelist=unchanged_nodes,
+                                        node_color=[node_colors[p] for p in unchanged_nodes],
+                                        node_size=40,
+                                        with_labels=False)
     nodes_draw.set_edgecolor('w')
 
-    nodes_draw=nx.draw_networkx_nodes(graph_info[0], 
-                                      pos, 
-                                      nodelist=dyn_changed_node, 
-                                      node_color='r', 
-                                      node_size=80, 
-                                      with_labels=False)
+    nodes_draw = nx.draw_networkx_nodes(graph_info[0],
+                                        pos,
+                                        nodelist=dyn_changed_node,
+                                        node_color='r',
+                                        node_size=80,
+                                        with_labels=False)
+
+
 #     nodes_draw.set_edgecolor('k')
 
 def plot_static_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
@@ -104,8 +108,7 @@ def plot_static_sbm_embedding(nodes_pos_list, dynamic_sbm_series):
         plt.subplot(220 + pos)
         pos += 1
 
-        plot_single_step(nodes_pos_list[t], 
-                         dynamic_sbm_series[t], 
-                         dynamic_sbm_series[t][3]) 
-    plt.show()    
-     
+        plot_single_step(nodes_pos_list[t],
+                         dynamic_sbm_series[t],
+                         dynamic_sbm_series[t][3])
+    plt.show()

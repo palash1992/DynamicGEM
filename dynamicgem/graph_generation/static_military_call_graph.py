@@ -71,5 +71,5 @@ class StaticMilitaryGraph(object):
 if __name__ == '__main__':
 	militaryGraph = StaticMilitaryGraph(1000, 100, 10, 1, [0.1]*3, [0.01]*3, 0.1, 0.1)
 	militaryGraph.sample_graph()
-	print militaryGraph._graph.number_of_edges()
+	print(militaryGraph._graph.number_of_edges())
 	pdb.set_trace()

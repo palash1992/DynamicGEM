@@ -32,7 +32,7 @@ def _resample_egde_for_node(sbm_graph, node_id):
         sbm_graph.sample_graph()
     else:
         n = sbm_graph._node_num
-        for i in xrange(n):
+        for i in range(n):
             if i == node_id:
                 continue
             if sbm_graph._graph.has_edge(node_id, i):
@@ -49,14 +49,14 @@ def dyn_node_chng_v2(sbm_graph, node_id):
         sbm_graph.sample_graph()
     else:
         n = sbm_graph._node_num
-        othercommnodes =[i for i in xrange(n) if sbm_graph._node_community[i]!=sbm_graph._node_community[node_id] if not sbm_graph._graph.has_edge(node_id, i)]
+        othercommnodes =[i for i in range(n) if sbm_graph._node_community[i]!=sbm_graph._node_community[node_id] if not sbm_graph._graph.has_edge(node_id, i)]
         edgesnodes = random.sample(othercommnodes,30)
         for i in edgesnodes:
             sbm_graph._graph.add_edge(node_id, i)
             sbm_graph._graph.add_edge(i, node_id)
         
         
-        for i in xrange(n):
+        for i in range(n):
             if i == node_id:
                 continue
             if sbm_graph._node_community[i]==sbm_graph._node_community[node_id]:    
@@ -69,7 +69,7 @@ def dyn_node_chng_v2(sbm_graph, node_id):
 
 def diminish_community_v2(sbm_graph, community_id, nodes_to_purturb, chngnodes):
     n = sbm_graph._node_num
-    community_nodes = [i for i in xrange(n) if sbm_graph._node_community[i] == community_id]
+    community_nodes = [i for i in range(n) if sbm_graph._node_community[i] == community_id]
     nodes_to_purturb = min(len(community_nodes), nodes_to_purturb)
     
     perturb_nodes=chngnodes
@@ -91,12 +91,12 @@ def diminish_community_v2(sbm_graph, community_id, nodes_to_purturb, chngnodes):
     
     
 
-    left_communitis = [i for i in xrange(sbm_graph._community_num) if i != community_id]
+    left_communitis = [i for i in range(sbm_graph._community_num) if i != community_id]
     for node_id in perturb_nodes:
         new_community = random.sample(left_communitis, 1)[0]
-        print 'Node %d change from community %d to %d' % (node_id, 
+        print ('Node %d change from community %d to %d' % (node_id,
                                                           sbm_graph._node_community[node_id], 
-                                                          new_community)
+                                                          new_community))
         sbm_graph._node_community[node_id] = new_community
     for node_id in perturb_nodes:
         _resample_egde_for_node(sbm_graph, node_id)
@@ -114,7 +114,7 @@ def diminish_community_v2(sbm_graph, community_id, nodes_to_purturb, chngnodes):
                                       with_labels=False)
     nodes_draw.set_edgecolor('k')
 
-    nodes=[i for i in xrange(n) if sbm_graph._node_community[i] == community_id ]
+    nodes=[i for i in range(n) if sbm_graph._node_community[i] == community_id ]
 
     chngnodes = random.sample(nodes, nodes_to_purturb)
     for node_id in chngnodes:
@@ -157,8 +157,8 @@ def get_community_diminish_series_v2(node_num,
     nodes_comunities = [my_graph._node_community[:]]
     perturbations = [[]]
     dyn_change_nodes = [[]]
-    for i in xrange(length - 1):
-        print 'Step %d' % i
+    for i in range(length - 1):
+        print('Step %d' % i)
         
         print("Migrating Nodes")
         print(chngnodes)

@@ -7,7 +7,7 @@ import sys
 sys.path.append('./')
 # from graph_generation import SBM_graph
 from utils import graph_util
-import SBM_graph
+from .SBM_graph import SBM_graph
 
 from matplotlib import rc
 import random
@@ -48,7 +48,7 @@ def _resample_egde_for_node(sbm_graph, node_id):
         sbm_graph.sample_graph()
     else:
         n = sbm_graph._node_num
-        for i in xrange(n):
+        for i in range(n):
             if i == node_id or sbm_graph._node_community[i]==sbm_graph._node_community[node_id]:
                 continue
             if sbm_graph._graph.has_edge(node_id, i):

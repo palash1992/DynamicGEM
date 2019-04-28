@@ -34,9 +34,9 @@ def model_batch_predictor(model, X, batch_size):
             pred = curr_pred
             pred2 = next_pred
     try:
-        return pred #, pred2
+        return pred  # , pred2
     except:
-        pdb.set_trace()     
+        pdb.set_trace()
 
 
 def model_batch_predictor_dynrnn(model, graphs, batch_size):
@@ -85,9 +85,10 @@ def model_batch_predictor_dynrnn(model, graphs, batch_size):
             pred2 = next_pred
     try:
         # return pred, pred2
-        return pred[:,-1,:].reshape((pred.shape[0], pred.shape[2])), pred2
+        return pred[:, -1, :].reshape((pred.shape[0], pred.shape[2])), pred2
     except:
         pdb.set_trace()
+
 
 def model_batch_predictor_dynrnn_v2(model, graphs, batch_size):
     n_samples = graphs[0].number_of_nodes()
@@ -157,7 +158,7 @@ def model_batch_predictor_dynaernn(model, graphs, batch_size):
         for idx, record_id in enumerate(indices):
             node_idx = record_id
             for tau in range(look_back):
-                X[idx, tau*n:(tau+1)*n] = graphs_sp[tau][node_idx, :].toarray()
+                X[idx, tau * n:(tau + 1) * n] = graphs_sp[tau][node_idx, :].toarray()
 
         next_pred, curr_pred = \
             model.predict(X)
@@ -175,7 +176,7 @@ def model_batch_predictor_dynaernn(model, graphs, batch_size):
         for idx, record_id in enumerate(indices):
             node_idx = record_id
             for tau in range(look_back):
-                X[idx, tau*n:(tau+1)*n] = graphs_sp[tau][node_idx, :].toarray()
+                X[idx, tau * n:(tau + 1) * n] = graphs_sp[tau][node_idx, :].toarray()
         next_pred, curr_pred = \
             model.predict(X)
         if counter:
@@ -185,7 +186,6 @@ def model_batch_predictor_dynaernn(model, graphs, batch_size):
             pred = curr_pred
             pred2 = next_pred
     return pred, pred2
-
 
 
 def model_batch_predictor_dynae_v2(model, graphs, batch_size):
@@ -237,7 +237,8 @@ def model_batch_predictor_dynae_v2(model, graphs, batch_size):
         return pred.reshape((pred.shape[0], pred.shape[2])), pred2
     except:
         pdb.set_trace()
-        
+
+
 def model_batch_predictor_dynae(model, graphs, batch_size):
     n_samples = graphs[0].number_of_nodes()
     look_back = len(graphs)
@@ -258,7 +259,7 @@ def model_batch_predictor_dynae(model, graphs, batch_size):
                 X[idx, :] = graphs_sp[0][node_idx, :].toarray()
             except Exception as e:
                 print(e.message)
-                pdb.set_trace()    
+                pdb.set_trace()
 
         next_pred, curr_pred = \
             model.predict(X)
@@ -280,7 +281,7 @@ def model_batch_predictor_dynae(model, graphs, batch_size):
                 X[idx, :] = graphs_sp[0][node_idx, :].toarray()
             except Exception as e:
                 print(e.message)
-                pdb.set_trace() 
+                pdb.set_trace()
         next_pred, curr_pred = \
             model.predict(X)
         if counter:
@@ -306,7 +307,7 @@ def batch_generator_dynae(graphs, beta, batch_size, look_back, shuffle):
     if not train_size:
         return
     number_of_batches = (d * train_size) // batch_size
-    if number_of_batches<0:
+    if number_of_batches < 0:
         pdb.set_trace()
     print('# of batches: %d' % number_of_batches)
     counter = 0
@@ -322,7 +323,7 @@ def batch_generator_dynae(graphs, beta, batch_size, look_back, shuffle):
             graph_idx = record_id // d
             node_idx = record_id % d
             X_batch[idx, :] = graphs_sp[graph_idx][node_idx, :].toarray()
-            X_batch2[idx] = graphs_sp[graph_idx+1][node_idx, :].toarray()
+            X_batch2[idx] = graphs_sp[graph_idx + 1][node_idx, :].toarray()
         # X_batch = graphs_sp[0][batch_index, :].toarray()
         y_batch = np.ones(X_batch2.shape)
         # y_batch = beta * np.ones(X_batch2.shape)
@@ -366,8 +367,8 @@ def batch_generator_dynrnn(graphs, beta, batch_size, look_back, shuffle):
             # X_batch[idx, :] = graphs_sp[graph_idx][node_idx, :].toarray()
             # X_batch2[idx] = graphs_sp[graph_idx+1][node_idx, :].toarray()
             for tau in range(look_back):
-                X_batch[idx, tau, :] = graphs_sp[graph_idx+tau][node_idx, :].toarray()
-            X_batch2[idx] = graphs_sp[graph_idx+look_back][node_idx, :].toarray()
+                X_batch[idx, tau, :] = graphs_sp[graph_idx + tau][node_idx, :].toarray()
+            X_batch2[idx] = graphs_sp[graph_idx + look_back][node_idx, :].toarray()
         y_batch = beta * np.ones(X_batch2.shape)
         y_batch[X_batch2 != 0] = beta
         y_batch[X_batch2 == 0] = -1
@@ -384,6 +385,7 @@ def batch_generator_dynrnn(graphs, beta, batch_size, look_back, shuffle):
             if shuffle:
                 np.random.shuffle(sample_index)
             counter = 0
+
 
 def batch_generator_dynaernn(graphs, beta, batch_size, look_back, shuffle):
     T = len(graphs)
@@ -408,8 +410,8 @@ def batch_generator_dynaernn(graphs, beta, batch_size, look_back, shuffle):
             # X_batch[idx, :] = graphs_sp[graph_idx][node_idx, :].toarray()
             # X_batch2[idx] = graphs_sp[graph_idx+1][node_idx, :].toarray()
             for tau in range(look_back):
-                X_batch[idx, tau*n:(tau+1)*n] = graphs_sp[graph_idx+tau][node_idx, :].toarray()
-            X_batch2[idx] = graphs_sp[graph_idx+look_back][node_idx, :].toarray()
+                X_batch[idx, tau * n:(tau + 1) * n] = graphs_sp[graph_idx + tau][node_idx, :].toarray()
+            X_batch2[idx] = graphs_sp[graph_idx + look_back][node_idx, :].toarray()
         y_batch = beta * np.ones(X_batch2.shape)
         y_batch[X_batch2 != 0] = beta
         y_batch[X_batch2 == 0] = -1
@@ -426,6 +428,7 @@ def batch_generator_dynaernn(graphs, beta, batch_size, look_back, shuffle):
             if shuffle:
                 np.random.shuffle(sample_index)
             counter = 0
+
 
 def batch_generator_sdne(X, beta, batch_size, shuffle):
     row_indices, col_indices = X.nonzero()
@@ -475,6 +478,7 @@ def get_encoder(node_num, d, n_units, nu1, nu2, activation_fn):
     encoder = Model(input=x, output=y[K])
     return encoder
 
+
 def get_encoder_dynaernn(node_num, d, n_units, nu1, nu2, activation_fn):
     K = len(n_units) + 1
     # Input
@@ -513,9 +517,10 @@ def get_decoder(node_num, d,
     decoder = Model(input=y, output=x_hat)
     return decoder
 
+
 def get_decoder_dynaernn(node_num, d,
-                n_units, nu1, nu2,
-                activation_fn):
+                         n_units, nu1, nu2,
+                         activation_fn):
     K = len(n_units) + 1
     # Input
     y = Input(shape=(d,))
@@ -533,7 +538,7 @@ def get_decoder_dynaernn(node_num, d,
     x_hat = y_hat[0]  # decoder's output is also the actual output
     # Decoder Model
     decoder = Model(input=y, output=x_hat)
-    return decoder    
+    return decoder
 
 
 def get_autoencoder(encoder, decoder):
@@ -547,11 +552,12 @@ def get_autoencoder(encoder, decoder):
     autoencoder = Model(input=x, output=[x_hat, y])
     return autoencoder
 
+
 def get_lstm_encoder(n_nodes, look_back, d,
-                n_units, activation_fn,
-                bias_reg, input_reg, recurr_reg,
-                ret_seq=True
-                ):
+                     n_units, activation_fn,
+                     bias_reg, input_reg, recurr_reg,
+                     ret_seq=True
+                     ):
     model = Sequential()
     # model.add(Dense(d, input_shape=(look_back, n_nodes),
     #             activation=activation_fn,
@@ -565,10 +571,9 @@ def get_lstm_encoder(n_nodes, look_back, d,
                    bias_regularizer=bias_reg,
                    kernel_regularizer=input_reg,
                    recurrent_regularizer=recurr_reg
-                   
 
                    )
-    )
+              )
     for l_idx, n_unit in enumerate(n_units[1:-1]):
         model.add(LSTM(n_unit,
                        return_sequences=True,
@@ -579,20 +584,20 @@ def get_lstm_encoder(n_nodes, look_back, d,
                   )
     if n_rnn_layers > 1:
         model.add(LSTM(n_units[-1],
-                           return_sequences=False,
-                           bias_regularizer=bias_reg,
-                           kernel_regularizer=input_reg,
-                           recurrent_regularizer=recurr_reg
-                           )
-                      )
+                       return_sequences=False,
+                       bias_regularizer=bias_reg,
+                       kernel_regularizer=input_reg,
+                       recurrent_regularizer=recurr_reg
+                       )
+                  )
     return model
 
 
 def get_lstm_decoder(n_nodes, look_back, d,
-                n_units, activation_fn,
-                nu1, nu2,
-                bias_reg, input_reg, recurr_reg
-                ):
+                     n_units, activation_fn,
+                     nu1, nu2,
+                     bias_reg, input_reg, recurr_reg
+                     ):
     model = Sequential()
     n_rnn_layers = len(n_units)
     # model.add(LSTM(d,
@@ -606,30 +611,31 @@ def get_lstm_decoder(n_nodes, look_back, d,
     for l_idx, n_unit in enumerate(n_units[::-1]):
         if l_idx < n_rnn_layers - 1:
             model.add(LSTM(n_unit,
-                          return_sequences=True,
-                          bias_regularizer=bias_reg,
-                          kernel_regularizer=input_reg,
-                          recurrent_regularizer=recurr_reg
-                          )
+                           return_sequences=True,
+                           bias_regularizer=bias_reg,
+                           kernel_regularizer=input_reg,
+                           recurrent_regularizer=recurr_reg
+                           )
                       )
         else:
             model.add(LSTM(n_nodes,
-                          bias_regularizer=bias_reg,
-                          kernel_regularizer=input_reg,
-                          recurrent_regularizer=recurr_reg
-                          )
+                           bias_regularizer=bias_reg,
+                           kernel_regularizer=input_reg,
+                           recurrent_regularizer=recurr_reg
+                           )
                       )
-            
+
     # model.add(Dense(n_nodes, activation=activation_fn,
     #              W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))
     #              )
     return model
 
+
 def get_lstm_encoder_v2(n_nodes, look_back, d,
-                n_units, activation_fn, nu1,nu2,
-                bias_reg, input_reg, recurr_reg,
-                ret_seq=True
-                ):
+                        n_units, activation_fn, nu1, nu2,
+                        bias_reg, input_reg, recurr_reg,
+                        ret_seq=True
+                        ):
     model = Sequential()
     # model.add(Dense(d, input_shape=(look_back, n_nodes),
     #             activation=activation_fn,
@@ -642,10 +648,9 @@ def get_lstm_encoder_v2(n_nodes, look_back, d,
                    bias_regularizer=bias_reg,
                    kernel_regularizer=input_reg,
                    recurrent_regularizer=recurr_reg
-                   
 
                    )
-    )
+              )
     for l_idx, n_unit in enumerate(n_units[1:]):
         model.add(LSTM(n_unit,
                        return_sequences=True,
@@ -655,19 +660,20 @@ def get_lstm_encoder_v2(n_nodes, look_back, d,
                        )
                   )
     model.add(LSTM(d,
-                       return_sequences=True,
-                       bias_regularizer=bias_reg,
-                       kernel_regularizer=input_reg,
-                       recurrent_regularizer=recurr_reg
-                       )
-                  )            
+                   return_sequences=True,
+                   bias_regularizer=bias_reg,
+                   kernel_regularizer=input_reg,
+                   recurrent_regularizer=recurr_reg
+                   )
+              )
     return model
 
+
 def get_lstm_decoder_v2(n_nodes, look_back, d,
-                n_units, activation_fn,
-                nu1, nu2,
-                bias_reg, input_reg, recurr_reg
-                ):
+                        n_units, activation_fn,
+                        nu1, nu2,
+                        bias_reg, input_reg, recurr_reg
+                        ):
     model = Sequential()
     n_rnn_layers = len(n_units)
     model.add(LSTM(d,
@@ -678,25 +684,25 @@ def get_lstm_decoder_v2(n_nodes, look_back, d,
                    kernel_regularizer=input_reg,
                    recurrent_regularizer=recurr_reg
                    )
-    )
+              )
     for l_idx, n_unit in enumerate(n_units[::-1]):
         if l_idx < n_rnn_layers - 1:
             model.add(LSTM(n_unit,
-                          return_sequences=True,
-                          bias_regularizer=bias_reg,
-                          kernel_regularizer=input_reg,
-                          recurrent_regularizer=recurr_reg
-                          )
+                           return_sequences=True,
+                           bias_regularizer=bias_reg,
+                           kernel_regularizer=input_reg,
+                           recurrent_regularizer=recurr_reg
+                           )
                       )
         else:
             model.add(LSTM(n_nodes,
-                          return_sequences=False,
-                          bias_regularizer=bias_reg,
-                          kernel_regularizer=input_reg,
-                          recurrent_regularizer=recurr_reg
-                          )
+                           return_sequences=False,
+                           bias_regularizer=bias_reg,
+                           kernel_regularizer=input_reg,
+                           recurrent_regularizer=recurr_reg
+                           )
                       )
-            
+
     # model.add(Dense(n_nodes, activation=activation_fn,
     #              W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))
     #              )
@@ -704,10 +710,10 @@ def get_lstm_decoder_v2(n_nodes, look_back, d,
 
 
 def get_lstm_encoder_v3(n_nodes, look_back, d,
-                n_units, activation_fn, nu1,nu2,
-                bias_reg, input_reg, recurr_reg,
-                ret_seq=True
-                ):
+                        n_units, activation_fn, nu1, nu2,
+                        bias_reg, input_reg, recurr_reg,
+                        ret_seq=True
+                        ):
     model = Sequential()
     # model.add(Dense(d, input_shape=(look_back, n_nodes),
     #             activation=activation_fn,
@@ -720,10 +726,9 @@ def get_lstm_encoder_v3(n_nodes, look_back, d,
                    bias_regularizer=bias_reg,
                    kernel_regularizer=input_reg,
                    recurrent_regularizer=recurr_reg
-                   
 
                    )
-    )
+              )
     for l_idx, n_unit in enumerate(n_units[1:-1]):
         model.add(LSTM(n_unit,
                        return_sequences=True,
@@ -734,16 +739,16 @@ def get_lstm_encoder_v3(n_nodes, look_back, d,
                   )
     if n_rnn_layers > 1:
         model.add(LSTM(n_units[-1],
-                           return_sequences=False,
-                           bias_regularizer=bias_reg,
-                           kernel_regularizer=input_reg,
-                           recurrent_regularizer=recurr_reg
-                           )
-                      )
+                       return_sequences=False,
+                       bias_regularizer=bias_reg,
+                       kernel_regularizer=input_reg,
+                       recurrent_regularizer=recurr_reg
+                       )
+                  )
     # model.add(Reshape((1, d)))                        
     model.add(Dense(d, activation=activation_fn,
-                 W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))
-                 )    
+                    W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))
+              )
     # model.add(LSTM(d,
     #                return_sequences=False,
     #                bias_regularizer=bias_reg,
@@ -751,49 +756,51 @@ def get_lstm_encoder_v3(n_nodes, look_back, d,
     #                recurrent_regularizer=recurr_reg
     #                )
     #               )  
-    model.add(Reshape((1, d)))                      
+    model.add(Reshape((1, d)))
     return model
 
+
 def get_lstm_decoder_v3(n_nodes, look_back, d,
-                n_units, activation_fn,
-                nu1, nu2,
-                bias_reg, input_reg, recurr_reg
-                ):
+                        n_units, activation_fn,
+                        nu1, nu2,
+                        bias_reg, input_reg, recurr_reg
+                        ):
     model = Sequential()
     n_rnn_layers = len(n_units)
     model.add(LSTM(d,
-                   input_shape=(1,d),
+                   input_shape=(1, d),
                    # input_shape=(1, n_nodes),
                    return_sequences=True,
                    bias_regularizer=bias_reg,
                    kernel_regularizer=input_reg,
                    recurrent_regularizer=recurr_reg
                    )
-    )
+              )
     for l_idx, n_unit in enumerate(n_units[::-1]):
         if l_idx < n_rnn_layers - 1:
             model.add(LSTM(n_unit,
-                          return_sequences=True,
-                          bias_regularizer=bias_reg,
-                          kernel_regularizer=input_reg,
-                          recurrent_regularizer=recurr_reg
-                          )
+                           return_sequences=True,
+                           bias_regularizer=bias_reg,
+                           kernel_regularizer=input_reg,
+                           recurrent_regularizer=recurr_reg
+                           )
                       )
         else:
             model.add(LSTM(n_nodes,
-                          return_sequences=False,
-                          bias_regularizer=bias_reg,
-                          kernel_regularizer=input_reg,
-                          recurrent_regularizer=recurr_reg
-                          )
+                           return_sequences=False,
+                           bias_regularizer=bias_reg,
+                           kernel_regularizer=input_reg,
+                           recurrent_regularizer=recurr_reg
+                           )
                       )
-            
+
     model.add(Dense(n_nodes, activation=activation_fn,
-                 W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))
-                 )
+                    W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))
+              )
     return model
 
-def get_lstm_autoencoder_v2(encoder, decoder,d):
+
+def get_lstm_autoencoder_v2(encoder, decoder, d):
     # Input
     x = Input(shape=(encoder.layers[0].input_shape[1], encoder.layers[0].input_shape[2]))
     # Generate embedding
@@ -806,12 +813,12 @@ def get_lstm_autoencoder_v2(encoder, decoder,d):
         # y=KBack.reshape(y,(-1,1,d))
         x_hat = decoder(y)
     except:
-        pdb.set_trace()        
-    
-        
-    # Autoencoder Model
+        pdb.set_trace()
+
+        # Autoencoder Model
     autoencoder = Model(input=x, output=[x_hat, y])
-    return autoencoder    
+    return autoencoder
+
 
 # def get_lstm_decoder_v3(n_nodes, look_back, d,
 #                 n_units, activation_fn,
@@ -859,14 +866,14 @@ def get_aelstm_autoencoder(ae_encoders, lstm_encoder, ae_decoder):
     for enc_idx, ae_enc in enumerate(ae_encoders):
         ae_inp_size = ae_encoders[enc_idx].layers[0].input_shape[1]
         x_i = Lambda(
-            lambda x: x[:, enc_idx*ae_inp_size:(enc_idx+1)*ae_inp_size]
+            lambda x: x[:, enc_idx * ae_inp_size:(enc_idx + 1) * ae_inp_size]
         )(x_in)
         y_enc[enc_idx] = ae_encoders[enc_idx](x_i)
 
     # Ravel AE output for LSTM input
     try:
         y_enc_flat = Lambda(lambda x: KBack.stack(x, axis=1))(y_enc)
-    except TypeError: # If look_back = 1
+    except TypeError:  # If look_back = 1
         y_enc_flat = Lambda(lambda x: KBack.reshape(x, (-1, 1, y_enc[0].shape[1])))(y_enc[0])
     # y_enc_flat = KBack.stack(y_enc, axis=1)
     # Generate embedding

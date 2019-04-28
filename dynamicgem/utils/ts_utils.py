@@ -6,6 +6,7 @@ from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping
 from keras.layers import Conv1D, MaxPooling1D
 from time import time
+import pandas as pd
 
 def construct_rnn_model(look_back,
                         d,
@@ -202,4 +203,4 @@ def learn_rnn_parameters(ts, ts_exogs, options, look_ahead=1,
     ts_pred.name = 'count'
     ts_pred.index.name = 'date'
 
-return ts_pred
+    return ts_pred
