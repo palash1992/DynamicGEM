@@ -14,6 +14,7 @@ import sys
 sys.path.append('./')
 sys.path.append(os.path.realpath(__file__))
 
+from dynamicgem.evaluation.dynamic_graph_embedding import DynamicGraphEmbedding
 from dynamicgem.utils import graph_util, plot_util
 from dynamicgem.evaluation import visualize_embedding as viz
 from .sdne_utils import *
@@ -268,7 +269,7 @@ if __name__ == '__main__':
     my_graph.sample_graph()
     node_colors = plot_util.get_node_color(my_graph._node_community)
     t1 = time()
-    embedding = SDNE(d=128, beta=5, alpha=0, nu1=1e-6, nu2=1e-6, K=3,
+    embedding = DynSDNE(d=128, beta=5, alpha=0, nu1=1e-6, nu2=1e-6, K=3,
                      n_units=[500, 300], n_iter=20, xeta=0.01,
                      n_batch=500,
                      modelfile=['./intermediate/enc_model.json',
@@ -285,9 +286,8 @@ if __name__ == '__main__':
             embedding.get_embedding(),
             None
         )
-    print MAP
-    print prec_curv[:10]
-
+    print(MAP)
+    print(prec_curv[:10])
     viz.plot_embedding2D(embedding.get_embedding(),
                          di_graph=my_graph._graph, node_colors=None)
     plt.show()

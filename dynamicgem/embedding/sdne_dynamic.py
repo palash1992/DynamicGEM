@@ -33,7 +33,8 @@ MAX_CHUNK_SIZE = 50000
 
 class SDNE(DynamicGraphEmbedding):
 
-	def __init__(self, d, beta, alpha, nu1, nu2, K, n_units, rho, n_iter, n_iter_subs, xeta, n_batch, modelfile=None, weightfile=None, node_frac=1, n_walks_per_node=5, len_rw=2):
+	def __init__(self, d, beta, alpha, nu1, nu2, K, n_units, rho, n_iter, n_iter_subs, xeta, n_batch, modelfile=None,
+				 weightfile=None, node_frac=1, n_walks_per_node=5, len_rw=2):
 		''' Initialize the SDNE class
 
 		Args:
@@ -55,6 +56,7 @@ class SDNE(DynamicGraphEmbedding):
 			n_walks_per_node: Number of random walks to do for each selected nodes
 			len_rw: Length of every random walk
 		'''
+		super().__init__(d)
 		self._method_name = 'sdne' # embedding method name
 		self._d = d
 		self._Y = None # embedding

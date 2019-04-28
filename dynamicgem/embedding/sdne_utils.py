@@ -54,6 +54,7 @@ def model_batch_predictor_v2(model, X, batch_size):
     try:
         return pred, pred2
     except:
+        import pdb
         pdb.set_trace()    
 
 def batch_generator_ae(X, beta, batch_size, shuffle):

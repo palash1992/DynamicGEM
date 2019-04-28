@@ -403,7 +403,7 @@ if __name__ == '__main__':
         if args.exp=='emb':
             embs = []
             result=Parallel(n_jobs=4)(delayed(dynamic_embedding.learn_embeddings)(graphs[:temp_var]) for temp_var in range(lookback+1, length+1))
-            for i in xrange(len(result)):
+            for i in range(len(result)):
                 embs.append(np.asarray(result[i][0]))
 
             for temp_var in range(lookback+1, length+1):

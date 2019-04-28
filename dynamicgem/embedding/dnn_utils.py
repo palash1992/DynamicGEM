@@ -886,7 +886,6 @@ def graphify(reconstruction):
     reconstruction = (reconstruction + reconstruction.T) / 2
     reconstruction -= np.diag(np.diag(reconstruction))
     return reconstruction
-    return reconstruction
 
 
 def loadmodel(filename):
