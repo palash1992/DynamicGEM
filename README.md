@@ -28,7 +28,7 @@ Due to variation in graph formats used by different embedding algorithms, we hav
 ## Dependencies
 dynamicgem is tested to work on python 3.5. The module with working dependencies are listed as follows:
 
-* gaph_tool>=2.27
+* graph_tool>=2.27
 * Cython==0.29
 * decorator==4.3.0
 * dill==0.2.8.2
