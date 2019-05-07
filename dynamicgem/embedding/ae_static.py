@@ -3,10 +3,9 @@ import networkx as nx
 import sys
 
 disp_avlbl = True
-if 'DISPLAY' not in os.environ:
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
-
     matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
@@ -56,29 +55,7 @@ class AE(StaticGraphEmbedding):
             n_walks_per_node: Number of random walks to do for each selected nodes
             len_rw: Length of every random walk
         """
-        super().__init__(d)
-        self._savefilesuffix = None
-        self._modelfile = None
-        self._weightfile = None
-        self._n_batch = None
-        self._beta = None
-        self._xeta = None
-        self._actfn = None
-        self._nu2 = None
-        self._nu1 = None
-        self._n_units = None
-        self._n_iter = None
-        self._d = None
-        self._method_name = None
-        self._node_num = None
-        self._num_iter = None
-        self._encoder = None
-        self._decoder = None
-        self._autoencoder = None
-        self._model = None
-        self._Y = None
-        self._next_adj = None
-
+        self._d = d
         hyper_params = {
             'method_name': 'ae',
             'actfn': 'relu',
