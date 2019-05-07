@@ -1,6 +1,6 @@
 disp_avlbl = True
-from os import environ
-if 'DISPLAY' not in environ:
+import os
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
     matplotlib.use('Agg')
@@ -18,7 +18,7 @@ from dynamicgem.visualization import plot_dynamic_sbm_embedding
 from dynamicgem.graph_generation import dynamic_SBM_graph
 from .sdne_utils import *
 
-from keras.layers import Input, Dense, Lambda, merge
+from keras.layers import Input, Dense, Lambda, merge, Subtract
 from keras.models import Model, model_from_json
 import keras.regularizers as Reg
 from keras.optimizers import SGD, Adam
@@ -98,7 +98,7 @@ class SDNE(DynamicGraphEmbedding):
         else:
             S = graph_util.transform_DiGraph_to_adj(graph)
         if not np.allclose(S.T, S):
-            print "SDNE only works for symmetric graphs! Making the graph symmetric"
+            print("SDNE only works for symmetric graphs! Making the graph symmetric")
         S = (S + S.T)/2					# enforce S is symmetric
         S -= np.diag(np.diag(S))		# enforce diagonal = 0
         self._node_num = S.shape[0]
@@ -216,9 +216,12 @@ class SDNE(DynamicGraphEmbedding):
         [x_hat1, y1] = self._autoencoder(x1)
         [x_hat2, y2] = self._autoencoder(x2)
         # Outputs
-        x_diff1 = merge([x_hat1, x1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
-        x_diff2 = merge([x_hat2, x2], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
-        y_diff = merge([y2, y1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+        x_diff1 = Subtract()([x_hat1, x1])
+        # x_diff1 = merge([x_hat1, x1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+        # x_diff2 = merge([x_hat2, x2], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+        x_diff2 = Subtract()([x_hat2, x2])
+        # y_diff = merge([y2, y1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+        y_diff = Subtract()([y2, y1])
 
         # Objectives
         def weighted_mse_x(y_true, y_pred):
@@ -249,7 +252,7 @@ class SDNE(DynamicGraphEmbedding):
         InData = np.zeros((data_chunk_size, 2*self._node_num))
         OutData = np.zeros((data_chunk_size, 2*self._node_num + 3))
         for epoch_num in range(self._num_iter):
-            print 'EPOCH %d/%d' % (epoch_num, self._num_iter)
+            print('EPOCH %d/%d' % (epoch_num, self._num_iter))
             e = 0
             k = 0
             for i in range(self._node_num):

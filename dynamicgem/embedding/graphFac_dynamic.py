@@ -1,7 +1,6 @@
 disp_avlbl = True
-from os import environ
-
-if 'DISPLAY' not in environ:
+import os
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
 
@@ -35,7 +34,6 @@ class GraphFactorization(DynamicGraphEmbedding):
 			regu: regularization coefficient of magnitude of weights
 			n_iter: max iterations in sgd
 		"""
-        super().__init__(d)
 
         self._d = d
         self._eta = eta

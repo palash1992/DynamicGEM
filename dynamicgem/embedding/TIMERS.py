@@ -1,7 +1,6 @@
 disp_avlbl = True
 import os
-
-if 'DISPLAY' not in os.environ:
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
 
@@ -12,15 +11,15 @@ import numpy as np
 import scipy.io as sio
 import networkx as nx
 
-import sys
+# import sys
+#
+# sys.path.append('./')
+# sys.path.append(os.path.realpath(__file__))
 
-sys.path.append('./')
-sys.path.append(os.path.realpath(__file__))
-
-from .static_graph_embedding import StaticGraphEmbedding
+from dynamicgem.embedding.static_graph_embedding import StaticGraphEmbedding
 from dynamicgem.utils import graph_util, plot_util, dataprep_util
 from dynamicgem.evaluation import visualize_embedding as viz
-from .sdne_utils import *
+from dynamicgem.embedding.sdne_utils import *
 from dynamicgem.graph_generation import SBM_graph
 from dynamicgem.evaluation import evaluate_graph_reconstruction as gr
 from dynamicgem.evaluation import evaluate_link_prediction as lp
@@ -46,17 +45,8 @@ class TIMERS(StaticGraphEmbedding):
             datatype: sbm_cd, enron, academia, hep, AS
     """
 
-    def __init__(self, d, *hyper_dict, **kwargs):
+    def __init__(self,  *hyper_dict, **kwargs):
 
-        super().__init__(d)
-        self._length = None
-        self._resultdir = None
-        self._datafile = None
-        self._K = None
-        self._datatype = None
-        self._Theta = None
-        self._d = None
-        self._method_name = None
         hyper_params = {
             'method_name': 'TIMERS',
             'modelfile': None,
@@ -75,7 +65,7 @@ class TIMERS(StaticGraphEmbedding):
         return self._method_name
 
     def get_method_summary(self):
-        return '%s_%d' % (self._method_name, self._d)
+        return '%s' % (self._method_name)
 
     def learn_embedding(self, graph=None):
         timers = TIMERS_ALL.initialize()

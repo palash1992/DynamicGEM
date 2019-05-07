@@ -41,7 +41,7 @@ class StaticMilitaryGraph(object):
 
     def construct_mtx_B_component(self, n_communities, inblock_prob=0.1, crossblock_prob=0.01):
         B_component = np.ones((n_communities, n_communities)) * crossblock_prob
-        for i in xrange(n_communities):
+        for i in range(n_communities):
             B_component[i, i] = inblock_prob
         return B_component
 
@@ -57,8 +57,8 @@ class StaticMilitaryGraph(object):
         self._B[:n1, :n1] = self._B_c
         self._B[n1:n1+n2, n1:n1+n2] = self._B_s
         self._B[n1+n2:n, n1+n2:n] = self._B_f
-        for i in xrange(n1+n2, n):
-            for j in xrange(n1+n2):
+        for i in range(n1+n2, n):
+            for j in range(n1+n2):
                 self._B[i, j] = self._to_family_p
                 self._B[j, i] = self._to_family_p
         return self._B
@@ -83,8 +83,8 @@ class StaticMilitaryGraph(object):
         # add nodes
         self._graph.add_nodes_from(range(self._n_nodes))
         # add edges
-        for i in xrange(self._n_nodes):
-            for j in xrange(i):
+        for i in range(self._n_nodes):
+            for j in range(i):
                 prob = self._B[self._node_community[i], self._node_community[j]]
                 if np.random.uniform() <= prob:
                     self._graph.add_edge(i, j)
@@ -96,5 +96,5 @@ class StaticMilitaryGraph(object):
 if __name__ == '__main__':
     militaryGraph = StaticMilitaryGraph(1000, 100, 10, 1, [0.1]*3, [0.01]*3, 0.1, 0.01)
     militaryGraph.sample_graph()
-    print militaryGraph._graph.number_of_edges()
+    print(militaryGraph._graph.number_of_edges())
     pdb.set_trace()

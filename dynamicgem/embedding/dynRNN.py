@@ -1,7 +1,6 @@
 disp_avlbl = True
-from os import environ
-
-if 'DISPLAY' not in environ:
+import os
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
 
@@ -51,7 +50,7 @@ class DynRNN(DynamicGraphEmbedding):
             weightfile: Files containing previous encoder and decoder weights
             savefilesuffix: suffix for saving the files
         """
-        super().__init__(d)
+        self._d = d
         hyper_params = {
             'method_name': 'dynRNN',
             'actfn': 'relu',

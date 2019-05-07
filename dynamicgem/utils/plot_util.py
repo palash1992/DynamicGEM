@@ -1,7 +1,7 @@
 try: import cPickle as pickle
 except: import pickle
-from os import environ
-if 'DISPLAY' not in environ:
+import os
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     import matplotlib
     matplotlib.use('Agg')
 import matplotlib    

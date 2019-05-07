@@ -1,3 +1,9 @@
+import os
+disp_avlbl = True
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
+    disp_avlbl = False
+    import matplotlib
+    matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import networkx as nx
 from sklearn.manifold import TSNE

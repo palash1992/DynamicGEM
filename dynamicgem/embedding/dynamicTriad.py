@@ -1,7 +1,7 @@
 from __future__ import print_function
 disp_avlbl = True
 import os
-if 'DISPLAY' not in os.environ:
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
 
@@ -72,11 +72,7 @@ class dynamicTriad(StaticGraphEmbedding):
     """
 
     def __init__(self, d, *hyper_dict, **kwargs):
-        super().__init__(d)
-        self._d = None
-        self._method_name = None
-        self._datatype = None
-        self._clname = None
+        self._d = d
         hyper_params = {
             'method_name': 'Dynamic TRIAD',
             'modelfile': None,

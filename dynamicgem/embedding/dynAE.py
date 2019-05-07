@@ -1,7 +1,6 @@
 disp_avlbl = True
-from os import environ
-
-if 'DISPLAY' not in environ:
+import os
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
 
@@ -55,29 +54,7 @@ class DynAE(DynamicGraphEmbedding):
             weightfile: Files containing previous encoder and decoder weights
             savefilesuffix: suffix for saving the files
         """
-        super().__init__(d)
-        self._n_prev_graphs = None
-        self._savefilesuffix = None
-        self._modelfile = None
-        self._weightfile = None
-        self._n_batch = None
-        self._beta = None
-        self._xeta = None
-        self._actfn = None
-        self._nu2 = None
-        self._nu1 = None
-        self._n_units = None
-        self._n_iter = None
-        self._d = None
-        self._method_name = None
-        self._node_num = None
-        self._num_iter = None
-        self._encoder = None
-        self._decoder = None
-        self._autoencoder = None
-        self._model = None
-        self._Y = None
-        self._next_adj = None
+        self._d = d
         hyper_params = {
             'method_name': 'dynAE',
             'actfn': 'relu',

@@ -1,6 +1,6 @@
 disp_avlbl = True
 import os
-if 'DISPLAY' not in os.environ:
+if os.name == 'posix' and 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
     matplotlib.use('Agg')
