@@ -4,6 +4,22 @@ from setuptools import setup, find_packages
 import subprocess
 import imp
 
+from distutils.core import setup
+from distutils.command.clean import clean
+from distutils.command.install import install
+
+
+class InstallRuntime(install):
+    # Calls the default run command, then deletes the build area
+    # (equivalent to "setup clean --all").
+    def run(self):
+        install.run(self)
+        c = clean(self.distribution)
+        c.all = True
+        c.finalize_options()
+        c.run()
+
+
 DISTNAME = 'dynamicgem'
 MAINTAINER = 'Palash Goyal, Sujit Rokka Chhetri'
 MAINTAINER_EMAIL = 'palashgo@usc.edu, schhetri@uci.edu'
@@ -18,20 +34,20 @@ VERSION = '1.0.0'
 ISRELEASED = True
 
 INSTALL_REQUIRES = (
-            'tensorflow==1.11.0',
-            'Cython>=0.29',
-            'h5py>=2.8.0',
-            'joblib>=0.12.5',
-            'Keras>=2.2.4',
-            'matplotlib==3.0.1',
-            'networkx>=1.11',
-            'numpy>=1.15.3',
-            'pandas>=0.23.4',
-            'scikit-learn>=0.20.0',
-            'scipy>=1.1.0',
-            'seaborn>=0.9.0',
-            'six>=1.11.0',
-            'sklearn>=0.0'
+    'tensorflow==1.11.0',
+    'Cython>=0.29',
+    'h5py>=2.8.0',
+    'joblib>=0.12.5',
+    'Keras>=2.2.4',
+    'matplotlib==3.0.1',
+    'networkx>=1.11',
+    'numpy>=1.15.3',
+    'pandas>=0.23.4',
+    'scikit-learn>=0.20.0',
+    'scipy>=1.1.0',
+    'seaborn>=0.9.0',
+    'six>=1.11.0',
+    'sklearn>=0.0'
 )
 
 
@@ -41,7 +57,7 @@ def get_package_data(topdir, excluded=set()):
         for x in excluded:
             if x in subdirs:
                 subdirs.remove(x)
-        retval.append(os.path.join(dirname[len(DISTNAME)+1:], '*.*'))
+        retval.append(os.path.join(dirname[len(DISTNAME) + 1:], '*.*'))
     return retval
 
 
@@ -49,7 +65,7 @@ def get_data_files(dest, source):
     retval = []
     for dirname, subdirs, files in os.walk(source):
         retval.append(
-            (os.path.join(dest, dirname[len(source)+1:]), glob(os.pathjoin(dirname, '*.*')))
+            (os.path.join(dest, dirname[len(source) + 1:]), glob(os.pathjoin(dirname, '*.*')))
         )
     return retval
 
@@ -59,6 +75,7 @@ def git_version():
     """Return the git revision as a string.
     Copied from numpy setup.py
     """
+
     def _minimal_ext_cmd(cmd):
         # construct minimal environment
         env = {}
@@ -70,7 +87,7 @@ def git_version():
         env['LANGUAGE'] = 'C'
         env['LANG'] = 'C'
         env['LC_ALL'] = 'C'
-        out = subprocess.Popen(cmd, stdout = subprocess.PIPE, env=env).communicate()[0]
+        out = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env).communicate()[0]
         return out
 
     try:
@@ -117,7 +134,6 @@ def write_version_py(filename='dynamicgem/version.py'):
         a.close()
 
 
-
 def setup_package():
     write_version_py()
     setup(
@@ -132,9 +148,10 @@ def setup_package():
         download_url=DOWNLOAD_URL,
         keywords=KEYWORDS,
         install_requires=INSTALL_REQUIRES,
-        packages=find_packages(),
+        packages=find_packages() + ['TIMERS_ALL'],
         package_dir={DISTNAME: 'dynamicgem'},
-        package_data={DISTNAME: get_package_data('datasets')},
+        package_data={DISTNAME: get_package_data('datasets'), 'TIMERS_ALL': ['*.ctf']},
+        cmdclass={'install': InstallRuntime},
         license=LICENSE,
         long_description=LONG_DESCRIPTION,
         classifiers=['Intended Audience :: Science/Research',
@@ -145,8 +162,8 @@ def setup_package():
                      'Topic :: Scientific/Engineering',
                      'Topic :: Scientific/Engineering :: Artificial Intelligence',
                      'Topic :: Scientific/Engineering :: Graph Analysis',
-                     'Programming Language :: Python :: 3',],
-        )
+                     'Programming Language :: Python :: 3.5', ],
+    )
 
 
 if __name__ == "__main__":
