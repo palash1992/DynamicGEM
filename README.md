@@ -30,13 +30,9 @@ dynamicgem is tested to work on python 3.5. The module with working dependencies
 
 * graph_tool>=2.27
 * Cython==0.29
-* decorator==4.3.0
-* dill==0.2.8.2
 * h5py==2.8.0
 * joblib==0.12.5
 * Keras==2.2.4
-* Keras-Applications==1.0.6
-* Keras-Preprocessing==1.0.5
 * matlabruntimeforpython===R2017a
 * matplotlib==3.0.1
 * networkx==1.11
@@ -48,7 +44,6 @@ dynamicgem is tested to work on python 3.5. The module with working dependencies
 * six==1.11.0
 * sklearn==0.0
 * tensorflow==1.11.0  or tensorflow-gpu==1.11.0 (whichever is compatible with python 3.5)
-* Theano==1.0.3
 
 ## Install
 Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS are properly set up.
