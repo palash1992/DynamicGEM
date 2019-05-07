@@ -72,11 +72,7 @@ class dynamicTriad(StaticGraphEmbedding):
     """
 
     def __init__(self, d, *hyper_dict, **kwargs):
-        super().__init__(d)
-        self._d = None
-        self._method_name = None
-        self._datatype = None
-        self._clname = None
+        self._d = d
         hyper_params = {
             'method_name': 'Dynamic TRIAD',
             'modelfile': None,

@@ -47,15 +47,7 @@ class TIMERS(StaticGraphEmbedding):
 
     def __init__(self, d, *hyper_dict, **kwargs):
 
-        super().__init__(d)
-        self._length = None
-        self._resultdir = None
-        self._datafile = None
-        self._K = None
-        self._datatype = None
-        self._Theta = None
-        self._d = None
-        self._method_name = None
+        self._d = d
         hyper_params = {
             'method_name': 'TIMERS',
             'modelfile': None,

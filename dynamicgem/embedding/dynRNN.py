@@ -50,7 +50,7 @@ class DynRNN(DynamicGraphEmbedding):
             weightfile: Files containing previous encoder and decoder weights
             savefilesuffix: suffix for saving the files
         """
-        super().__init__(d)
+        self._d = d
         hyper_params = {
             'method_name': 'dynRNN',
             'actfn': 'relu',
