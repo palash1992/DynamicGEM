@@ -150,7 +150,7 @@ def setup_package():
         install_requires=INSTALL_REQUIRES,
         packages=find_packages() + ['TIMERS_ALL'],
         package_dir={DISTNAME: 'dynamicgem'},
-        package_data={DISTNAME: get_package_data('datasets'), 'TIMERS_ALL': ['*.ctf']},
+        package_data={DISTNAME: get_package_data('datasets'), 'TIMERS_ALL': ['./dynamicgem/TIMERS/TIMERS_ALL/*.ctf']},
         cmdclass={'install': InstallRuntime},
         license=LICENSE,
         long_description=LONG_DESCRIPTION,
