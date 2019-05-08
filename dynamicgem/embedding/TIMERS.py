@@ -11,10 +11,10 @@ import numpy as np
 import scipy.io as sio
 import networkx as nx
 
-# import sys
-#
-# sys.path.append('./')
-# sys.path.append(os.path.realpath(__file__))
+import sys
+
+sys.path.append('./')
+sys.path.append(os.path.realpath(__file__))
 
 from dynamicgem.embedding.static_graph_embedding import StaticGraphEmbedding
 from dynamicgem.utils import graph_util, plot_util, dataprep_util

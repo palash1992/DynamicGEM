@@ -173,10 +173,9 @@ def timer_setup():
         author='MathWorks',
         url='http://www.mathworks.com/',
         platforms=['Linux', 'Windows', 'MacOS'],
-        packages=[
-            'TIMERS_ALL'
-        ],
-        package_data={'TIMERS_ALL': ['./dynamicgem/TIMERS/TIMERS_ALL/for_redistribution_files_only/TIMERS_ALL/*.ctf']},
+        packages=[ 'TIMERS_ALL' ],
+        package_dir={'TIMERS_ALL': 'dynamicgem/TIMERS/TIMERS_ALL/for_redistribution_files_only/TIMERS_ALL'},
+        package_data={'TIMERS_ALL': ['*.ctf']},
         # Executes the custom code above in order to delete the build area.
         cmdclass={'install': InstallRuntime}
     )
