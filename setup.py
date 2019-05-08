@@ -148,10 +148,9 @@ def setup_package():
         download_url=DOWNLOAD_URL,
         keywords=KEYWORDS,
         install_requires=INSTALL_REQUIRES,
-        packages=find_packages() + ['TIMERS_ALL'],
+        packages=find_packages(),
         package_dir={DISTNAME: 'dynamicgem'},
-        package_data={DISTNAME: get_package_data('datasets'), 'TIMERS_ALL': ['./dynamicgem/TIMERS/TIMERS_ALL/*.ctf']},
-        cmdclass={'install': InstallRuntime},
+        package_data={DISTNAME: get_package_data('datasets')},
         license=LICENSE,
         long_description=LONG_DESCRIPTION,
         classifiers=['Intended Audience :: Science/Research',
@@ -166,5 +165,22 @@ def setup_package():
     )
 
 
+def timer_setup():
+    setup(
+        name="matlabruntimeforpython",
+        version="R2017a",
+        description='A module to call MATLAB from Python',
+        author='MathWorks',
+        url='http://www.mathworks.com/',
+        platforms=['Linux', 'Windows', 'MacOS'],
+        packages=[ 'TIMERS_ALL' ],
+        package_dir={'TIMERS_ALL': 'dynamicgem/TIMERS/TIMERS_ALL/for_redistribution_files_only/TIMERS_ALL'},
+        package_data={'TIMERS_ALL': ['*.ctf']},
+        # Executes the custom code above in order to delete the build area.
+        cmdclass={'install': InstallRuntime}
+    )
+
+
 if __name__ == "__main__":
     setup_package()
+    timer_setup()
