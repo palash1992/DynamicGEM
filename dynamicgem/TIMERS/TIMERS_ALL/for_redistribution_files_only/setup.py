@@ -1,4 +1,4 @@
-# Copyright 2015-2016 The MathWorks, Inc.
+# Copyright 2015-2018 The MathWorks, Inc.
 
 from distutils.core import setup
 from distutils.command.clean import clean
@@ -18,10 +18,10 @@ if __name__ == '__main__':
 
     setup(
         name="matlabruntimeforpython",
-        version="R2017a",
+        version="R2019a",
         description='A module to call MATLAB from Python',
         author='MathWorks',
-        url='http://www.mathworks.com/',
+        url='https://www.mathworks.com/',
         platforms=['Linux', 'Windows', 'MacOS'],
         packages=[
             'TIMERS_ALL'
@@ -30,4 +30,5 @@ if __name__ == '__main__':
         # Executes the custom code above in order to delete the build area.
         cmdclass={'install': InstallRuntime}
     )
+
 
