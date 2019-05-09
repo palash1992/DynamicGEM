@@ -28,22 +28,20 @@ Due to variation in graph formats used by different embedding algorithms, we hav
 ## Dependencies
 dynamicgem is tested to work on python 3.5. The module with working dependencies are listed as follows:
 
-* graph_tool>=2.27
-* Cython==0.29
-* h5py==2.8.0
-* joblib==0.12.5
-* Keras==2.2.4
-* matlabruntimeforpython===R2017a
-* matplotlib==3.0.1
-* networkx==1.11
-* numpy==1.15.3
-* pandas==0.23.4
-* scikit-learn==0.20.0
-* scipy==1.1.0
-* seaborn==0.9.0
-* six==1.11.0
-* sklearn==0.0
-* tensorflow==1.11.0  or tensorflow-gpu==1.11.0 (whichever is compatible with python 3.5)
+* 'Cython>=0.29',
+* 'tensorflow==1.11.0',
+* 'h5py>=2.8.0',
+* 'joblib>=0.12.5',
+* 'Keras>=2.2.4',
+* 'matplotlib==3.0.1',
+* 'networkx>=1.11',
+* 'numpy>=1.15.3',
+* 'pandas>=0.23.4',
+* 'scikit-learn>=0.20.0',
+* 'scipy>=1.1.0',
+* 'seaborn>=0.9.0',
+* 'six>=1.11.0',
+* 'sklearn>=0.0',
 
 ## Install
 Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS are properly set up.
