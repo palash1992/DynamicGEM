@@ -1,4 +1,4 @@
-#Copyright 2015-2016 MathWorks, Inc.
+#Copyright 2015-2018 MathWorks, Inc.
 
 # This template is used to generate an __init__.py file for a particular deployable package.
 
@@ -12,14 +12,15 @@ import os
 import os.path
 import pdb
 import platform
+import re
 import sys
 import weakref
 
 class _PathInitializer(object):
     PLATFORM_DICT = {'Windows': ['PATH','dll',''], 'Linux': ['LD_LIBRARY_PATH','so','libmw'], 'Darwin': ['DYLD_LIBRARY_PATH','dylib','libmw']}
-    SUPPORTED_PYTHON_VERSIONS = ['2_7', '3_4', '3_5']
-    RUNTIME_VERSION_W_DOTS = '9.2'
-    RUNTIME_VERSION_W_UNDERSCORES = '9_2'
+    SUPPORTED_PYTHON_VERSIONS = ['2_7', '3_5', '3_6', '3_7']
+    RUNTIME_VERSION_W_DOTS = '9.6'
+    RUNTIME_VERSION_W_UNDERSCORES = '9_6'
     PACKAGE_NAME = 'TIMERS_ALL'
     
     def set_interpreter_version(self):    
@@ -180,8 +181,8 @@ class _PathInitializer(object):
             raise RuntimeError('Could not find an appropriate directory for MATLAB or the MATLAB runtime in {0}. Details: {1}'.format(
                 self.path_var, file_to_find))
 
-        # The last nonblank part of the path should be the arch (e.g., "win64").
-        path_components = path_found.split(os.sep)
+        path_components = re.split(r'\\|/', path_found)
+        
         if path_components[-1]:
             last_path_component = path_components[-1]
         else:
@@ -189,8 +190,11 @@ class _PathInitializer(object):
             last_path_component = path_components[-2]
 
         if last_path_component != self.arch:
-            raise RuntimeError('To call deployed MATLAB code on a {0} machine, you must run a {0} version of Python. Details: {1}'.format(
-                last_path_component, path_found))
+            output_str = ''.join(('To call deployed MATLAB code on a {0} machine, you must run a {0} version of Python, ',
+                'and your {1} variable must contain an element pointing to "<MR>{2}runtime{2}{0}", ',
+                'where "<MR>" indicates a MATLAB or MATLAB Runtime root. ',
+                'Instead, the value found was as follows: {3}'))
+            raise RuntimeError(output_str.format(self.arch, self.path_var, os.sep, path_found))
             
         matlabroot = os.path.dirname(os.path.dirname(os.path.normpath(path_found)))
         bin_dir = os.path.join(matlabroot, 'bin', self.arch)

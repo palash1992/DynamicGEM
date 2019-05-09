@@ -36,7 +36,7 @@ ISRELEASED = True
 INSTALL_REQUIRES = (
     'tensorflow==1.11.0',
     'Cython>=0.29',
-    'h5py>=2.8.0',
+    'h5py==2.8.0',
     'joblib>=0.12.5',
     'Keras>=2.2.4',
     'matplotlib==3.0.1',
