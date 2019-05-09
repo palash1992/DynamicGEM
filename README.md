@@ -48,26 +48,12 @@ dynamicgem is tested to work on python 3.5. The module with working dependencies
 ## Install
 Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS are properly set up.
 
-* The TIMERS is originally written in matlab, in dynamicgem we have created python modules for Timers using Matlab Library Compiler. We have used Matlab R2017a to generate modules that work with python 3.5. To run the matlab runtime please configure the Matlab runtime by downloading it from "https://www.mathworks.com/products/compiler/matlab-runtime.html" and following steps mentioned in "https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html". The source code of TIMERS along with the setup files are located in dynamicgem/TIMERS folder.
+* The TIMERS is originally written in matlab, in dynamicgem we have created python modules for Timers using Matlab Library Compiler. We have used Matlab R2019a to generate modules that work with python 3.5 or 3.6 . To run the matlab runtime please configure the Matlab runtime by downloading it from "https://www.mathworks.com/products/compiler/matlab-runtime.html" and following steps mentioned in "https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html". The source code of TIMERS along with the setup files are located in dynamicgem/TIMERS folder.
     - Do not forget to export the matlabruntime library path if you haven't used sudo to install it (i.e. sudo ./install).
       ```bash 
-         export LD_LIBRARY_PATH="/usr/local/MATLAB/MATLAB_Runtime/v92/bin/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v92/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v92/sys/os/glnxa64:$LD_LIBRARY_PATH"
-      ```
-    - Due to a bug in the MATLAB runtime R2017a, please perform the following steps to resolve the issue:
-     ```bash
-        cd /<full-path-to-MATLAB_Runtime>/v92/bin/glnxa64
-        mv libexpat.so.1 libexpat.so.1.NOFIND
-     ```
-    - To setup TIMERS perform the following steps:
-      ```bash
-         cd dynamicgem/TIMERS/TIMERS_ALL/for_redistribution_files_only
-         python setup.py install --user  
-      ```
-    - To install for all users in Unix/Linux:
-      ```bash 
-         sudo python setup.py install
-      ```
-* We have build the dynamicTriad using python 3.5. Please follow "https://github.com/luckiezhou/DynamicTriad" to install the necessary library for running the dynmicTriad. Moreover, you may build it of particular version of python as well. 
+         export LD_LIBRARY_PATH="/usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v96/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v96/sys/os/glnxa64:$LD_LIBRARY_PATH"
+     
+* We have build the dynamicTriad using python3. Please follow "https://github.com/luckiezhou/DynamicTriad" to install the necessary library for running the dynmicTriad. Moreover, you may build it of particular version of python as well. 
     -  For graph_tool setup, if you are using virtual environment and  not using sudo for setting up python modules, make sure to    to perform following:"
      ```bash 
          sudo find /usr/. -name graph_tool  #to find the <path-to-graph_tool> to graph)tool
@@ -77,7 +63,7 @@ Before setting up DynamicGEM, it is suggested that the dynamic triad and TIMERS 
 * For setting of rest of the methods, the package uses setuptools, which is a common way of installing python modules. 
   - To install in your home directory, use:
     ```bash
-      export PYTHONPATH="/<...>/python3.5/site-packages/:$PYTHONPATH"
+      export PYTHONPATH="/<...>/site-packages/:$PYTHONPATH"
       python setup.py install --user
      ```
   - To install for all users on Unix/Linux:
