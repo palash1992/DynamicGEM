@@ -215,9 +215,9 @@ Please refer to [1] for more information about our experiments, where you can fi
 
 ```
 @inproceedings{zhou2018dynamic,
-  title = "{Dynamic Network Embedding by Modelling Triadic Closure Process}", 
-  author = {{Zhou}, L. and {Yang}, Y. and {Ren}, X. and {Wu}, F. and {Zhuang}, Y.}, 
-  booktitle={AAAI},
-  year = 2018, 
-} 
+  title={Dynamic network embedding by modeling triadic closure process},
+  author={Zhou, Lekui and Yang, Yang and Ren, Xiang and Wu, Fei and Zhuang, Yueting},
+  booktitle={Thirty-Second AAAI Conference on Artificial Intelligence},
+  year={2018}
+}
 ```
