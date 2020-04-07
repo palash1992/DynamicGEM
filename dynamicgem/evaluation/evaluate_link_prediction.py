@@ -2,7 +2,7 @@ try:
     import cPickle as pickle
 except:
     import pickle
-from dynamicgem.evaluation.metrics import *
+from dynamicgem.evaluation import metrics
 from dynamicgem.utils import evaluation_util
 from dynamicgem.utils import graph_util
 import numpy as np
